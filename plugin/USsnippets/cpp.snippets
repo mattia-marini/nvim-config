@@ -1,0 +1,96 @@
+snippet ifst 
+std::ifstream in("input.txt");
+endsnippet
+
+snippet lnode "Linked list node"
+struct $1 {
+	int value;
+	$1*next;
+	$1(int value, $1 *next) : value(value), next(next) {}
+	$1(int value) : value(value), next(nullptr) {}
+	$1() : value(-1), next(nullptr) {}
+};
+endsnippet
+
+snippet input
+std::ifstream in("input.txt");
+const char *str = "Stringa";
+
+in.seekg(0, in.end);
+int lenght = in.tellg();
+in.seekg(0, in.beg);
+
+char *buf = new char[lenght];
+for (int i = 0; i < lenght; i++)
+	in.get(buf[i]);
+endsnippet
+
+snippet main
+#include<iostream>
+#include<fstream>
+
+int main(int argc, char *argv[])
+{
+	${0}
+	return 0;
+}
+endsnippet
+
+snippet struct ""
+struct $1{
+	$1(){}
+};
+endsnippet
+
+snippet inc ""
+#include <$1>
+endsnippet
+
+snippet cout ""
+std::cout<<$1<<std::endl;
+endsnippet
+
+snippet vector ""
+std::vector<$1> v;
+endsnippet
+
+snippet map ""
+std::map<$1> m;
+endsnippet
+
+snippet umap ""
+std::unordered_map<$1> u_map;
+endsnippet
+
+snippet list ""
+std::list<$1> v;
+endsnippet
+
+snippet set ""
+std::set<$1> s;
+endsnippet
+
+snippet qeue ""
+std::queue<$1> q;
+endsnippet
+
+snippet qeue ""
+std::string s;
+endsnippet
+
+snippet for ""
+for(int i=0; i<$1; i++){
+	$0
+}
+endsnippet
+
+snippet 'for([a-z])' "" r
+for(int `!p snip.rv = match.group(1)`=0; `!p snip.rv = match.group(1)`<$1; `!p snip.rv = match.group(1)`++){
+	$0
+}
+endsnippet
+
+
+priority -50
+
+extends c
