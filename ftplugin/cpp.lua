@@ -90,5 +90,9 @@ function terminateExecution()
   end
 
   vim.schedule(function() vim.api.nvim_set_current_win(curr_window) end)
-
 end
+
+
+vim.api.nvim_buf_set_keymap(0,'n', '<space>r', ':lua runInActiveTerminal("single")<CR>', {noremap = true})
+vim.api.nvim_buf_set_keymap(0,'n', '<space>m', ':lua runInActiveTerminal("multifile")<CR>', {noremap = true})
+vim.api.nvim_buf_set_keymap(0,'n', '<space>R', ':lua terminateExecution()<CR>', {noremap = true})

@@ -5,7 +5,7 @@ local on_attach = function(client, bufnr)
   print("nvim_lsp")
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  local bufopts = { noremap = true, silent = true, buffer = bufnr }
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'gk', vim.lsp.buf.hover, bufopts)
@@ -34,31 +34,55 @@ require("lspconfig").sumneko_lua.setup{
       }
 }
 --]]
-
-
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, {noremap=true})
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, {noremap=true})
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, {noremap=true})
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, {noremap=true})
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, { noremap = true })
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { noremap = true })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { noremap = true })
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, { noremap = true })
 
 
 vim.diagnostic.config({ signs = false })
 
 
 require('lspconfig').clangd.setup {
-    --cmd = {'clangd', '--fallback-style=/Users/mattia/Desktop/clang-format'},
-    on_attach = on_attach,
-    update_in_insert = false,
-    --capabilities = require('cmp_nvim_lsp').default_capabilities()
+  --cmd = {'clangd', '--fallback-style=/Users/mattia/Desktop/clang-format'},
+  on_attach = on_attach,
+  update_in_insert = false,
+  capabilities = require('cmp_nvim_lsp').default_capabilities()
+  --capabilities = require('cmp_nvim_lsp').default_capabilities()
 }
 
 require('lspconfig').texlab.setup {
-    cmd = {'texlab', '-vvvv'},
-    on_attach = on_attach,
-    update_in_insert = false,
-    capabilities = require('cmp_nvim_lsp').default_capabilities()
+  cmd = { 'texlab', '-vvvv' },
+  on_attach = on_attach,
+  update_in_insert = false,
+  capabilities = require('cmp_nvim_lsp').default_capabilities()
 }
 
+require 'lspconfig'.lua_ls.setup {
+  on_attach = on_attach,
+  update_in_insert = false,
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+  settings = {
+    Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = { 'vim' },
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+}
 --[[
 require('lspconfig').texlab.setup{
 capabilities = require('cmp_nvim_lsp').default_capabilities(),

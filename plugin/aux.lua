@@ -133,3 +133,15 @@ function comment()
   print(vim.api.nvim_buf_get_mark(0, ">")[1])
   vim.cmd([[<C-v>]])
 end
+
+--Setta il colorscheme con background trasparente
+function Colorscheme(arg)
+  vim.cmd.colorscheme(arg)
+  vim.api.nvim_set_hl(0, "Normal", {bg=none})
+  vim.api.nvim_set_hl(0, "NormalFloat", {bg=none})
+end
+
+function BG()
+  vim.api.nvim_set_hl(0, "Normal", {bg=none})
+  vim.api.nvim_set_hl(0, "NormalFloat", {bg=none})
+end

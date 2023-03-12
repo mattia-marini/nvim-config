@@ -1,4 +1,6 @@
-return{	s("ifst", t([[std::ifstream in("input.txt");]])),
+return{	
+
+  s("ifst", t([[std::ifstream in("input.txt");]])),
 
   s("lnode", fmt([[  
   struct {}
@@ -31,5 +33,7 @@ return{	s("ifst", t([[std::ifstream in("input.txt");]])),
       {i(1), rep(1)})
   ),
 },
+
 {
-  }
+
+}
