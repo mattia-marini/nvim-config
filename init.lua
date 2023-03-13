@@ -35,7 +35,12 @@ vim.api.nvim_create_user_command("Analisi",
 vim.api.nvim_create_user_command("EditVimtex", [[tabnew ~/.config/nvim/plugin/vimtex.lua]], {})
 vim.api.nvim_create_user_command("Parsers", [[echo nvim_get_runtime_file('parser', v:true)]], {})
 
-vim.api.nvim_create_user_command("Colorscheme", "lua Colorscheme(<q-args>)", { nargs = 1, complete = function() return {"prova"} end})
+function Colorscheme(arg)
+  vim.cmd.colorscheme(arg)
+  vim.api.nvim_set_hl(0, "Normal", {bg=none})
+  vim.api.nvim_set_hl(0, "NormalFloat", {bg=none})
+end
+vim.api.nvim_create_user_command("Colorscheme", "lua Colorscheme(<q-args>)", { nargs = 1 })
 
 -- Maps
 vim.api.nvim_set_keymap('n', '<space>w', ':wa<CR>', { noremap = true })

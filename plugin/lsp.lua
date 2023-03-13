@@ -59,6 +59,7 @@ require('lspconfig').texlab.setup {
 }
 
 require 'lspconfig'.lua_ls.setup {
+  cmd = {'/usr/local/Cellar/lua-language-server/3.6.17/bin/lua-language-server'},
   on_attach = on_attach,
   update_in_insert = false,
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
@@ -91,6 +92,15 @@ require 'lspconfig'.jdtls.setup {
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
   single_file_support = false,
   root_dir = function()return vim.fn.getcwd() end
+}
+
+require'lspconfig'.millet.setup{
+  cmd = {'millet-ls'},
+  on_attach = on_attach,
+  update_in_insert = false,
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+  single_file_support = true
+  --root_dir = function()return vim.fn.getcwd()end
 }
 --[[
 require('lspconfig').texlab.setup{

@@ -35,7 +35,6 @@
         "/Users/mattia/.local/share/nvim/site/pack/packer/start/cmp-path/after",
         "/Users/mattia/.local/share/nvim/site/pack/packer/start/MoonTex/after",
         "/Users/mattia/.local/share/nvim/site/pack/packer/start/oceanic-next/after",
-        "/Users/mattia/.config/nvim/after",
         "${3rd}/luassert/library"
     ]
 }
