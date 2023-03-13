@@ -112,6 +112,7 @@ local ts_hi_groups = {
 "@constant.builtin",
 "@function.builtin",
 }
+
 function print_hi_group()
   for _, hg in ipairs(ts_hi_groups) do 
     --print(hg)
@@ -128,17 +129,10 @@ end
 
 
 vim.api.nvim_set_keymap('n', '<space>c', ':lua comment()', {noremap = true})
-function comment()
+local function comment()
   print(vim.api.nvim_buf_get_mark(0, "<")[1])
   print(vim.api.nvim_buf_get_mark(0, ">")[1])
   vim.cmd([[<C-v>]])
-end
-
---Setta il colorscheme con background trasparente
-function Colorscheme(arg)
-  vim.cmd.colorscheme(arg)
-  vim.api.nvim_set_hl(0, "Normal", {bg=none})
-  vim.api.nvim_set_hl(0, "NormalFloat", {bg=none})
 end
 
 function BG()
