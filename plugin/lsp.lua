@@ -83,6 +83,15 @@ require 'lspconfig'.lua_ls.setup {
     },
   },
 }
+
+require 'lspconfig'.jdtls.setup {
+  cmd = {"jdtls"},
+  on_attach = on_attach,
+  update_in_insert = false,
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+  single_file_support = false,
+  root_dir = function()return vim.fn.getcwd() end
+}
 --[[
 require('lspconfig').texlab.setup{
 capabilities = require('cmp_nvim_lsp').default_capabilities(),

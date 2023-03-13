@@ -8,7 +8,7 @@ vim.opt.number = true
 vim.opt.conceallevel = 1
 
 vim.opt.laststatus = 3
---vim.opt.cmdheight = 0
+vim.opt.cmdheight = 0
 
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
@@ -35,7 +35,7 @@ vim.api.nvim_create_user_command("Analisi",
 vim.api.nvim_create_user_command("EditVimtex", [[tabnew ~/.config/nvim/plugin/vimtex.lua]], {})
 vim.api.nvim_create_user_command("Parsers", [[echo nvim_get_runtime_file('parser', v:true)]], {})
 
-vim.api.nvim_create_user_command("Colorscheme", "lua Colorscheme(<q-args>)", { nargs = 1 })
+vim.api.nvim_create_user_command("Colorscheme", "lua Colorscheme(<q-args>)", { nargs = 1, complete = function() return {"prova"} end})
 
 -- Maps
 vim.api.nvim_set_keymap('n', '<space>w', ':wa<CR>', { noremap = true })
@@ -74,5 +74,5 @@ vim.api.nvim_set_keymap('v', 'H', '5h', {})
 vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-N>', {})
 
 --mette background trasparente
---vim.api.nvim_set_hl(0, "Normal", {bg=none})
---vim.api.nvim_set_hl(0, "NormalFloat", {bg=none})
+vim.api.nvim_set_hl(0, "Normal", {bg=none})
+vim.api.nvim_set_hl(0, "NormalFloat", {bg=none})
