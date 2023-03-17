@@ -8,7 +8,7 @@ vim.opt.number = true
 vim.opt.conceallevel = 1
 
 vim.opt.laststatus = 3
-vim.opt.cmdheight = 0
+--vim.opt.cmdheight = 0
 
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
@@ -39,9 +39,16 @@ function Colorscheme(arg)
   vim.cmd.colorscheme(arg)
   vim.api.nvim_set_hl(0, "Normal", {bg=none})
   vim.api.nvim_set_hl(0, "NormalFloat", {bg=none})
+  vim.api.nvim_set_hl(0, "WinSeparator", {bg=none})
+  vim.api.nvim_set_hl(0, "TabLineFill", {bg=none})
+  vim.api.nvim_set_hl(0, "TabLine", {bg=none})
+  vim.api.nvim_set_hl(0, "TabLineSel", {bold = true, italic=true})
 end
-vim.api.nvim_create_user_command("Colorscheme", "lua Colorscheme(<q-args>)", { nargs = 1 })
+vim.api.nvim_create_user_command("Colorscheme", "lua Colorscheme(<q-args>)", { nargs = 1, complete= function()return vim.fn.getcompletion("colorscheme ", "cmdline")end })
 
+function getcompletion(arg)
+  P(vim.fn.getcompletion("colorscheme ", "cmdline"))
+end
 -- Maps
 vim.api.nvim_set_keymap('n', '<space>w', ':wa<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<space>q', ':q<CR>', { noremap = true })
@@ -81,3 +88,15 @@ vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-N>', {})
 --mette background trasparente
 vim.api.nvim_set_hl(0, "Normal", {bg=none})
 vim.api.nvim_set_hl(0, "NormalFloat", {bg=none})
+vim.api.nvim_set_hl(0, "WinSeparator", {bg=none})
+vim.api.nvim_set_hl(0, "StatusLine", {bg=none})
+vim.api.nvim_set_hl(0, "StatusLine", {italic=true})
+vim.api.nvim_set_hl(0, "TabLineFill", {bg=none})
+vim.api.nvim_set_hl(0, "TabLine", {bg=none})
+vim.api.nvim_set_hl(0, "TabLineSel", {bold = true, italic=true})
+
+function prova()
+  --local s = vim.api.nvim_buf_get_name(0)
+  --local s = "prova/java_workspace/src/progetto/src/prova"
+  print(vim.api.nvim_buf_get_name(0):match("(.*)/src"))
+end

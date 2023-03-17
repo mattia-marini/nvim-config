@@ -202,7 +202,7 @@ return {  s("fig",
   ),
   s("ge", 
     fmt([[
-      \ge
+      \ge 
     ]],
     {}),
     {condition = function() return MoonTex.context() == "math" end }
@@ -210,7 +210,7 @@ return {  s("fig",
 
   s("le", 
     fmt([[
-      \le
+      \le 
     ]],
       {}),
     {condition = function() return MoonTex.context() == "math" end }
@@ -261,7 +261,7 @@ return {  s("fig",
 
   s("tc", 
     fmt([[
-      \text{{ t.c. }}
+       \text{{ t.c. }} 
     ]],
       {})
   ),
@@ -304,9 +304,8 @@ return {  s("fig",
     end),
     i(1), t("}")}),
 
-  s("qu", t("\\quad"), {condition = function() return MoonTex.context()=="math" end}),
 
-  s("bbf", 
+  s("bbf",
     fmt([[
       \textbf{{{}{}}}
     ]],
@@ -349,7 +348,7 @@ return {  s("fig",
 
   ]], {})),
 
-  s("abs", 
+  s("abs",
     fmt([[
       \left|{}{}\right|
     ]],
@@ -359,7 +358,7 @@ return {  s("fig",
         return res
         end),
         i(1)}),
-        {condition = function() return MoonTex.context=="math" end}
+{condition = function() return MoonTex.context() == "math" end }
   ),
 
   s("enum", 
@@ -520,8 +519,8 @@ return {  s("fig",
     fmt([[
     \prod_{{k={}}}^{{{}}} {}
     ]],
-      {i(1, "1"), i(2, "\\infty"), i(0, "a_k x^k")},
-      {condition = function() return MoonTex.context() == "math" end })
+      {i(1, "1"), i(2, "\\infty"), i(0, "a_k x^k")}),
+      {condition = function() return MoonTex.context() == "math" end }
   ),
   s({trig="sq",wordTrig=false}, 
     fmt([[
@@ -535,16 +534,16 @@ return {  s("fig",
         i(1)}),
       {condition = function() return MoonTex.context() == "math" end }),
 
-  s({trig="sr",wordTrig=false}, t("^2"),{condition = function() return MoonTex.context() == "math" end }),
-  s({trig="cb",wordTrig=false}, t("^3"),{condition = function() return MoonTex.context() == "math" end }),
+  s({trig="sr",wordTrig=false}, t("^2 "),{condition = function() return MoonTex.context() == "math" end }),
+  s({trig="cb",wordTrig=false}, t("^3 "),{condition = function() return MoonTex.context() == "math" end }),
   s({trig="td", wordTrig=false}, {t("^{"), i(1), t("}")},{condition = function() return MoonTex.context() == "math" end }),
   s({trig="__",wordTrig=false}, {t("_{"), i(1), t("}")}),
-  s({trig="inf",wordTrig=false}, t(" \\infty "),{condition = function() return MoonTex.context() == "math" end }),
-  s({trig="EE",wordTrig=false}, t(" \\exists "),{condition = function() return MoonTex.context() == "math" end }),
-  s({trig="forall",wordTrig=false}, t(" \\forall "),{condition = function() return MoonTex.context() == "math" end }),
-  s({trig="xx",wordTrig=false}, t(" \\times "),{condition = function() return MoonTex.context() == "math" end }),
-  s({trig="...",wordTrig=false}, t("\\ldots"),{condition = function() return MoonTex.context() == "math" end }),
-  s({trig="**",wordTrig=false}, t("\\cdot"),{condition = function() return MoonTex.context() == "math" end }),
+  s({trig="inf",wordTrig=false}, t("\\infty "),{condition = function() return MoonTex.context() == "math" end }),
+  s({trig="EE",wordTrig=false}, t("\\exists "),{condition = function() return MoonTex.context() == "math" end }),
+  s({trig="forall",wordTrig=false}, t("\\forall "),{condition = function() return MoonTex.context() == "math" end }),
+  s({trig="xx",wordTrig=false}, t("\\times "),{condition = function() return MoonTex.context() == "math" end }),
+  s({trig="...",wordTrig=false}, t("\\ldots "),{condition = function() return MoonTex.context() == "math" end }),
+  s({trig="**",wordTrig=false}, t("\\cdot "),{condition = function() return MoonTex.context() == "math" end }),
   s({trig="norm",wordTrig=false}, {t(" \\|"),f(function(args ,snip) 
     local res = {}
     for _, ele in ipairs(snip.env.LS_SELECT_RAW) do table.insert(res, ele) end
@@ -583,6 +582,10 @@ return {  s("fig",
   s("Rarr", t("\\Leftarrow ")),
   s("iif", t("\\Leftrightarrow ")),
   s("iif", t("\\Leftrightarrow ")),
+  s("qu", t("\\quad "), {condition = function() return MoonTex.context()=="math" end}),
+  s("to", t("\\to "), {condition = function() return MoonTex.context()=="math" end}),
+  s("not", t("\\not "), {condition = function() return MoonTex.context()=="math" end}),
+
   s({trig = "vv([a-zA-Z]) ", regTrig = true}, {t("\\vec{"),f(function(_, snip) return snip.captures[1] end), t("}")}),
   s("ub", {t("\\underbrace{"), 
   f(function(args ,snip) 

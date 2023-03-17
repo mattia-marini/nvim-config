@@ -55,6 +55,7 @@ function()
   --use 'lewis6991/impatient.nvim'
   --use '~/Desktop/MoonTex'
   use "mattia-marini/MoonTex"
+  use 'mfussenegger/nvim-jdtls'
 
 end
 )

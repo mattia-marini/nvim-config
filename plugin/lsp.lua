@@ -25,15 +25,6 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
---[[
-require("lspconfig").sumneko_lua.setup{
-  on_attach = on_attach,
-  update_in_insert = false,
-  telemetry = {
-        enable = false,
-      }
-}
---]]
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, { noremap = true })
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { noremap = true })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { noremap = true })
@@ -59,7 +50,7 @@ require('lspconfig').texlab.setup {
 }
 
 require 'lspconfig'.lua_ls.setup {
-  cmd = {'/usr/local/Cellar/lua-language-server/3.6.17/bin/lua-language-server'},
+  cmd = { 'lua-language-server-wrapper' },
   on_attach = on_attach,
   update_in_insert = false,
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
@@ -71,7 +62,7 @@ require 'lspconfig'.lua_ls.setup {
       },
       diagnostics = {
         -- Get the language server to recognize the `vim` global
-        globals = { 'vim' },
+        globals = { 'vim', 'use' },
       },
       workspace = {
         -- Make the server aware of Neovim runtime files
@@ -85,54 +76,11 @@ require 'lspconfig'.lua_ls.setup {
   },
 }
 
-require 'lspconfig'.jdtls.setup {
-  cmd = {"jdtls"},
-  on_attach = on_attach,
-  update_in_insert = false,
-  capabilities = require('cmp_nvim_lsp').default_capabilities(),
-  single_file_support = false,
-  root_dir = function()return vim.fn.getcwd() end
-}
-
-require'lspconfig'.millet.setup{
-  cmd = {'millet-ls'},
+require 'lspconfig'.millet.setup {
+  cmd = { 'millet-ls' },
   on_attach = on_attach,
   update_in_insert = false,
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
   single_file_support = true
   --root_dir = function()return vim.fn.getcwd()end
 }
---[[
-require('lspconfig').texlab.setup{
-capabilities = require('cmp_nvim_lsp').default_capabilities(),
-filetypes = { "tex", "plaintex", "bib" },
-on_attach = on_attach,
-update_in_insert = false,
-
-settings={
-  texlab = {
-    auxDirectory = ".",
-    bibtexFormatter = "texlab",
-    build = {
-      args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
-      executable = "latexmk",
-      forwardSearchAfter = false,
-      onSave = false
-    },
-    chktex = {
-      onEdit = true,
-      onOpenAndSave = true
-    },
-    diagnosticsDelay = 0,
-    formatterLineLength = 80,
-    forwardSearch = {
-      args = {}
-    },
-    latexFormatter = "latexindent",
-    latexindent = {
-      modifyLineBreaks = false
-    }
-  }
-  }
-}
---]]
