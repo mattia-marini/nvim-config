@@ -21,7 +21,12 @@ local function getRoot()
   if #rv == 0 then return "Unresolved" end
   return rv[1]
 end
-vim.api.nvim_buf_set_var(0, "rootDir", getRoot())
+local root = getRoot()
+if root == "Unresolved" then
+  vim.api.nvim_echo({{"Cannot resolve root dir. Be sure to have a \"src\" folder in you project", "DiffText"}}, false, {})
+  return
+end
+vim.api.nvim_buf_set_var(0, "rootDir", root)
 
 
 local function getMainFile()
@@ -68,19 +73,6 @@ local function runInActiveTerminal()
 end
 
 
-
---[[
-function openMultifileProject()
-  local filePath = vim.api.nvim_buf_get_name(0)
-  local fileDir = filePath:match("(.*/)")
-  local fileName = string.sub(filePath, string.len(fileDir))
-  for element in vim.fs.dir(fileDir) do
-     local fileName = element:match("*")
-     local fileExtension= string.sub(element, string.len()+1)
-     if(fileExtension == 'cpp' && )
-  end
-end
---]]
 local function terminateExecution()
   local curr_window = vim.api.nvim_get_current_win()
   local terminal_window = terminalIsListed()
@@ -107,6 +99,14 @@ vim.api.nvim_buf_set_keymap(0, 'n', '<space>r', '',
   { noremap = true, callback = function() runInActiveTerminal() end })
 vim.api.nvim_buf_set_keymap(0, 'n', '<space>R', '',
   { noremap = true, callback = function() terminateExecution() end })
+
+
+
+
+
+
+
+
 
 
 local on_attach = function(client, bufnr)
@@ -136,14 +136,31 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
-if vim.api.nvim_buf_get_name(0):match("(.*)/src") ~nil then
-require('jdtls').start_or_attach {
-  cmd = { '/opt/homebrew/Cellar/jdtls/1.19.0/bin/jdtls' },
-  root_dir = vim.fs.dirname(vim.fs.find({ 'gradlew', '.git', 'mvnw' }, { upward = true })[1]),
-  on_attach = on_attach,
-  update_in_insert = false,
-  capabilities = require('cmp_nvim_lsp').default_capabilities(),
-}
-else
-print("Cannor resolve root dir. Be sure to have a \"src\" folder in you project")
-end
+-- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
+  require('jdtls').start_or_attach({
+    -- The command that starts the language server
+    -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
+    cmd = {
+      'java',
+      '-Declipse.application=org.eclipse.jdt.ls.core.id1',
+      '-Dosgi.bundles.defaultStartLevel=4',
+      '-Declipse.product=org.eclipse.jdt.ls.core.product',
+      '-Dlog.protocol=true',
+      '-Dlog.level=ALL',
+      '-Xms1g',
+      '--add-modules=ALL-SYSTEM',
+      '--add-opens', 'java.base/java.util=ALL-UNNAMED',
+      '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
+
+
+      '-jar', '/opt/homebrew/Cellar/jdtls/1.19.0/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar',
+      '-configuration', '/opt/homebrew/Cellar/jdtls/1.19.0/config_mac',
+      '-data', "/Users/mattia/.cache/jdtls/workspace"
+    },
+    --root_dir = require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew', 'pom.xml'}),
+    root_dir = vim.api.nvim_buf_get_name(0):match("(.*)/src"),
+    on_attach = on_attach,
+    update_in_insert = false,
+    capabilities = require('cmp_nvim_lsp').default_capabilities(),
+  }
+)
