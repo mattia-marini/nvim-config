@@ -70,6 +70,11 @@ vim.api.nvim_set_keymap('n', '<space>h', '<C-w>h', {})
 vim.api.nvim_set_keymap('n', '<space>s', ':so %<CR>', {})
 vim.api.nvim_set_keymap('n', '<space><tab>', 'gt', {})
 vim.api.nvim_set_keymap('n', '<space>p', 'gT', {})
+vim.api.nvim_set_keymap('n', '<space>E', ':Explore<CR>', {})
+vim.api.nvim_set_keymap('n', '<space>a', ':lua require("harpoon.mark").add_file()<CR>', {noremap=true})
+vim.api.nvim_set_keymap('n', '<space>H', ':lua require("harpoon.ui").toggle_quick_menu()<CR>', {noremap=true})
+vim.api.nvim_set_keymap('n', '<space>n', ':lua require("harpoon.ui").nav_next()<CR>', {noremap=true})
+vim.api.nvim_set_keymap('n', '<space>m', ':lua require("harpoon.ui").nav_prev()<CR>', {noremap=true})
 
 vim.api.nvim_set_keymap('n', 'ml', 'J', { noremap = true })
 
@@ -94,9 +99,3 @@ vim.api.nvim_set_hl(0, "StatusLine", {italic=true})
 vim.api.nvim_set_hl(0, "TabLineFill", {bg=none})
 vim.api.nvim_set_hl(0, "TabLine", {bg=none})
 vim.api.nvim_set_hl(0, "TabLineSel", {bold = true, italic=true})
-
-function prova()
-  --local s = vim.api.nvim_buf_get_name(0)
-  --local s = "prova/java_workspace/src/progetto/src/prova"
-  print(vim.api.nvim_buf_get_name(0):match("(.*)/src"))
-end

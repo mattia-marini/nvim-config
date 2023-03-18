@@ -37,7 +37,8 @@ function()
 	--use 'nvim-treesitter/playground'
 	use 'nvim-treesitter/nvim-treesitter'
   --use { 'nvim-treesitter/nvim-treesitter', event = 'BufRead', config = LoadTreesitter }
-
+  
+  --[[
   use {
     'nvim-telescope/telescope.nvim', tag = '0.1.1',
     requires = { {'nvim-lua/plenary.nvim'} }
@@ -46,7 +47,9 @@ function()
      "nvim-telescope/telescope-file-browser.nvim",
      requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
   }
-  
+  --]]
+  use {'ThePrimeagen/harpoon', requires = {"nvim-lua/plenary.nvim"}}
+
   use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-buffer'
   use 'hrsh7th/cmp-path'

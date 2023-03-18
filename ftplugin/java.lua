@@ -58,7 +58,7 @@ local function runInActiveTerminal()
     vim.cmd("startinsert")
     vim.api.nvim_feedkeys(
       "cd \"" ..
-      rootDir .. [[" && javac ]] .. compilationPath .. [[.java && java ]] .. compilationPath:gsub("/", ".") .. "\n",
+      rootDir .. [[" && javac -d ../bin ]] .. compilationPath .. [[.java && cd ../bin && java ]] .. compilationPath:gsub("/", ".") .. "\n",
       "", "")
   else
     --apro nuovo terminale e inserisco il comando in base alla modalità
@@ -66,7 +66,7 @@ local function runInActiveTerminal()
     vim.cmd("startinsert")
     vim.api.nvim_feedkeys(
       "cd \"" ..
-      rootDir .. [[" && javac ]] .. compilationPath .. [[.java && java ]] .. compilationPath:gsub("/", ".") .. "\n",
+      rootDir .. [[" && javac -d ../bin ]] .. compilationPath .. [[.java && cd ../bin && java ]] .. compilationPath:gsub("/", ".") .. "\n",
       "", "")
   end
   vim.schedule(function() vim.api.nvim_set_current_win(curr_window) end)
@@ -113,7 +113,6 @@ local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  print("nvim_lsp")
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
@@ -153,8 +152,8 @@ end
       '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
 
 
-      '-jar', '/opt/homebrew/Cellar/jdtls/1.19.0/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar',
-      '-configuration', '/opt/homebrew/Cellar/jdtls/1.19.0/config_mac',
+      '-jar','/usr/local/Cellar/jdtls/1.19.0/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar',
+      '-configuration', '/usr/local/Cellar/jdtls/1.19.0/config_mac',
       '-data', "/Users/mattia/.cache/jdtls/workspace"
     },
     --root_dir = require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew', 'pom.xml'}),
