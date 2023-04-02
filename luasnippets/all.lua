@@ -25,11 +25,12 @@ return {
   ]], {i(1),i(0)})),
 
   s({trig = "for(%a)", wordTrig=true, regTrig=true}, fmt([[
-  for(int i = 0; {}<{}; i++){{
+  for(int {} = 0; {}<{}; {}++){{
     {}
   }}
-  ]], {f(function(_, snip) return snip.captures[1] end), i(1),i(0)})),
-  
+  ]], {f(function(_, snip) return snip.captures[1] end),
+        f(function(_, snip) return snip.captures[1] end), i(1), f(function(_, snip) return snip.captures[1] end) ,i(0)})),
+
   s("main", fmt([[
   package Main;
 
@@ -78,7 +79,5 @@ return {
     return res
     end)
   ,i(1,""), t(">")}),
-
-
 
 }

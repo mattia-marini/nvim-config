@@ -1,4 +1,6 @@
 --ritorna nil se non esiste un terminale nella tab corrente, altrimenti ritorna il window-id del terminale
+local sys_settings = require("sys_settings")
+
 local function terminalIsListed()
   local tabs = vim.fn.gettabinfo()
   local active_tab_nr = vim.api.nvim_tabpage_get_number(0)
@@ -152,8 +154,8 @@ end
       '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
 
 
-      '-jar','/usr/local/Cellar/jdtls/1.19.0/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar',
-      '-configuration', '/usr/local/Cellar/jdtls/1.19.0/config_mac',
+      '-jar',sys_settings.jdt.jar,
+      '-configuration', sys_settings.jdt.configuration,
       '-data', "/Users/mattia/.cache/jdtls/workspace"
     },
     --root_dir = require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew', 'pom.xml'}),

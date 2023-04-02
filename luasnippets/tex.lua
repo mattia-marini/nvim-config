@@ -147,7 +147,7 @@ return {  s("fig",
   s({trig = "beta", wordTrig=false}, t("$ \\beta $")),
   s({trig = "gamma", wordTrig=false}, t("$ \\gamma $")),
   s({trig = "delta", wordTrig=false}, t("$ \\delta $")),
-  s({trig = "epsilon", wordTrig=false}, t("$ \\epsilon $")),
+  s({trig = "epsilon", wordTrig=false}, t("$ \\varepsilon $")),
   s({trig = "zeta", wordTrig=false}, t("$ \\zeta $")),
   s({trig = "eta", wordTrig=false}, t("$ \\eta $")),
   s({trig = "theta", wordTrig=false}, t("$ \\theta $")),
@@ -166,7 +166,88 @@ return {  s("fig",
   s({trig = "phi", wordTrig=false}, t("$ \\phi $")),
   s({trig = "chi", wordTrig=false}, t("$ \\chi $")),
   s({trig = "psi", wordTrig=false}, t("$ \\psi $")),
-  s({trig = "omega", wordTrig=false}, t("$ \\omega $"))
+  s({trig = "omega", wordTrig=false}, t("$ \\omega $")),
+
+  s({trig = "fullplot", wordTrig = true}, fmt([[
+\begin{{tikzpicture}}
+	\begin{{axis}}[
+	xmin={}, xmax={},
+	ymin={},ymax={},
+	restrict y to domain = {}:{}, domain={}:{}, width=0.98\textwidth, height=0.5\textwidth, grid=major, samples=200,  ylabel=$f(x)$, xlabel=$x$, legend entries={{$ $}}]
+	\addplot[black, thick] {{{}}};{}
+	\end{{axis}}
+\end{{tikzpicture}}
+  ]], {i(1,"0"), i(2, "5"), i(3, "-4"), i(4, "4"), rep(3), rep(4), rep(1), rep(2), i(5), i(0)})),
+
+    s({trig = "halfplot", wordTrig = true}, fmt([[
+\begin{{tikzpicture}}
+	\begin{{axis}}[
+	xmin={}, xmax={},
+	ymin={},ymax={},
+	restrict y to domain = {}:{}, domain={}:{}, width=0.48\textwidth, height=0.48\textwidth, grid=major, samples=200,  ylabel=$f(x)$, xlabel=$x$, legend entries={{$ $}}]
+	\addplot[black, thick] {{{}}};{}
+	\end{{axis}}
+\end{{tikzpicture}}
+  ]], {i(1,"0"), i(2, "5"), i(3, "-4"), i(4, "4"), rep(3), rep(4), rep(1), rep(2), i(5), i(0)})),
+
+  s({ trig = "fdot(%d+%.?%d*)", regTrig=true },
+    f(function(_ ,snip)
+    local res = nil
+    for _, ele in ipairs(snip.env.LS_SELECT_RAW) do
+          if res== nil then res = ele else res=res..ele end
+    end
+      return {res:match("%s*(.*)"),"\\node [blackdot] at ("..snip.captures[1]..", {"..res:match("{(.*)}"):gsub("x", snip.captures[1]).."}) {};"}
+    end),
+    {condition = function() return MoonTex.context() == "axis" end }),
+
+  s({ trig = "fedot(%d+%.?%d*)", regTrig=true },
+    f(function(_ ,snip)
+    local res = nil
+    for _, ele in ipairs(snip.env.LS_SELECT_RAW) do
+          if res== nil then res = ele else res=res..ele end
+    end
+      return {res:match("%s*(.*)"),"\\node [whitedot] at ("..snip.captures[1]..", {"..res:match("{(.*)}"):gsub("x", snip.captures[1]).."}) {};"}
+    end),
+    {condition = function() return MoonTex.context() == "axis" end }),
+
+  s({ trig = "fcord(%d+%.?%d*)", regTrig=true },
+    {f(function(_ ,snip)
+    local res = nil
+    for _, ele in ipairs(snip.env.LS_SELECT_RAW) do
+          if res== nil then res = ele else res=res..ele end
+    end
+      return {res:match("%s*(.*)"),"\\coordinate ("}
+    end), i(1),
+    f(function(_ ,snip)
+    local res = nil
+    for _, ele in ipairs(snip.env.LS_SELECT_RAW) do
+          if res== nil then res = ele else res=res..ele end
+    end
+      return ") at ("..snip.captures[1]..", {"..res:match("{(.*)}"):gsub("x", snip.captures[1]).."}) {};"
+    end)
+    },
+    {condition = function() return MoonTex.context() == "axis" end }),
+
+  s("dot", fmt([[\node [blackdot] at ({},{}){{}};]], {i(1), i(2)}), {condition = function() return MoonTex.context() == "axis" end }),
+  s("edot", fmt([[\node [whitedot] at ({},{}){{}};]], {i(1), i(2)}), {condition = function() return MoonTex.context() == "axis" end }),
+  s("shift", fmt([[[shift={{(axis direction cs:{},{})}}] {}]], {i(1), i(2), i(3)}), {condition = function() return MoonTex.context() == "axis" end }),
+  s("draw", fmt([[\draw ({})--({});]], {i(1), i(2)}), {condition = function() return MoonTex.context() == "axis" end }),
+  s("dashed", fmt([[\draw [dashed] ({})--({});]], {i(1), i(2)}), {condition = function() return MoonTex.context() == "axis" end }),
+  s("dotted", fmt([[\draw [dotted] ({})--({});]], {i(1), i(2)}), {condition = function() return MoonTex.context() == "axis" end }),
+
+  s({ trig = "addnodes/(.*)", regTrig=true },
+  f(function(_ ,snip) 
+    local res = {}
+    for _, ele in ipairs(snip.env.LS_SELECT_DEDENT) do table.insert(res,ele) end
+
+      table.insert(res, "%")
+
+    for _, ele in ipairs(snip.env.LS_SELECT_RAW) do
+        table.insert(res,"\\node ["..snip.captures[1].."] at "..ele:match("(%(.*%)).*at").." {};")
+    end
+    return res
+    end),
+    {condition = function() return MoonTex.context() == "axis" end }),
 },
 
 {
@@ -505,23 +586,21 @@ return {  s("fig",
     fmt([[
     \sum_{{k={}}}^{{{}}} {}
     ]],
-      {i(1, "1"), i(2, "\\infty"), i(0, "a_k x^k")},
-      {condition = function() return MoonTex.context() == "math" end })
-  ),
+      {i(1, "1"), i(2, "\\infty"), i(0, "a_k x^k")}),
+      {condition = function() return MoonTex.context() == "math" end }),
   s("lim", 
     fmt([[
     \lim_{{{} \to {}}} {}
     ]],
-      {i(1, "x"), i(2, "\\infty"), i(0, "f(x)")},
-      {condition = function() return MoonTex.context() == "math" end })
-  ),
+      {i(1, "x"), i(2, "\\infty"), i(0, "f(x)")}),
+      {condition = function() return MoonTex.context() == "math" end }),
   s("prod", 
     fmt([[
     \prod_{{k={}}}^{{{}}} {}
     ]],
       {i(1, "1"), i(2, "\\infty"), i(0, "a_k x^k")}),
-      {condition = function() return MoonTex.context() == "math" end }
-  ),
+      {condition = function() return MoonTex.context() == "math" end }),
+
   s({trig="sq",wordTrig=false}, 
     fmt([[
       \sqrt{{{}{}}}
@@ -562,17 +641,17 @@ return {  s("fig",
   s({trig="UU",wordTrig=false}, t("\\bigcup "), {condition = function() return MoonTex.context() == "math" end }),
   s({trig="nn",wordTrig=false}, t("\\cap "), {condition = function() return MoonTex.context() == "math" end }),
   s({trig="eset",wordTrig=false}, t("\\emptyset "), {condition = function() return MoonTex.context() == "math" end }),
-  s("tt", {t("\\text{"), f(function(args ,snip) 
+  s("tt", {t("\\text{ "), f(function(args ,snip) 
     local res = {}
     for _, ele in ipairs(snip.env.LS_SELECT_RAW) do table.insert(res, ele) end
     return res
     end),
-    i(1), t("}")}, {condition = function() return MoonTex.context() == "math" end }),
+    i(1), t(" }")}, {condition = function() return MoonTex.context() == "math" end }),
   s("case", 
     fmt([[
-      \begin{{case}}
+      \begin{{cases}}
         {}
-      \end{{case}}
+      \end{{cases}}
     ]],
       {i(1)})
   ),
@@ -661,5 +740,8 @@ return {  s("fig",
   s({trig = "chi", wordTrig=true, priority=1001}, t("\\chi "),{condition = function() return MoonTex.context() == "math" end }),
   s({trig = "psi", wordTrig=true, priority=1001}, t("\\psi "),{condition = function() return MoonTex.context() == "math" end }),
   s({trig = "omega", wordTrig=true, priority=1001}, t("\\omega "),{condition = function() return MoonTex.context() == "math" end }),
-  s({trig="inn", priority = 1002}, t("\\in "), {condition = function() return MoonTex.context() == "math" end })
+  s({trig="minus", wordTrig=true}, t("\\setminus "), {condition = function() return MoonTex.context() == "math" end }),
+  s({trig="inn", wordTrig=true}, t("\\in "), {condition = function() return MoonTex.context() == "math" end }),
+  s({trig="neq", wordTrig=true}, t("\\neq "), {condition = function() return MoonTex.context() == "math" end }),
+
   }

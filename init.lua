@@ -24,7 +24,7 @@ vim.opt.expandtab = true
 --vim.opt_local.nosmartindent = true
 
 --Variables
-vim.g.python3_host_prog = '/Library/Frameworks/Python.framework/Versions/3.11/bin/python3.11'
+--vim.g.python3_host_prog = '/Library/Frameworks/Python.framework/Versions/3.11/bin/python3.11'
 
 -- Commands
 vim.cmd("colorscheme onedark")
