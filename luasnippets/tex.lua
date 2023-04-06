@@ -190,27 +190,29 @@ return {  s("fig",
 \end{{tikzpicture}}
   ]], {i(1,"0"), i(2, "5"), i(3, "-4"), i(4, "4"), rep(3), rep(4), rep(1), rep(2), i(5), i(0)})),
 
-  s({ trig = "fdot(%d+%.?%d*)", regTrig=true },
+  s({ trig = "fdot(%-?%d+%.?%d*)", regTrig=true },
     f(function(_ ,snip)
     local res = nil
     for _, ele in ipairs(snip.env.LS_SELECT_RAW) do
           if res== nil then res = ele else res=res..ele end
     end
-      return {res:match("%s*(.*)"),"\\node [blackdot] at ("..snip.captures[1]..", {"..res:match("{(.*)}"):gsub("x", snip.captures[1]).."}) {};"}
+      local number = snip.captures[1]:sub(1,1) == "-" and "("..snip.captures[1]..")" or snip.captures[1]
+      return {res:match("%s*(.*)"),"\\node [blackdot] at ("..snip.captures[1]..", {"..res:match("{(.*)}"):gsub("x", number).."}) {};"}
     end),
-    {condition = function() return MoonTex.context() == "axis" end }),
+    {condition = function()  local env = MoonTex.context() return env == "axis" or env == "tikzpicture" or env == "circuitikz"end }),
 
-  s({ trig = "fedot(%d+%.?%d*)", regTrig=true },
+  s({ trig = "fedot(%-?%d+%.?%d*)", regTrig=true },
     f(function(_ ,snip)
     local res = nil
     for _, ele in ipairs(snip.env.LS_SELECT_RAW) do
           if res== nil then res = ele else res=res..ele end
     end
-      return {res:match("%s*(.*)"),"\\node [whitedot] at ("..snip.captures[1]..", {"..res:match("{(.*)}"):gsub("x", snip.captures[1]).."}) {};"}
+      local number = snip.captures[1]:sub(1,1) == "-" and "("..snip.captures[1]..")" or snip.captures[1]
+      return {res:match("%s*(.*)"),"\\node [whitedot] at ("..snip.captures[1]..", {"..res:match("{(.*)}"):gsub("x", number).."}) {};"}
     end),
-    {condition = function() return MoonTex.context() == "axis" end }),
+    {condition = function()  local env = MoonTex.context() return env == "axis" or env == "tikzpicture" or env == "circuitikz"end }),
 
-  s({ trig = "fcord(%d+%.?%d*)", regTrig=true },
+  s({ trig = "fcord(%-?%d+%.?%d*)", regTrig=true },
     {f(function(_ ,snip)
     local res = nil
     for _, ele in ipairs(snip.env.LS_SELECT_RAW) do
@@ -223,17 +225,24 @@ return {  s("fig",
     for _, ele in ipairs(snip.env.LS_SELECT_RAW) do
           if res== nil then res = ele else res=res..ele end
     end
-      return ") at ("..snip.captures[1]..", {"..res:match("{(.*)}"):gsub("x", snip.captures[1]).."}) {};"
+      local number = snip.captures[1]:sub(1,1) == "-" and "("..snip.captures[1]..")" or snip.captures[1]
+      return ") at ("..snip.captures[1]..", {"..res:match("{(.*)}"):gsub("x", number).."}) {};"
     end)
     },
-    {condition = function() return MoonTex.context() == "axis" end }),
+    {condition = function()  local env = MoonTex.context() return env == "axis" or env == "tikzpicture" or env == "circuitikz"end }),
 
-  s("dot", fmt([[\node [blackdot] at ({},{}){{}};]], {i(1), i(2)}), {condition = function() return MoonTex.context() == "axis" end }),
-  s("edot", fmt([[\node [whitedot] at ({},{}){{}};]], {i(1), i(2)}), {condition = function() return MoonTex.context() == "axis" end }),
-  s("shift", fmt([[[shift={{(axis direction cs:{},{})}}] {}]], {i(1), i(2), i(3)}), {condition = function() return MoonTex.context() == "axis" end }),
-  s("draw", fmt([[\draw ({})--({});]], {i(1), i(2)}), {condition = function() return MoonTex.context() == "axis" end }),
-  s("dashed", fmt([[\draw [dashed] ({})--({});]], {i(1), i(2)}), {condition = function() return MoonTex.context() == "axis" end }),
-  s("dotted", fmt([[\draw [dotted] ({})--({});]], {i(1), i(2)}), {condition = function() return MoonTex.context() == "axis" end }),
+  s("dot", fmt([[\node [blackdot] at ({},{}){{}};]], {i(1), i(2)}), {condition = function()  local env = MoonTex.context() 
+    return env == "axis" or env == "tikzpicture" or env == "circuitikz"end }),
+  s("edot", fmt([[\node [whitedot] at ({},{}){{}};]], {i(1), i(2)}), {condition = function()  local env = MoonTex.context() 
+    return env == "axis" or env == "tikzpicture" or env == "circuitikz"end }),
+  s("shift", fmt([[[shift={{(axis direction cs:{},{})}}] {}]], {i(1), i(2), i(3)}), {condition = function()  local env = MoonTex.context() 
+    return env == "axis" or env == "tikzpicture" or env == "circuitikz"end }),
+  s("draw", fmt([[\draw ({})--({});]], {i(1), i(2)}), {condition = function()  local env = MoonTex.context() 
+    return env == "axis" or env == "tikzpicture" or env == "circuitikz" end }),
+  s("dashed", fmt([[\draw [dashed] ({})--({});]], {i(1), i(2)}), {condition = function()  local env = MoonTex.context() 
+    return env == "axis" or env == "tikzpicture" or env == "circuitikz" end }),
+  s("dotted", fmt([[\draw [dotted] ({})--({});]], {i(1), i(2)}), {condition = function()  local env = MoonTex.context() 
+    return env == "axis" or env == "tikzpicture" or env == "circuitikz" end }),
 
   s({ trig = "addnodes/(.*)", regTrig=true },
   f(function(_ ,snip) 
@@ -247,7 +256,10 @@ return {  s("fig",
     end
     return res
     end),
-    {condition = function() return MoonTex.context() == "axis" end }),
+    {condition = function()  local env = MoonTex.context() return env == "axis" or env == "tikzpicture" end }),
+  s({trig = "nn", wordTrig=true}, {t("\\node "), i(0), t(" {};")},{condition = function()  local env = MoonTex.context() return env == "axis" or env == "tikzpicture" or env == "circuitikz" end }),
+  s({trig = "shift", wordTrig=true}, {t("\\[shift={("), i(1), t(")}] ")},{condition = function()  local env = MoonTex.context() return env == "axis" or env == "tikzpicture" or env == "circuitikz" end }),
+
 },
 
 {
@@ -279,7 +291,8 @@ return {  s("fig",
     fmt([[
       \binom{{{}}}{{{}}}
     ]],
-      {i(1), i(2)})
+      {i(1), i(2)}),
+    {condition = function() return MoonTex.context() == "math" end }
   ),
   s("ge", 
     fmt([[
@@ -496,7 +509,8 @@ return {  s("fig",
     fmt([[
       \frac{{{}}}{{{}}}
     ]],
-      {i(1),i(2)})
+      {i(1),i(2)}),
+    {condition = function()return MoonTex.context() == "math" end}
   ),
 
   s("==", t("&="),{condition = function()return MoonTex.context() == "align*" end}),
