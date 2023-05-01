@@ -1,10 +1,9 @@
---ritorna nil se non esiste un terminale nella tab corrente, altrimenti ritorna il window-id del terminale
 local sys_settings = require("sys_settings")
 
 local function terminalIsListed()
   local tabs = vim.fn.gettabinfo()
   local active_tab_nr = vim.api.nvim_tabpage_get_number(0)
-  local atcive_tab = nil
+  local active_tab = nil
   --print(vim.inspect(buffers))
   for i, x in ipairs(tabs) do
     if x.tabnr == active_tab_nr then
@@ -18,35 +17,68 @@ local function terminalIsListed()
   return nil
 end
 
+
+
+
+
+-- >>>>> Trova la root directory del progetto, ossia la parent directory di src
 local function getRoot()
   local rv = vim.fs.find("src", { upward = true, type = "directory", path = vim.fn.getcwd() })
   if #rv == 0 then return "Unresolved" end
-  return rv[1]
+  return vim.fs.dirname(rv[1])
 end
+
 local root = getRoot()
 if root == "Unresolved" then
-  vim.api.nvim_echo({{"Cannot resolve root dir. Be sure to have a \"src\" folder in you project", "DiffText"}}, false, {})
+  vim.api.nvim_echo({ { "Cannot resolve root dir. Be sure to have a \"src\" folder in you project", "DiffText" } }, false,
+    {})
   return
 end
 vim.api.nvim_buf_set_var(0, "rootDir", root)
+-- <<<<< Trova la root directory del progetto, ossia la parent directory di src
 
 
+-- >>>>> Trova il file contenente la funzione main. Assume che questo sia un un file chiamato Main.java
 local function getMainFile()
   local rv = vim.fs.find("Main.java", { type = "file", path = vim.api.nvim_buf_get_var(0, "rootDir") })
   if #rv == 0 then return "Unresolved" end
   return rv[1]
 end
-vim.api.nvim_buf_set_var(0, "mainFile", getMainFile())
+
+local mainFile = getMainFile()
+if mainFile == "Unresolved" then
+  vim.api.nvim_echo({ { "Cannot resolve root dir. Be sure to have a \"src\" folder in you project", "DiffText" } }, false,
+    {})
+  return
+end
+vim.api.nvim_buf_set_var(0, "mainFile", mainFile)
+-- <<<<< Trova il file contenente la funzione main. Assume che questo sia un un file chiamato Main.java
 
 
+-- >>>>> Trova il path relativo da src al mainfile
 local function getCompilationPath()
-  if vim.api.nvim_buf_get_var(0, "mainFile") == "Unresolved" then return "Unresolved" end
-  local rv = vim.api.nvim_buf_get_var(0, "mainFile"):match("/src/(.*).java")
-  return rv
+  return vim.api.nvim_buf_get_var(0, "mainFile"):match("/src/(.*).java")
 end
 vim.api.nvim_buf_set_var(0, "compilationPath", getCompilationPath())
+-- <<<<< Trova il path relativo da src al mainfile
 
 
+-- >>>>> Ritorna una table contenente il nome di ogni cartella contenuta in progetto/lib
+local function get_used_libs()
+  local rv = {}
+  for name, type in vim.fs.dir(vim.api.nvim_buf_get_var(0, "rootDir") .. "/lib") do
+    if type == "directory" then
+      table.insert(rv, name)
+      print(name)
+    end
+  end
+  return rv
+end
+-- <<<<< Ritorna una table contenente il nome di ogni cartella contenuta in progetto/lib
+
+vim.api.nvim_buf_set_var(0, "usedLibs", get_used_libs())
+
+-- >>>>> Comando per compilare
 local function runInActiveTerminal()
   vim.cmd("wa")
   local curr_window = vim.api.nvim_get_current_win()
@@ -54,22 +86,38 @@ local function runInActiveTerminal()
   local rootDir = vim.api.nvim_buf_get_var(0, "rootDir")
   local compilationPath = vim.api.nvim_buf_get_var(0, "compilationPath")
 
+  -->>>>>>creo comando per compilazione
+  local libraries = ""
+  if #vim.api.nvim_buf_get_var(0, "usedLibs") > 0 then
+    libraries = "--module-path "
+    for _, lib in ipairs(vim.api.nvim_buf_get_var(0, "usedLibs")) do
+      libraries = libraries .. "\"../lib/" .. lib .. "\":"
+    end
+    libraries = libraries:sub(1, -2)
+    libraries = libraries .. " --add-modules=ALL-MODULE-PATH "
+  end
+
+  local command = "cd \"" .. rootDir .. [[/src" && javac -d ../bin ]]
+
+  if #vim.api.nvim_buf_get_var(0, "usedLibs") > 0 then command = command .. libraries end
+
+  command = command .. compilationPath .. [[.java && cd ../bin && java ]]
+
+  if #vim.api.nvim_buf_get_var(0, "usedLibs") > 0 then command = command .. libraries end
+
+  command = command .. compilationPath:gsub("/", ".") .. "\n"
+  --<<<<<<creo comando per compilazione
+
   if (terminal_window ~= nil) then
     --vado alla finestra del terminale
     vim.api.nvim_call_function("win_gotoid", { terminal_window })
     vim.cmd("startinsert")
-    vim.api.nvim_feedkeys(
-      "cd \"" ..
-      rootDir .. [[" && javac -d ../bin ]] .. compilationPath .. [[.java && cd ../bin && java ]] .. compilationPath:gsub("/", ".") .. "\n",
-      "", "")
+    vim.api.nvim_feedkeys(command, "", "")
   else
     --apro nuovo terminale e inserisco il comando in base alla modalità
     vim.cmd([[vsplit | terminal]] .. "\n")
     vim.cmd("startinsert")
-    vim.api.nvim_feedkeys(
-      "cd \"" ..
-      rootDir .. [[" && javac -d ../bin ]] .. compilationPath .. [[.java && cd ../bin && java ]] .. compilationPath:gsub("/", ".") .. "\n",
-      "", "")
+    vim.api.nvim_feedkeys(command, "", "")
   end
   vim.schedule(function() vim.api.nvim_set_current_win(curr_window) end)
 end
@@ -95,22 +143,19 @@ local function terminateExecution()
 
   vim.schedule(function() vim.api.nvim_set_current_win(curr_window) end)
 end
+-- <<<<< Comando per compilare
 
 
+-- >>>>> Keymaps per compilare
 vim.api.nvim_buf_set_keymap(0, 'n', '<space>r', '',
   { noremap = true, callback = function() runInActiveTerminal() end })
 vim.api.nvim_buf_set_keymap(0, 'n', '<space>R', '',
   { noremap = true, callback = function() terminateExecution() end })
+-- <<<<< Keymaps per compilare
 
 
 
-
-
-
-
-
-
-
+-- >>>>> Attacco dell'lsp con jdtls-nvim
 local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -137,31 +182,38 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
--- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
-  require('jdtls').start_or_attach({
-    -- The command that starts the language server
-    -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
-    cmd = {
-      'java',
-      '-Declipse.application=org.eclipse.jdt.ls.core.id1',
-      '-Dosgi.bundles.defaultStartLevel=4',
-      '-Declipse.product=org.eclipse.jdt.ls.core.product',
-      '-Dlog.protocol=true',
-      '-Dlog.level=ALL',
-      '-Xms1g',
-      '--add-modules=ALL-SYSTEM',
-      '--add-opens', 'java.base/java.util=ALL-UNNAMED',
-      '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
+
+require('jdtls').start_or_attach({
+  cmd = {
+    'java',
+    '-Declipse.application=org.eclipse.jdt.ls.core.id1',
+    '-Dosgi.bundles.defaultStartLevel=4',
+    '-Declipse.product=org.eclipse.jdt.ls.core.product',
+    '-Dlog.protocol=true',
+    '-Dlog.level=ALL',
+    '-Xms1g',
+    '--add-modules=ALL-SYSTEM',
+    '--add-opens', 'java.base/java.util=ALL-UNNAMED',
 
 
-      '-jar',sys_settings.jdt.jar,
-      '-configuration', sys_settings.jdt.configuration,
-      '-data', "/Users/mattia/.cache/jdtls/workspace"
-    },
-    --root_dir = require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew', 'pom.xml'}),
-    root_dir = vim.api.nvim_buf_get_name(0):match("(.*)/src"),
-    on_attach = on_attach,
-    update_in_insert = false,
-    capabilities = require('cmp_nvim_lsp').default_capabilities(),
+    '-jar', sys_settings.jdt.jar,
+    '-configuration', sys_settings.jdt.configuration,
+    '-data', "/Users/mattia/.cache/jdtls/workspace"
+  },
+  --root_dir = require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew', 'pom.xml'}),
+  root_dir = vim.api.nvim_buf_get_name(0):match("(.*)/src"),
+  on_attach = on_attach,
+  update_in_insert = false,
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+  settings = {
+    java = {
+      project = {
+        referencedLibraries = vim.fs.find(function(name, _)
+            return name:match('.*%.jar$') ~= nil
+          end,
+          { limit = math.huge, type = 'file', path = vim.api.nvim_buf_get_var(0, "rootDir") .. "/lib" })
+      }
+    }
   }
-)
+})
+-- <<<<< Attacco dell'lsp con jdtls-nvim
