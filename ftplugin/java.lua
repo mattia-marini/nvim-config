@@ -66,10 +66,12 @@ vim.api.nvim_buf_set_var(0, "compilationPath", getCompilationPath())
 -- >>>>> Ritorna una table contenente il nome di ogni cartella contenuta in progetto/lib
 local function get_used_libs()
   local rv = {}
-  for name, type in vim.fs.dir(vim.api.nvim_buf_get_var(0, "rootDir") .. "/lib") do
-    if type == "directory" then
-      table.insert(rv, name)
-      print(name)
+  if (#vim.fs.find("lib", { path = vim.api.nvim_buf_get_var(0, "rootDir") , type = "directory"}) ~= 0) then
+    for name, type in vim.fs.dir(vim.api.nvim_buf_get_var(0, "rootDir") .. "/lib") do
+      if type == "directory" then
+        table.insert(rv, name)
+        print(name)
+      end
     end
   end
   return rv
@@ -77,6 +79,16 @@ end
 -- <<<<< Ritorna una table contenente il nome di ogni cartella contenuta in progetto/lib
 
 vim.api.nvim_buf_set_var(0, "usedLibs", get_used_libs())
+
+local function get_used_libs_jar_files()
+if (#vim.fs.find("lib", { path = vim.api.nvim_buf_get_var(0, "rootDir") , type = "directory"}) ~= 0) then
+    return vim.fs.find(function(name, _)
+        return name:match('.*%.jar$') ~= nil
+      end,
+      { limit = math.huge, type = 'file', path = vim.api.nvim_buf_get_var(0, "rootDir") .. "/lib" })
+  end
+  return {}
+end
 
 -- >>>>> Comando per compilare
 local function runInActiveTerminal()
@@ -208,10 +220,7 @@ require('jdtls').start_or_attach({
   settings = {
     java = {
       project = {
-        referencedLibraries = vim.fs.find(function(name, _)
-            return name:match('.*%.jar$') ~= nil
-          end,
-          { limit = math.huge, type = 'file', path = vim.api.nvim_buf_get_var(0, "rootDir") .. "/lib" })
+        referencedLibraries = get_used_libs_jar_files()
       }
     }
   }

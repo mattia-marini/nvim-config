@@ -465,7 +465,7 @@ return {  s("fig",
       {i(1), i(0)})
   ),
 
-  s("item", 
+  s({trig="item", wordTrig=true}, 
     fmt([[
     \begin{{itemize}}
       \item {}
@@ -757,5 +757,8 @@ return {  s("fig",
   s({trig="minus", wordTrig=true}, t("\\setminus "), {condition = function() return MoonTex.context() == "math" end }),
   s({trig="inn", wordTrig=true}, t("\\in "), {condition = function() return MoonTex.context() == "math" end }),
   s({trig="neq", wordTrig=true}, t("\\neq "), {condition = function() return MoonTex.context() == "math" end }),
+  s({trig="mod", wordTrig=true}, t("\\mod "), {condition = function() return MoonTex.context() == "math" end }),
+  s({trig="equiv", wordTrig=true}, t("\\equiv "), {condition = function() return MoonTex.context() == "math" end }),
+  s({trig="sim", wordTrig=true}, t("\\sim "), {condition = function() return MoonTex.context() == "math" end }),
 
   }
