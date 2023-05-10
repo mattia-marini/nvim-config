@@ -210,7 +210,7 @@ require('jdtls').start_or_attach({
 
     '-jar', sys_settings.jdt.jar,
     '-configuration', sys_settings.jdt.configuration,
-    '-data', "/Users/mattia/.cache/jdtls/workspace"
+    '-data', vim.fn.expand("~/.cache/jdtls/workspace")
   },
   --root_dir = require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew', 'pom.xml'}),
   root_dir = vim.api.nvim_buf_get_name(0):match("(.*)/src"),

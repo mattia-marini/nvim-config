@@ -28,8 +28,8 @@ vim.opt.expandtab = true
 
 -- Commands
 vim.cmd("colorscheme onedark")
-vim.api.nvim_create_user_command("EditInit", [[tabnew /Users/mattia/.config/nvim/init.lua]], {})
-vim.api.nvim_create_user_command("Plugins", [[tabnew /Users/mattia/.config/nvim/plugin/packer-plugin.lua]], {})
+vim.api.nvim_create_user_command("EditInit", [[tabnew ~/.config/nvim/init.lua]], {})
+vim.api.nvim_create_user_command("Plugins", [[tabnew ~/.config/nvim/plugin/packer-plugin.lua]], {})
 vim.api.nvim_create_user_command("Analisi",
   [[cd /Users/mattia/Library/Mobile Documents/com~apple~CloudDocs/LatexWorkspace/Analisi_1]], {})
 vim.api.nvim_create_user_command("EditVimtex", [[tabnew ~/.config/nvim/plugin/vimtex.lua]], {})
