@@ -507,9 +507,13 @@ return {  s("fig",
 
   s("//", 
     fmt([[
-      \frac{{{}}}{{{}}}
+      \frac{{{}{}}}{{{}}}
     ]],
-      {i(1),i(2)}),
+      {f(function(args ,snip) 
+  local res = {}
+  for _, ele in ipairs(snip.env.LS_SELECT_RAW) do table.insert(res, ele) end
+  return res
+  end),i(1),i(2)}),
     {condition = function()return MoonTex.context() == "math" end}
   ),
 
@@ -760,5 +764,6 @@ return {  s("fig",
   s({trig="mod", wordTrig=true}, t("\\mod "), {condition = function() return MoonTex.context() == "math" end }),
   s({trig="equiv", wordTrig=true}, t("\\equiv "), {condition = function() return MoonTex.context() == "math" end }),
   s({trig="sim", wordTrig=true}, t("\\sim "), {condition = function() return MoonTex.context() == "math" end }),
+  s({trig = "z(%a)z", regTrig=true},  {t("\\Z/_{"),f(function(_, snip) return snip.captures[1] end), t("\\Z} ")}, {condition = function() return MoonTex.context() == "math" end } )
 
   }
