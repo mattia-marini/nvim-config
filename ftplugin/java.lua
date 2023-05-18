@@ -39,10 +39,28 @@ vim.api.nvim_buf_set_var(0, "rootDir", root)
 
 
 -- >>>>> Trova il file contenente la funzione main. Assume che questo sia un un file chiamato Main.java
+
+
 local function getMainFile()
-  local rv = vim.fs.find("Main.java", { type = "file", path = vim.api.nvim_buf_get_var(0, "rootDir") })
-  if #rv == 0 then return "Unresolved" end
-  return rv[1]
+  local rv = nil
+
+  local paths = vim.fs.find(".paths.txt", { type = "file", path = vim.api.nvim_buf_get_var(0, "rootDir") })[1]
+  if paths ~= nil then
+    if pcall(io.lines, "int.txt") then
+      for line in io.lines("in.txt") do
+        if line:match("%s*mainfile%s*=%s*\"(.*)\"%s*") ~= nil then
+          rv = line:match("%s*mainfile%s*=%s*\"(.*)\"%s*")
+          break
+        end
+      end
+    end
+  end
+
+  if rv ~= nil then return rv end
+
+  local default_main = vim.fs.find("Main.java", { type = "file", path = vim.api.nvim_buf_get_var(0, "rootDir") })
+  if #default_main == 0 then return "Unresolved" end
+  return default_main[1]
 end
 
 local mainFile = getMainFile()
@@ -66,7 +84,7 @@ vim.api.nvim_buf_set_var(0, "compilationPath", getCompilationPath())
 -- >>>>> Ritorna una table contenente il nome di ogni cartella contenuta in progetto/lib
 local function get_used_libs()
   local rv = {}
-  if (#vim.fs.find("lib", { path = vim.api.nvim_buf_get_var(0, "rootDir") , type = "directory"}) ~= 0) then
+  if (#vim.fs.find("lib", { path = vim.api.nvim_buf_get_var(0, "rootDir"), type = "directory" }) ~= 0) then
     for name, type in vim.fs.dir(vim.api.nvim_buf_get_var(0, "rootDir") .. "/lib") do
       if type == "directory" then
         table.insert(rv, name)
@@ -81,7 +99,7 @@ end
 vim.api.nvim_buf_set_var(0, "usedLibs", get_used_libs())
 
 local function get_used_libs_jar_files()
-if (#vim.fs.find("lib", { path = vim.api.nvim_buf_get_var(0, "rootDir") , type = "directory"}) ~= 0) then
+  if (#vim.fs.find("lib", { path = vim.api.nvim_buf_get_var(0, "rootDir"), type = "directory" }) ~= 0) then
     return vim.fs.find(function(name, _)
         return name:match('.*%.jar$') ~= nil
       end,
