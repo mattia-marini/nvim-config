@@ -119,9 +119,9 @@ return {  s("fig",
   ]], {i(1)}),
   {condition = function()  local c = MoonTex.context() return (c == "enumerate" or c == "itemize") end}),
 
-  s("table", 
+  s("Table", 
     fmt([[
-    \begin{{table}}[h!]
+    \begin{{table}}[H]
       \centering
       \begin{{tabular}}{{{}}}
         {}    
@@ -130,6 +130,53 @@ return {  s("fig",
     ]],
       {i(1), i(0)} )
   ),
+  s("table", 
+    fmt([[
+      \begin{{center}}
+        \begin{{tabular}}{{{}}}
+          {}    
+        \end{{tabular}}
+      \end{{center}}
+    ]],
+      {i(1), i(0)} )
+  ),
+  
+  s({trig = "(%d+)col", regTrig=true}, 
+    {
+      d(1, function(_, snip) 
+        local s = {}
+        for index = 1,tonumber(snip.captures[1])-1 do
+          table.insert(s, i(index))
+          table.insert(s, t(" & "))
+        end
+          table.insert(s, i(tonumber(snip.captures[1])))
+          table.insert(s, t({" \\\\ ", snip.captures[1].."col"}))
+          table.insert(s, i(0))
+        return sn (1, s)
+      end)
+    }, 
+    {condition = function() return MoonTex.context() == "tabular" end }
+  ),
+  
+  s({trig = "(%d+)(%a)(b?)", regTrig=true}, 
+    {
+      d(1, function(_, snip) 
+        local s = {}
+        if snip.captures[3] ~= "" then
+            table.insert(s, t("|"))
+          for index = 1,tonumber(snip.captures[1]) do
+            table.insert(s, t(snip.captures[2].."|"))
+          end
+        else 
+            table.insert(s, t("|"))
+          for index = 1,tonumber(snip.captures[1]) do
+            table.insert(s, t(snip.captures[2]))
+          end
+            table.insert(s, t("|"))
+        end
+        return sn (1, s)
+      end)
+    }),
 
   s("bisect", 
     fmt([[
@@ -475,7 +522,13 @@ return {  s("fig",
       {i(1), i(0)})
   ),
 
-  s("km", {t("$ "), i(1), t(" $")}),
+  s("km", {t("$ "), 
+  f(function(args ,snip) 
+    local res = {}
+    for _, ele in ipairs(snip.env.LS_SELECT_RAW) do table.insert(res, ele) end
+    return res
+    end),
+      i(1), t(" $")}),
   
   s("dm", 
     fmt([[
@@ -684,13 +737,13 @@ return {  s("fig",
   s("not", t("\\not "), {condition = function() return MoonTex.context()=="math" end}),
 
   s({trig = "vv([a-zA-Z]) ", regTrig = true}, {t("\\vec{"),f(function(_, snip) return snip.captures[1] end), t("}")}),
-  s("ub", {t("\\underbrace{"), 
+  s("ub", {t("\\underbracket[0.1ex]{"), 
   f(function(args ,snip) 
     local res = {}
     for _, ele in ipairs(snip.env.LS_SELECT_RAW) do table.insert(res, ele) end
     return res
     end),
-    i(1), t("}")},
+    t("}_{"),i(1), t ("}"), i(0) },
     {condition = function() return MoonTex.context() == "math" end }),
 
   --  s("comm", {f(function(text, snip)
@@ -738,7 +791,7 @@ return {  s("fig",
   s({trig = "beta", wordTrig=true, priority=1001}, t("\\beta "),{condition = function() return MoonTex.context() == "math" end }),
   s({trig = "gamma", wordTrig=true, priority=1001}, t("\\gamma "),{condition = function() return MoonTex.context() == "math" end }),
   s({trig = "delta", wordTrig=true, priority=1001}, t("\\delta "),{condition = function() return MoonTex.context() == "math" end }),
-  s({trig = "epsilon", wordTrig=true, priority=1001}, t("\\epsilon "),{condition = function() return MoonTex.context() == "math" end }),
+  s({trig = "epsilon", wordTrig=true, priority=1001}, t("\\varepsilon "),{condition = function() return MoonTex.context() == "math" end }),
   s({trig = "zeta", wordTrig=true, priority=1001}, t("\\zeta "),{condition = function() return MoonTex.context() == "math" end }),
   s({trig = "eta", wordTrig=true, priority=1001}, t("\\eta "),{condition = function() return MoonTex.context() == "math" end }),
   s({trig = "theta", wordTrig=true, priority=1001}, t("\\theta "),{condition = function() return MoonTex.context() == "math" end }),
@@ -764,6 +817,6 @@ return {  s("fig",
   s({trig="mod", wordTrig=true}, t("\\mod "), {condition = function() return MoonTex.context() == "math" end }),
   s({trig="equiv", wordTrig=true}, t("\\equiv "), {condition = function() return MoonTex.context() == "math" end }),
   s({trig="sim", wordTrig=true}, t("\\sim "), {condition = function() return MoonTex.context() == "math" end }),
-  s({trig = "z(%a)z", regTrig=true},  {t("\\Z/_{"),f(function(_, snip) return snip.captures[1] end), t("\\Z} ")}, {condition = function() return MoonTex.context() == "math" end } )
-
+  s({trig = "z(%a)z", regTrig=true},  {t("\\Z/_{"),f(function(_, snip) return snip.captures[1] end), t("\\Z} ")}, {condition = function() return MoonTex.context() == "math" end } ),
+  s({trig = "hl", wordTrig = true}, t("\\hline"), {condition = function() return MoonTex.context() == "tabular" end })
   }
