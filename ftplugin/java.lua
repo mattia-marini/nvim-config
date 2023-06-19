@@ -44,10 +44,11 @@ vim.api.nvim_buf_set_var(0, "rootDir", root)
 local function getMainFile()
   local rv = nil
 
-  local paths = vim.fs.find(".paths.txt", { type = "file", path = vim.api.nvim_buf_get_var(0, "rootDir") })[1]
+  local paths = vim.fs.find(".paths", { type = "file", path = vim.api.nvim_buf_get_var(0, "rootDir") })[1]
+  P(paths)
   if paths ~= nil then
-    if pcall(io.lines, "int.txt") then
-      for line in io.lines("in.txt") do
+    if pcall(io.lines, paths) then
+      for line in io.lines(paths) do
         if line:match("%s*mainfile%s*=%s*\"(.*)\"%s*") ~= nil then
           rv = line:match("%s*mainfile%s*=%s*\"(.*)\"%s*")
           break
@@ -73,14 +74,6 @@ vim.api.nvim_buf_set_var(0, "mainFile", mainFile)
 -- <<<<< Trova il file contenente la funzione main. Assume che questo sia un un file chiamato Main.java
 
 
--- >>>>> Trova il path relativo da src al mainfile
-local function getCompilationPath()
-  return vim.api.nvim_buf_get_var(0, "mainFile"):match("/src/(.*).java")
-end
-vim.api.nvim_buf_set_var(0, "compilationPath", getCompilationPath())
--- <<<<< Trova il path relativo da src al mainfile
-
-
 -- >>>>> Ritorna una table contenente il nome di ogni cartella contenuta in progetto/lib
 local function get_used_libs()
   local rv = {}
@@ -88,7 +81,6 @@ local function get_used_libs()
     for name, type in vim.fs.dir(vim.api.nvim_buf_get_var(0, "rootDir") .. "/lib") do
       if type == "directory" then
         table.insert(rv, name)
-        print(name)
       end
     end
   end
@@ -114,7 +106,7 @@ local function runInActiveTerminal()
   local curr_window = vim.api.nvim_get_current_win()
   local terminal_window = terminalIsListed()
   local rootDir = vim.api.nvim_buf_get_var(0, "rootDir")
-  local compilationPath = vim.api.nvim_buf_get_var(0, "compilationPath")
+  local compilationPath = vim.api.nvim_buf_get_var(0, "mainFile"):match("/src/(.*).java")
 
   -->>>>>>creo comando per compilazione
   local libraries = ""
@@ -243,4 +235,8 @@ require('jdtls').start_or_attach({
     }
   }
 })
+
+vim.api.nvim_create_user_command("SetMainfile", function()
+  vim.api.nvim_buf_set_var(0, "mainFile", vim.api.nvim_buf_get_name(0))
+end, {})
 -- <<<<< Attacco dell'lsp con jdtls-nvim
