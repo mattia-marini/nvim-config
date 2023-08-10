@@ -306,6 +306,7 @@ return {  s("fig",
     {condition = function()  local env = MoonTex.context() return env == "axis" or env == "tikzpicture" end }),
   s({trig = "nn", wordTrig=true}, {t("\\node "), i(0), t(" {};")},{condition = function()  local env = MoonTex.context() return env == "axis" or env == "tikzpicture" or env == "circuitikz" end }),
   s({trig = "shift", wordTrig=true}, {t("\\[shift={("), i(1), t(")}] ")},{condition = function()  local env = MoonTex.context() return env == "axis" or env == "tikzpicture" or env == "circuitikz" end }),
+  s("verb", fmt([[\verb|{}|]], {i(1)}))
 
 },
 

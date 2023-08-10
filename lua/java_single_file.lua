@@ -1,9 +1,3 @@
-local single_file = true
-if single_file == true then
-  require("java_single_file")
-  return
-end
-
 local sys_settings = require("sys_settings")
 
 local function terminalIsListed()
@@ -27,114 +21,17 @@ end
 
 
 
--- >>>>> Trova la root directory del progetto, ossia la parent directory di src
-local function getRoot()
-  local rv = vim.fs.find("src", { upward = true, type = "directory", path = vim.fn.getcwd() })
-  if #rv == 0 then return "Unresolved" end
-  return vim.fs.dirname(rv[1])
-end
-
-local root = getRoot()
-if root == "Unresolved" then
-  vim.api.nvim_echo({ { "Cannot resolve root dir. Be sure to have a \"src\" folder in you project", "DiffText" } }, false,
-    {})
-  return
-end
-vim.api.nvim_buf_set_var(0, "rootDir", root)
--- <<<<< Trova la root directory del progetto, ossia la parent directory di src
 
 
--- >>>>> Trova il file contenente la funzione main. Assume che questo sia un un file chiamato Main.java
 
-
-local function getMainFile()
-  local rv = nil
-
-  local paths = vim.fs.find(".paths", { type = "file", path = vim.api.nvim_buf_get_var(0, "rootDir") })[1]
-  P(paths)
-  if paths ~= nil then
-    if pcall(io.lines, paths) then
-      for line in io.lines(paths) do
-        if line:match("%s*mainfile%s*=%s*\"(.*)\"%s*") ~= nil then
-          rv = line:match("%s*mainfile%s*=%s*\"(.*)\"%s*")
-          break
-        end
-      end
-    end
-  end
-
-  if rv ~= nil then return rv end
-
-  local default_main = vim.fs.find("Main.java", { type = "file", path = vim.api.nvim_buf_get_var(0, "rootDir") })
-  if #default_main == 0 then return "Unresolved" end
-  return default_main[1]
-end
-
-local mainFile = getMainFile()
-if mainFile == "Unresolved" then
-  vim.api.nvim_echo({ { "Cannot resolve root dir. Be sure to have a \"src\" folder in you project", "DiffText" } }, false,
-    {})
-  return
-end
-vim.api.nvim_buf_set_var(0, "mainFile", mainFile)
--- <<<<< Trova il file contenente la funzione main. Assume che questo sia un un file chiamato Main.java
-
-
--- >>>>> Ritorna una table contenente il nome di ogni cartella contenuta in progetto/lib
-local function get_used_libs()
-  local rv = {}
-  if (#vim.fs.find("lib", { path = vim.api.nvim_buf_get_var(0, "rootDir"), type = "directory" }) ~= 0) then
-    for name, type in vim.fs.dir(vim.api.nvim_buf_get_var(0, "rootDir") .. "/lib") do
-      if type == "directory" then
-        table.insert(rv, name)
-      end
-    end
-  end
-  return rv
-end
--- <<<<< Ritorna una table contenente il nome di ogni cartella contenuta in progetto/lib
-
-vim.api.nvim_buf_set_var(0, "usedLibs", get_used_libs())
-
-local function get_used_libs_jar_files()
-  if (#vim.fs.find("lib", { path = vim.api.nvim_buf_get_var(0, "rootDir"), type = "directory" }) ~= 0) then
-    return vim.fs.find(function(name, _)
-        return name:match('.*%.jar$') ~= nil
-      end,
-      { limit = math.huge, type = 'file', path = vim.api.nvim_buf_get_var(0, "rootDir") .. "/lib" })
-  end
-  return {}
-end
-
--- >>>>> Comando per compilare
 local function runInActiveTerminal()
   vim.cmd("wa")
   local curr_window = vim.api.nvim_get_current_win()
   local terminal_window = terminalIsListed()
-  local rootDir = vim.api.nvim_buf_get_var(0, "rootDir")
-  local compilationPath = vim.api.nvim_buf_get_var(0, "mainFile"):match("/src/(.*).java")
+  local file = vim.api.nvim_buf_get_name(0)
+  local command = "cd '" .. vim.fs.dirname(file) .. "' && javac -d ./bin " .. vim.fs.basename(file) .. " && cd bin && java " .. vim.fs.basename(file):match("(.*)%.java").."\n"
 
-  -->>>>>>creo comando per compilazione
-  local libraries = ""
-  if #vim.api.nvim_buf_get_var(0, "usedLibs") > 0 then
-    libraries = "--module-path "
-    for _, lib in ipairs(vim.api.nvim_buf_get_var(0, "usedLibs")) do
-      libraries = libraries .. "\"../lib/" .. lib .. "\":"
-    end
-    libraries = libraries:sub(1, -2)
-    libraries = libraries .. " --add-modules=ALL-MODULE-PATH "
-  end
 
-  local command = "cd \"" .. rootDir .. [[/src" && javac -d ../bin ]]
-
-  if #vim.api.nvim_buf_get_var(0, "usedLibs") > 0 then command = command .. libraries end
-
-  command = command .. compilationPath .. [[.java && cd ../bin && java ]]
-
-  if #vim.api.nvim_buf_get_var(0, "usedLibs") > 0 then command = command .. libraries end
-
-  command = command .. compilationPath:gsub("/", ".") .. "\n"
-  --<<<<<<creo comando per compilazione
 
   if (terminal_window ~= nil) then
     --vado alla finestra del terminale
@@ -149,6 +46,7 @@ local function runInActiveTerminal()
   end
   vim.schedule(function() vim.api.nvim_set_current_win(curr_window) end)
 end
+
 
 
 local function terminateExecution()
@@ -229,17 +127,11 @@ require('jdtls').start_or_attach({
     '-data', vim.fn.expand("~/.cache/jdtls/workspace")
   },
   --root_dir = require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew', 'pom.xml'}),
-  root_dir = vim.api.nvim_buf_get_name(0):match("(.*)/src"),
+  --root_dir = vim.api.nvim_buf_get_name(0):match("(.*)/src"),
+  single_file_mode = true,
   on_attach = on_attach,
   update_in_insert = false,
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
-  settings = {
-    java = {
-      project = {
-        referencedLibraries = get_used_libs_jar_files()
-      }
-    }
-  }
 })
 
 vim.api.nvim_create_user_command("SetMainfile", function()
