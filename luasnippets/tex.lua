@@ -1,5 +1,26 @@
 local MoonTex = require("MoonTex.context")
-return {  s("fig", 
+return {  
+  s("main", 
+  fmt([[
+%&../.preamble
+\endofdump
+
+\usetikzlibrary{{external}}
+\tikzset{{external/system call={{pdflatex --shell-escape --fmt=../.preamble --halt-on-error -jobname "\image" "\endofdump\texsource"}}}}
+\tikzexternalize[prefix=tikz/]
+
+\title{{{}}}
+\author{{Marini Mattia}}
+\date{{$ {}^o $ semestre $ {}^o $ anno}}
+
+\begin{{document}}
+\maketitle
+prova{}
+\end{{document}}
+  ]], {i(1,""), i(2,""), i(3, ""), i(0,"")})
+  ),
+
+  s("fig", 
     fmt([[
     \begin{{center}}
       \includegraphics{{Images/{} }}
@@ -306,7 +327,10 @@ return {  s("fig",
     {condition = function()  local env = MoonTex.context() return env == "axis" or env == "tikzpicture" end }),
   s({trig = "nn", wordTrig=true}, {t("\\node "), i(0), t(" {};")},{condition = function()  local env = MoonTex.context() return env == "axis" or env == "tikzpicture" or env == "circuitikz" end }),
   s({trig = "shift", wordTrig=true}, {t("\\[shift={("), i(1), t(")}] ")},{condition = function()  local env = MoonTex.context() return env == "axis" or env == "tikzpicture" or env == "circuitikz" end }),
-  s("verb", fmt([[\verb|{}|]], {i(1)}))
+  s("VV", fmt([[\verb|{}|]], {i(1)})),
+  s("list", fmt([[\begin{{lstlisting}}[language = java, frame = none]
+  {}
+\end{{lstlisting}}]], {i(0)}))
 
 },
 
@@ -833,4 +857,5 @@ return {  s("fig",
   s({trig="log", wordTrig=true}, t("\\log "), {condition = function() return MoonTex.context() == "math" end }),
   s({trig="Im", wordTrig=true}, t("\\IM "), {condition = function() return MoonTex.context() == "math" end }),
   s({trig="Re", wordTrig=true}, t("\\RE "), {condition = function() return MoonTex.context() == "math" end }),
+  s({trig="VV", wordTrig=true}, {t("\\verb|"), i(1), t("|")})
   }
