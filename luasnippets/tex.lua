@@ -176,9 +176,9 @@ prova{}
         return sn (1, s)
       end)
     }, 
-    {condition = function() return MoonTex.context() == "tabular" end }
+    {condition = function() local env = MoonTex.context() return (env == "tabular" or env == "math") end }
   ),
-  
+ --[[
   s({trig = "(%d+)(%a)(b?)", regTrig=true}, 
     {
       d(1, function(_, snip) 
@@ -198,7 +198,7 @@ prova{}
         return sn (1, s)
       end)
     }),
-
+]]--
   s("bisect", 
     fmt([[
     \begin{{minipage}}[t]{{0.48\textwidth}}
@@ -325,13 +325,44 @@ prova{}
     return res
     end),
     {condition = function()  local env = MoonTex.context() return env == "axis" or env == "tikzpicture" end }),
-  s({trig = "nn", wordTrig=true}, {t("\\node "), i(0), t(" {};")},{condition = function()  local env = MoonTex.context() return env == "axis" or env == "tikzpicture" or env == "circuitikz" end }),
+  s({trig = "nn", wordTrig=true}, 
+    fmt([[
+    \node ({})[{}] {} {{{}}};
+    ]], {rep(3), i(1), i(2), i(3)})
+   ,{condition = function()  local env = MoonTex.context() return env == "axis" or env == "tikzpicture" or env == "circuitikz" end }),
   s({trig = "shift", wordTrig=true}, {t("\\[shift={("), i(1), t(")}] ")},{condition = function()  local env = MoonTex.context() return env == "axis" or env == "tikzpicture" or env == "circuitikz" end }),
   s("VV", fmt([[\verb|{}|]], {i(1)})),
   s("list", fmt([[\begin{{lstlisting}}[language = java, frame = none]
   {}
-\end{{lstlisting}}]], {i(0)}))
+\end{{lstlisting}}]], {i(0)})),
 
+  s({trig = "(-?%d+)tree", regTrig = true}, 
+    fmt([[
+	\begin{{forest}}
+		for tree={{draw, grow = {}}}
+    {}
+	\end{{forest}}
+    ]],
+      {f(function(_, snip) return snip.captures[1] end), i(0)})
+  ),
+
+  s({trig = "ER", wordTrig = true}, 
+    fmt([[
+    \begin{{tikzpicture}}[node distance = 7 em]
+      {}
+    \end{{tikzpicture}}
+    ]], {i(0)})
+  ),
+
+  s({trig = "ER", wordTrig = true}, 
+    fmt([[
+    \begin{{tikzpicture}}[node distance = 7 em]
+      {}
+    \end{{tikzpicture}}
+    ]], {i(0)})
+  ) 
+
+  
 },
 
 {
@@ -857,5 +888,38 @@ prova{}
   s({trig="log", wordTrig=true}, t("\\log "), {condition = function() return MoonTex.context() == "math" end }),
   s({trig="Im", wordTrig=true}, t("\\IM "), {condition = function() return MoonTex.context() == "math" end }),
   s({trig="Re", wordTrig=true}, t("\\RE "), {condition = function() return MoonTex.context() == "math" end }),
-  s({trig="VV", wordTrig=true}, {t("\\verb|"), i(1), t("|")})
+  s({trig="VV", wordTrig=true}, {t("\\verb|"), i(1), t("|")}),
+
+      s({trig = "AT", wordTrig=true}, 
+    fmt([[
+    \node ({})[attribute, {}] {{{}}};
+    ]], {rep(2), i(1), i(2)})
+   ,{condition = function()  local env = MoonTex.context() return env == "axis" or env == "tikzpicture" or env == "circuitikz" end }),
+  s({trig = "EE", wordTrig=true}, 
+    fmt([[
+    \node ({})[entity, {}] {{{}}};
+    ]], {rep(2), i(1), i(2)})
+   ,{condition = function()  local env = MoonTex.context() return env == "axis" or env == "tikzpicture" or env == "circuitikz" end }),
+  s({trig = "RR", wordTrig=true, priority = 1001}, 
+    fmt([[
+    \node ({})[relationship, {}] {{{}}};
+    ]], {rep(2), i(1), i(2)})
+   ,{condition = function()  local env = MoonTex.context() return env == "axis" or env == "tikzpicture" or env == "circuitikz" end }),
+  s({trig = "WW", wordTrig=true}, t("above of = ")
+   ,{condition = function()  local env = MoonTex.context() return env == "axis" or env == "tikzpicture" or env == "circuitikz" end }),
+  s({trig = "SS", wordTrig=true}, t("below of = ")
+   ,{condition = function()  local env = MoonTex.context() return env == "axis" or env == "tikzpicture" or env == "circuitikz" end }),
+  s({trig = "AA", wordTrig=true}, t("left of = ")
+   ,{condition = function()  local env = MoonTex.context() return env == "axis" or env == "tikzpicture" or env == "circuitikz" end }),
+  s({trig = "DD", wordTrig=true}, t("right of = ")
+   ,{condition = function()  local env = MoonTex.context() return env == "axis" or env == "tikzpicture" or env == "circuitikz" end }),
+  s({trig = "WD", wordTrig=true}, t("above right of = ")
+   ,{condition = function()  local env = MoonTex.context() return env == "axis" or env == "tikzpicture" or env == "circuitikz" end }),
+  s({trig = "WA", wordTrig=true}, t("above left of = ")
+   ,{condition = function()  local env = MoonTex.context() return env == "axis" or env == "tikzpicture" or env == "circuitikz" end }),
+  s({trig = "SA", wordTrig=true}, t("below left of = ")
+   ,{condition = function()  local env = MoonTex.context() return env == "axis" or env == "tikzpicture" or env == "circuitikz" end }),
+  s({trig = "SD", wordTrig=true}, t("below right of = ")
+   ,{condition = function()  local env = MoonTex.context() return env == "axis" or env == "tikzpicture" or env == "circuitikz" end }),
+
   }
