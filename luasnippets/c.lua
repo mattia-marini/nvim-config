@@ -1,30 +1,32 @@
 return{	
 
-  s("ifst", t([[std::ifstream in("input.txt");]])),
-
-  s("lnode", fmt([[  
-  struct {}
-    int *next;
-    {} (int value, $1 *next) : value(value), next(next) {{}};
-    {} (int value) : value(value), next(nullptr) {{}};
-    {} () : value(-1), next(nullptr) {{}};
-    ]],
-    {i(1,"node"), rep(1), rep(1), rep(1)} )),
+  s("in", fmt([[FILE * in = fopen({}, "r");]], {i(1, "\"input.txt\"")})),
+  s("out", fmt([[FILE * out = fopen({}, "w");]], {i(1, "\"output.txt\"")})),
 
   s("main", fmt([[
-    #include<iostream>
-    #include<fstream>
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <errno.h>
+    #include <signal.h>
+    #include <sys/types.h>
+    #include <sys/msg.h>
+    #include <sys/ipc.h>
+    #include <sys/wait.h>
+    #include <unistd.h>
+    #include <string.h>
+    #include <fcntl.h>
+
     int main(int argc, char *argv[]){{
       {}
     }}]],
     {i(0,"")} )),
 
-  s("cout", 
-    fmt([[std::cout << {} << std::endl;]],
+  s("pp", 
+    fmt([[print("{}");]],
     {i(1)})
   ),
 
-  s("struct", 
+  s("struct",
     fmt([[
     struct {} {{
       {} (){{}}
@@ -32,6 +34,7 @@ return{
     ]],
       {i(1), rep(1)})
   ),
+
   s({trig = "for", wordTrig=true}, fmt([[
   for(int i = 0; i<{}; i++){{
     {}

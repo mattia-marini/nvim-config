@@ -27,7 +27,7 @@ vim.opt.expandtab = true
 --vim.g.python3_host_prog = '/Library/Frameworks/Python.framework/Versions/3.11/bin/python3.11'
 
 -- Commands
-vim.cmd("colorscheme onedark")
+vim.cmd("colorscheme catppuccin_mocha")
 vim.api.nvim_create_user_command("EditInit", [[tabnew ~/.config/nvim/init.lua]], {})
 vim.api.nvim_create_user_command("Plugins", [[tabnew ~/.config/nvim/plugin/packer-plugin.lua]], {})
 vim.api.nvim_create_user_command("Analisi",
