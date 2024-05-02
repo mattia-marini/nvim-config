@@ -6,6 +6,7 @@ vim.opt.splitright = true
 vim.opt.termguicolors = true
 vim.opt.number = true
 vim.opt.conceallevel = 1
+vim.opt.wrap = false
 
 vim.opt.laststatus = 3
 --vim.opt.cmdheight = 0
@@ -27,28 +28,30 @@ vim.opt.expandtab = true
 --vim.g.python3_host_prog = '/Library/Frameworks/Python.framework/Versions/3.11/bin/python3.11'
 
 -- Commands
-vim.cmd("colorscheme onedark")
+vim.cmd("colorscheme rose-pine")
 vim.api.nvim_create_user_command("EditInit", [[tabnew ~/.config/nvim/init.lua]], {})
 vim.api.nvim_create_user_command("Plugins", [[tabnew ~/.config/nvim/plugin/packer-plugin.lua]], {})
-vim.api.nvim_create_user_command("Analisi",
-  [[cd /Users/mattia/Library/Mobile Documents/com~apple~CloudDocs/LatexWorkspace/Analisi_1]], {})
-vim.api.nvim_create_user_command("EditVimtex", [[tabnew ~/.config/nvim/plugin/vimtex.lua]], {})
-vim.api.nvim_create_user_command("Parsers", [[echo nvim_get_runtime_file('parser', v:true)]], {})
+--vim.api.nvim_create_user_command("Analisi", [[cd /Users/mattia/Library/Mobile Documents/com~apple~CloudDocs/LatexWorkspace/Analisi_1]], {})
+--vim.api.nvim_create_user_command("EditVimtex", [[tabnew ~/.config/nvim/plugin/vimtex.lua]], {})
+--vim.api.nvim_create_user_command("Parsers", [[echo nvim_get_runtime_file('parser', v:true)]], {})
 
 function Colorscheme(arg)
   vim.cmd.colorscheme(arg)
-  vim.api.nvim_set_hl(0, "Normal", {bg=none})
-  vim.api.nvim_set_hl(0, "NormalFloat", {bg=none})
-  vim.api.nvim_set_hl(0, "WinSeparator", {bg=none})
-  vim.api.nvim_set_hl(0, "TabLineFill", {bg=none})
-  vim.api.nvim_set_hl(0, "TabLine", {bg=none})
-  vim.api.nvim_set_hl(0, "TabLineSel", {bold = true, italic=true})
+  vim.api.nvim_set_hl(0, "Normal", { bg = none })
+  vim.api.nvim_set_hl(0, "NormalFloat", { bg = none })
+  vim.api.nvim_set_hl(0, "WinSeparator", { bg = none })
+  vim.api.nvim_set_hl(0, "TabLineFill", { bg = none })
+  vim.api.nvim_set_hl(0, "TabLine", { bg = none })
+  vim.api.nvim_set_hl(0, "TabLineSel", { bold = true, italic = true })
 end
-vim.api.nvim_create_user_command("Colorscheme", "lua Colorscheme(<q-args>)", { nargs = 1, complete= function()return vim.fn.getcompletion("colorscheme ", "cmdline")end })
+
+vim.api.nvim_create_user_command("Colorscheme", "lua Colorscheme(<q-args>)",
+{ nargs = 1, complete = function() return vim.fn.getcompletion("colorscheme ", "cmdline") end })
 
 function getcompletion(arg)
   P(vim.fn.getcompletion("colorscheme ", "cmdline"))
 end
+
 -- Maps
 vim.api.nvim_set_keymap('n', '<space>w', ':wa<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<space>q', ':q<CR>', { noremap = true })
@@ -71,10 +74,13 @@ vim.api.nvim_set_keymap('n', '<space>s', ':so %<CR>', {})
 vim.api.nvim_set_keymap('n', '<space><tab>', 'gt', {})
 vim.api.nvim_set_keymap('n', '<space>p', 'gT', {})
 vim.api.nvim_set_keymap('n', '<space>E', ':Explore<CR>', {})
-vim.api.nvim_set_keymap('n', '<space>a', ':lua require("harpoon.mark").add_file()<CR>', {noremap=true})
-vim.api.nvim_set_keymap('n', '<space>H', ':lua require("harpoon.ui").toggle_quick_menu()<CR>', {noremap=true})
-vim.api.nvim_set_keymap('n', '<space>n', ':lua require("harpoon.ui").nav_next()<CR>', {noremap=true})
-vim.api.nvim_set_keymap('n', '<space>m', ':lua require("harpoon.ui").nav_prev()<CR>', {noremap=true})
+vim.api.nvim_set_keymap('n', '<C-h>', '5zh', {})
+vim.api.nvim_set_keymap('n', '<C-l>', '5zl', {})
+
+vim.api.nvim_set_keymap('n', '<space>a', ':lua require("harpoon.mark").add_file()<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<space>H', ':lua require("harpoon.ui").toggle_quick_menu()<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<space>n', ':lua require("harpoon.ui").nav_next()<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<space>m', ':lua require("harpoon.ui").nav_prev()<CR>', { noremap = true })
 
 vim.api.nvim_set_keymap('n', 'ml', 'J', { noremap = true })
 
@@ -91,11 +97,14 @@ vim.api.nvim_set_keymap('v', 'H', '5h', {})
 vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-N>', {})
 
 --mette background trasparente
-vim.api.nvim_set_hl(0, "Normal", {bg=none})
-vim.api.nvim_set_hl(0, "NormalFloat", {bg=none})
-vim.api.nvim_set_hl(0, "WinSeparator", {bg=none})
-vim.api.nvim_set_hl(0, "StatusLine", {bg=none})
-vim.api.nvim_set_hl(0, "StatusLine", {italic=true})
-vim.api.nvim_set_hl(0, "TabLineFill", {bg=none})
-vim.api.nvim_set_hl(0, "TabLine", {bg=none})
-vim.api.nvim_set_hl(0, "TabLineSel", {bold = true, italic=true})
+vim.api.nvim_set_hl(0, "Normal", { bg = none })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = none })
+vim.api.nvim_set_hl(0, "WinSeparator", { bg = none })
+vim.api.nvim_set_hl(0, "StatusLine", { bg = none })
+vim.api.nvim_set_hl(0, "StatusLine", { italic = true })
+vim.api.nvim_set_hl(0, "TabLineFill", { bg = none })
+vim.api.nvim_set_hl(0, "TabLine", { bg = none })
+vim.api.nvim_set_hl(0, "TabLineSel", { bold = true, italic = true })
+vim.api.nvim_set_hl(0, "Pmenu", { bg = none })
+vim.api.nvim_set_hl(0, "NormalNC", { bg = none })
+vim.api.nvim_set_hl(0, "FloatBorder", { bg = none })

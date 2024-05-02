@@ -8,7 +8,7 @@ ls.config.set_config({
   update_events = {"TextChanged", "TextChangedI"},
   store_selection_keys="<Tab>"
 })
-require("luasnip.loaders.from_lua").load({paths = "~/.config/nvim/luasnippets/"})
+require("luasnip.loaders.from_lua").load({paths = {"~/.config/nvim/luasnippets/"}})
 
 --per selezionare il testo e tenere il placeholder $VISUAL
 

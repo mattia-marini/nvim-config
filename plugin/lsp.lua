@@ -17,7 +17,7 @@ local on_attach = function(client, bufnr)
   end, bufopts)
   --]]
   vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-  --vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<space>N', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
@@ -82,3 +82,12 @@ require 'lspconfig'.millet.setup {
   single_file_support = true
   --root_dir = function()return vim.fn.getcwd()end
 }
+
+require'lspconfig'.sourcekit.setup{
+  on_attach = on_attach,
+  update_in_insert = false,
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+  filetypes = {"swift", "metal"},
+  root_dir = require('lspconfig').util.root_pattern("buildServer.json", "*.xcodeproj", "*.xcworkspace", ".git", "compile_commands.json", "Package.swift")
+}
+

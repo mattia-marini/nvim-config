@@ -88,3 +88,4 @@ end
 vim.api.nvim_buf_set_keymap(0, 'n', '<space>r', '', { noremap = true, callback = function() runInActiveTerminal("single") end })
 vim.api.nvim_buf_set_keymap(0, 'n', '<space>m', '', { noremap = true, callback = function() runInActiveTerminal("multifile") end })
 vim.api.nvim_set_keymap('n', '<space>R', '', { noremap = true, callback = terminateExecution})
+

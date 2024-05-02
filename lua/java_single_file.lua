@@ -102,12 +102,13 @@ local on_attach = function(client, bufnr)
   end, bufopts)
   --]]
   vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-  --vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', 'rn', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
+print("prova")
 
 require('jdtls').start_or_attach({
   cmd = {
@@ -133,6 +134,7 @@ require('jdtls').start_or_attach({
   update_in_insert = false,
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
 })
+
 
 vim.api.nvim_create_user_command("SetMainfile", function()
   vim.api.nvim_buf_set_var(0, "mainFile", vim.api.nvim_buf_get_name(0))
