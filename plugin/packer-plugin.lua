@@ -58,5 +58,6 @@ return require('packer').startup(
     --use '~/Desktop/MoonTex'
     use "mattia-marini/MoonTex"
     use 'mfussenegger/nvim-jdtls'
+    use 'stevearc/oil.nvim'
   end
 )

@@ -1,4 +1,12 @@
-print("ftplugin sourced")
+--print("ftplugin sourced")
+--
+
+local function onExit(obj)
+  print(obj.stdout)
+end
+vim.system({"echo", "prova"}, {text = true}, onExit)
+
+
 
 --[[
 vim.api.nvim_buf_set_var(0, "t", {1})

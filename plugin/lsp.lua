@@ -74,7 +74,7 @@ require 'lspconfig'.lua_ls.setup {
   },
 }
 
-require 'lspconfig'.millet.setup {
+require'lspconfig'.millet.setup {
   cmd = { 'millet-ls' },
   on_attach = on_attach,
   update_in_insert = false,
@@ -84,6 +84,7 @@ require 'lspconfig'.millet.setup {
 }
 
 require'lspconfig'.sourcekit.setup{
+  single_file_support = true,
   on_attach = on_attach,
   update_in_insert = false,
   capabilities = require('cmp_nvim_lsp').default_capabilities(),

@@ -1,5 +1,5 @@
 -- Opstion vim.opt.number = true
-vim.opt.foldenable = false
+--vim.opt.foldenable = false
 vim.opt.mouse = "a"
 vim.opt.clipboard = "unnamed"
 vim.opt.splitright = true
@@ -7,6 +7,11 @@ vim.opt.termguicolors = true
 vim.opt.number = true
 vim.opt.conceallevel = 1
 vim.opt.wrap = false
+
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.o.foldenable = false
+--vim.opt.foldtext = vim.treesitter.foldtext()
 
 vim.opt.laststatus = 3
 --vim.opt.cmdheight = 0
@@ -46,7 +51,7 @@ function Colorscheme(arg)
 end
 
 vim.api.nvim_create_user_command("Colorscheme", "lua Colorscheme(<q-args>)",
-{ nargs = 1, complete = function() return vim.fn.getcompletion("colorscheme ", "cmdline") end })
+  { nargs = 1, complete = function() return vim.fn.getcompletion("colorscheme ", "cmdline") end })
 
 function getcompletion(arg)
   P(vim.fn.getcompletion("colorscheme ", "cmdline"))
@@ -73,7 +78,7 @@ vim.api.nvim_set_keymap('n', '<space>h', '<C-w>h', {})
 vim.api.nvim_set_keymap('n', '<space>s', ':so %<CR>', {})
 vim.api.nvim_set_keymap('n', '<space><tab>', 'gt', {})
 vim.api.nvim_set_keymap('n', '<space>p', 'gT', {})
-vim.api.nvim_set_keymap('n', '<space>E', ':Explore<CR>', {})
+vim.api.nvim_set_keymap('n', '<space>E', ':Oil<CR>', {})
 vim.api.nvim_set_keymap('n', '<C-h>', '5zh', {})
 vim.api.nvim_set_keymap('n', '<C-l>', '5zl', {})
 
@@ -108,3 +113,57 @@ vim.api.nvim_set_hl(0, "TabLineSel", { bold = true, italic = true })
 vim.api.nvim_set_hl(0, "Pmenu", { bg = none })
 vim.api.nvim_set_hl(0, "NormalNC", { bg = none })
 vim.api.nvim_set_hl(0, "FloatBorder", { bg = none })
+
+function MyFold()
+  local line = vim.fn.getline(vim.v.lnum)
+  --return line:match("fold") and 1 or 0
+  vim.treesitter.get_node({ 0, { cursor_position[1] - 1, cursor_position[2] }, true })
+end
+
+function GetNode()
+  --local lineLength = vim.fn.col('$')-1
+  local cursor_position = vim.api.nvim_win_get_cursor(0)
+  local lineLength = vim.fn.col('$') - 1
+  local nodes = {}
+
+  --print(lineLength)
+  local formerNode = nil
+  for i = 1, lineLength do
+    local node = vim.treesitter.get_node({ pos = { cursor_position[1] - 1, i - 1 } })
+    --print(i .. node:type())
+    --print(i .. node:type())
+    if node:type() ~= formerNode then
+      table.insert(nodes, node:type())
+      formerNode = node:type()
+    end
+  end
+
+  P(nodes)
+  --P(node:type())
+end
+
+function getNodeUnderCursor()
+  local node = vim.treesitter.get_node({ bufnr = 0, pos = { 144, 1 }, ignore_injections = true })
+  print(node)
+end
+
+--vim.api.nvim_set_keymap('n', 'ee', ': lua MyFold()<CR>', {})
+--vim.api.nvim_set_keymap('n', 'pc', ': lua GetNode()<CR>', {})
+--vim.api.nvim_set_keymap('n', 'pC', ': lua getNodeUnderCursor()<CR>', {})
+
+--_G.get_my_fold = MyFold
+
+--vim.opt.foldexpr = "v:lua.get_my_fold()"
+--fold
+--fold
+--fold
+--
+--fold
+--fold
+
+--fold
+--fold
+--fold
+
+
+--vim.api.nvim_set_keymap('n', 'ee', ': lua Prova()<CR>', {})
