@@ -92,3 +92,14 @@ require'lspconfig'.sourcekit.setup{
   root_dir = require('lspconfig').util.root_pattern("buildServer.json", "*.xcodeproj", "*.xcworkspace", ".git", "compile_commands.json", "Package.swift")
 }
 
+require'lspconfig'.tsserver.setup{
+  on_attach = on_attach,
+  update_in_insert = false,
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+}
+
+require'lspconfig'.cssls.setup {
+  on_attach = on_attach,
+  update_in_insert = false,
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+}

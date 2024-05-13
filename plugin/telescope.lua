@@ -1,8 +1,9 @@
---[[
 local builtin = require("telescope.builtin")
-vim.keymap.set("n", "<space>ff", builtin.find_files, {})
-vim.api.nvim_set_keymap( "n", "<space>fb", ":Telescope file_browser<CR><Esc>l", { noremap = true })
-
+vim.keymap.set("n", "ff", builtin.find_files, {})
+vim.keymap.set("n", "fb", builtin.buffers, {})
+--vim.api.nvim_set_keymap( "n", "<space>fb", ":Telescope file_browser<CR><Esc>l", { noremap = true })
+require("telescope").setup {}
+--[[
 require("telescope").setup {
   extensions = {
     file_browser = {
@@ -20,6 +21,6 @@ require("telescope").setup {
     },
   },
 }
-
-require("telescope").load_extension("file_browser")
 --]]
+
+--require("telescope").load_extension("file_browser")

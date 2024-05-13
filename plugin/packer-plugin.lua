@@ -37,11 +37,11 @@ return require('packer').startup(
     use 'nvim-treesitter/nvim-treesitter'
     --use { 'nvim-treesitter/nvim-treesitter', event = 'BufRead', config = LoadTreesitter }
 
-    --[[
   use {
-    'nvim-telescope/telescope.nvim', tag = '0.1.1',
+    'nvim-telescope/telescope.nvim',
     requires = { {'nvim-lua/plenary.nvim'} }
   }
+    --[[
   use {
      "nvim-telescope/telescope-file-browser.nvim",
      requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
@@ -59,5 +59,19 @@ return require('packer').startup(
     use "mattia-marini/MoonTex"
     use 'mfussenegger/nvim-jdtls'
     use 'stevearc/oil.nvim'
+    use 'nvim-tree/nvim-tree.lua'
+    --
+    --[[
+    use {
+      "antosha417/nvim-lsp-file-operations",
+      requires = {
+        "nvim-lua/plenary.nvim",
+        "nvim-tree/nvim-tree.lua",
+      },
+      config = function()
+        require("lsp-file-operations").setup()
+      end,
+    }
+    -]]
   end
 )

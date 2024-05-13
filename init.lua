@@ -114,6 +114,9 @@ vim.api.nvim_set_hl(0, "Pmenu", { bg = none })
 vim.api.nvim_set_hl(0, "NormalNC", { bg = none })
 vim.api.nvim_set_hl(0, "FloatBorder", { bg = none })
 
+
+vim.api.nvim_set_hl(0, "TelescopeBorder", { bg = "none" })
+
 function MyFold()
   local line = vim.fn.getline(vim.v.lnum)
   --return line:match("fold") and 1 or 0
