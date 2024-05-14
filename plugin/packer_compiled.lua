@@ -134,6 +134,11 @@ _G.packer_plugins = {
     path = "/Users/mattia/.local/share/nvim/site/pack/packer/start/harpoon",
     url = "https://github.com/ThePrimeagen/harpoon"
   },
+  ["indent-blankline.nvim"] = {
+    loaded = true,
+    path = "/Users/mattia/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
+    url = "https://github.com/lukas-reineke/indent-blankline.nvim"
+  },
   ["nord-vim"] = {
     loaded = true,
     path = "/Users/mattia/.local/share/nvim/site/pack/packer/start/nord-vim",

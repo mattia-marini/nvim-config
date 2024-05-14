@@ -37,10 +37,10 @@ return require('packer').startup(
     use 'nvim-treesitter/nvim-treesitter'
     --use { 'nvim-treesitter/nvim-treesitter', event = 'BufRead', config = LoadTreesitter }
 
-  use {
-    'nvim-telescope/telescope.nvim',
-    requires = { {'nvim-lua/plenary.nvim'} }
-  }
+    use {
+      'nvim-telescope/telescope.nvim',
+      requires = { { 'nvim-lua/plenary.nvim' } }
+    }
     --[[
   use {
      "nvim-telescope/telescope-file-browser.nvim",
@@ -60,7 +60,7 @@ return require('packer').startup(
     use 'mfussenegger/nvim-jdtls'
     use 'stevearc/oil.nvim'
     use 'nvim-tree/nvim-tree.lua'
-    --
+    use "lukas-reineke/indent-blankline.nvim"
     --[[
     use {
       "antosha417/nvim-lsp-file-operations",

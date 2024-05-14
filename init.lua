@@ -1,5 +1,3 @@
--- Opstion vim.opt.number = true
---vim.opt.foldenable = false
 vim.opt.mouse = "a"
 vim.opt.clipboard = "unnamed"
 vim.opt.splitright = true
@@ -7,12 +5,12 @@ vim.opt.termguicolors = true
 vim.opt.number = true
 vim.opt.conceallevel = 1
 vim.opt.wrap = false
+vim.opt.cursorline = true
 
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldtext = require("foldtext")
---vim.o.foldenable = false
---vim.opt.foldtext = "v:lua.vim.treesitter.foldtext()"
+vim.opt.foldlevelstart = 99
 
 vim.opt.laststatus = 3
 --vim.opt.cmdheight = 0
@@ -53,10 +51,6 @@ end
 
 vim.api.nvim_create_user_command("Colorscheme", "lua Colorscheme(<q-args>)",
   { nargs = 1, complete = function() return vim.fn.getcompletion("colorscheme ", "cmdline") end })
-
-function getcompletion(arg)
-  P(vim.fn.getcompletion("colorscheme ", "cmdline"))
-end
 
 -- Maps
 vim.api.nvim_set_keymap('n', '<space>w', ':wa<CR>', { noremap = true })
@@ -160,16 +154,10 @@ end
 --_G.get_my_fold = MyFold
 
 --vim.opt.foldexpr = "v:lua.get_my_fold()"
---fold
---fold
---fold
---
---fold
---fold
-
---fold
---fold
---fold
-
-
 --vim.api.nvim_set_keymap('n', 'ee', ': lua Prova()<CR>', {})
+
+
+--folding
+vim.api.nvim_set_keymap('n', 'fa', 'zM', {})
+vim.api.nvim_set_keymap('n', 'fA', 'zR', {})
+vim.api.nvim_set_keymap('n', '-', 'za', {})
