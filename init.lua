@@ -10,8 +10,9 @@ vim.opt.wrap = false
 
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.o.foldenable = false
---vim.opt.foldtext = vim.treesitter.foldtext()
+vim.opt.foldtext = require("foldtext")
+--vim.o.foldenable = false
+--vim.opt.foldtext = "v:lua.vim.treesitter.foldtext()"
 
 vim.opt.laststatus = 3
 --vim.opt.cmdheight = 0
@@ -114,8 +115,10 @@ vim.api.nvim_set_hl(0, "Pmenu", { bg = none })
 vim.api.nvim_set_hl(0, "NormalNC", { bg = none })
 vim.api.nvim_set_hl(0, "FloatBorder", { bg = none })
 
+vim.api.nvim_set_hl(0, "Normal", { bg = none })
 
-vim.api.nvim_set_hl(0, "TelescopeBorder", { bg = "none" })
+
+--vim.api.nvim_set_hl(0, "Folded", { bg = "none" })
 
 function MyFold()
   local line = vim.fn.getline(vim.v.lnum)
