@@ -129,16 +129,6 @@ _G.packer_plugins = {
     path = "/Users/mattia/.local/share/nvim/site/pack/packer/start/gruvbox",
     url = "https://github.com/morhetz/gruvbox"
   },
-  harpoon = {
-    loaded = true,
-    path = "/Users/mattia/.local/share/nvim/site/pack/packer/start/harpoon",
-    url = "https://github.com/ThePrimeagen/harpoon"
-  },
-  ["indent-blankline.nvim"] = {
-    loaded = true,
-    path = "/Users/mattia/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
-    url = "https://github.com/lukas-reineke/indent-blankline.nvim"
-  },
   ["nord-vim"] = {
     loaded = true,
     path = "/Users/mattia/.local/share/nvim/site/pack/packer/start/nord-vim",
@@ -169,6 +159,11 @@ _G.packer_plugins = {
     path = "/Users/mattia/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
   },
+  ["nvim-ufo"] = {
+    loaded = true,
+    path = "/Users/mattia/.local/share/nvim/site/pack/packer/start/nvim-ufo",
+    url = "https://github.com/kevinhwang91/nvim-ufo"
+  },
   ["oceanic-material"] = {
     loaded = true,
     path = "/Users/mattia/.local/share/nvim/site/pack/packer/start/oceanic-material",
@@ -194,20 +189,15 @@ _G.packer_plugins = {
     path = "/Users/mattia/.local/share/nvim/site/pack/packer/start/packer.nvim",
     url = "https://github.com/wbthomason/packer.nvim"
   },
-  ["plenary.nvim"] = {
+  ["promise-async"] = {
     loaded = true,
-    path = "/Users/mattia/.local/share/nvim/site/pack/packer/start/plenary.nvim",
-    url = "https://github.com/nvim-lua/plenary.nvim"
+    path = "/Users/mattia/.local/share/nvim/site/pack/packer/start/promise-async",
+    url = "https://github.com/kevinhwang91/promise-async"
   },
   ["rose-pine"] = {
     loaded = true,
     path = "/Users/mattia/.local/share/nvim/site/pack/packer/start/rose-pine",
     url = "https://github.com/rose-pine/neovim"
-  },
-  ["telescope.nvim"] = {
-    loaded = true,
-    path = "/Users/mattia/.local/share/nvim/site/pack/packer/start/telescope.nvim",
-    url = "https://github.com/nvim-telescope/telescope.nvim"
   },
   ["vim-colors-xcode"] = {
     loaded = true,

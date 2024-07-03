@@ -24,7 +24,12 @@ return require('packer').startup(
     use 'joshdick/onedark.vim'
     --use 'vim-airline/vim-airline'
     --use 'vim-airline/vim-airline-themes'
-
+    --[[
+    use {
+      'nvim-lualine/lualine.nvim',
+      requires = { 'nvim-tree/nvim-web-devicons', opt = false }
+    }
+    --]]
     use 'neovim/nvim-lspconfig'
 
     --use 'lervag/vimtex'
@@ -37,17 +42,19 @@ return require('packer').startup(
     use 'nvim-treesitter/nvim-treesitter'
     --use { 'nvim-treesitter/nvim-treesitter', event = 'BufRead', config = LoadTreesitter }
 
+    --[[
     use {
       'nvim-telescope/telescope.nvim',
       requires = { { 'nvim-lua/plenary.nvim' } }
     }
+    --]]
     --[[
   use {
      "nvim-telescope/telescope-file-browser.nvim",
      requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
   }
   --]]
-    use { 'ThePrimeagen/harpoon', requires = { "nvim-lua/plenary.nvim" } }
+    -- use { 'ThePrimeagen/harpoon', requires = { "nvim-lua/plenary.nvim" } }
 
     use 'hrsh7th/cmp-nvim-lsp'
     use 'hrsh7th/cmp-buffer'
@@ -60,8 +67,9 @@ return require('packer').startup(
     use 'mfussenegger/nvim-jdtls'
     use 'stevearc/oil.nvim'
     use 'nvim-tree/nvim-tree.lua'
-    use "lukas-reineke/indent-blankline.nvim"
+    use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' }
     --[[
+    use "lukas-reineke/indent-blankline.nvim"
     use {
       "antosha417/nvim-lsp-file-operations",
       requires = {

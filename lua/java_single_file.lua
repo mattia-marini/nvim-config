@@ -1,5 +1,21 @@
 local sys_settings = require("sys_settings")
 
+vim.api.nvim_buf_set_var(0, "entryPoint", "main");
+
+vim.api.nvim_buf_create_user_command(0, "SetEntryPoint",
+  function(arg)
+    if arg.args == "main" or arg.args == "filename" then
+      vim.api.nvim_buf_set_var(0, "entryPoint", arg.args)
+    else
+      print("Wrong option")
+    end
+  end,
+  {
+    nargs = 1,
+    complete = function() return { "main", "filename" } end
+  })
+
+
 local function terminalIsListed()
   local tabs = vim.fn.gettabinfo()
   local active_tab_nr = vim.api.nvim_tabpage_get_number(0)
@@ -29,7 +45,18 @@ local function runInActiveTerminal()
   local curr_window = vim.api.nvim_get_current_win()
   local terminal_window = terminalIsListed()
   local file = vim.api.nvim_buf_get_name(0)
-  local command = "cd '" .. vim.fs.dirname(file) .. "' && javac -d ./bin " .. vim.fs.basename(file) .. " && cd bin && java " .. vim.fs.basename(file):match("(.*)%.java").."\n"
+  local command = ""
+  if vim.api.nvim_buf_get_var(0, "entryPoint") == "main" then
+    command = "cd '" ..
+        vim.fs.dirname(file) .. "' && javac -d ./bin " .. vim.fs.basename(file) .. " && cd bin && java Main\n"
+  else
+    command = "cd '" ..
+        vim.fs.dirname(file) ..
+        "' && javac -d ./bin " ..
+        vim.fs.basename(file) .. " && cd bin && java" .. vim.fs.basename(file):match("(.*)%.java") .. "\n"
+  end
+
+
 
 
 

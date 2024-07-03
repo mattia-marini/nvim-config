@@ -7,22 +7,28 @@ vim.opt.conceallevel = 1
 vim.opt.wrap = false
 vim.opt.cursorline = true
 
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.opt.foldtext = require("foldtext")
-vim.opt.foldlevelstart = 99
+
+vim.o.foldcolumn = '1' -- '0' is not bad
+vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+vim.o.mousescroll = 'ver:1,hor:1'
+
+vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+
 
 vim.opt.laststatus = 3
---vim.opt.cmdheight = 0
+vim.opt.cmdheight = 0
 
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 --vim.opt.cintent = false
 
---vim.opt.smarttab = false
---vim.opt.autoindent = false
---vim.opt.smartindent = false
+vim.opt.smarttab = false
+vim.opt.autoindent = false
+vim.opt.smartindent = false
 --vim.opt.indentexpr=""
 
 --vim.opt_local.nocindent = true
@@ -31,26 +37,24 @@ vim.opt.expandtab = true
 --Variables
 --vim.g.python3_host_prog = '/Library/Frameworks/Python.framework/Versions/3.11/bin/python3.11'
 
+--[[
+if vim.g.neovide then
+  vim.g.neovide_cursor_animation_length = 0
+  vim.g.neovide_scroll_animation_far_lines = 9999
+end
+--]]
+
+vim.cmd("colorscheme gruvbox")
+
 -- Commands
-vim.cmd("colorscheme rose-pine")
 vim.api.nvim_create_user_command("EditInit", [[tabnew ~/.config/nvim/init.lua]], {})
 vim.api.nvim_create_user_command("Plugins", [[tabnew ~/.config/nvim/plugin/packer-plugin.lua]], {})
 --vim.api.nvim_create_user_command("Analisi", [[cd /Users/mattia/Library/Mobile Documents/com~apple~CloudDocs/LatexWorkspace/Analisi_1]], {})
 --vim.api.nvim_create_user_command("EditVimtex", [[tabnew ~/.config/nvim/plugin/vimtex.lua]], {})
 --vim.api.nvim_create_user_command("Parsers", [[echo nvim_get_runtime_file('parser', v:true)]], {})
 
-function Colorscheme(arg)
-  vim.cmd.colorscheme(arg)
-  vim.api.nvim_set_hl(0, "Normal", { bg = none })
-  vim.api.nvim_set_hl(0, "NormalFloat", { bg = none })
-  vim.api.nvim_set_hl(0, "WinSeparator", { bg = none })
-  vim.api.nvim_set_hl(0, "TabLineFill", { bg = none })
-  vim.api.nvim_set_hl(0, "TabLine", { bg = none })
-  vim.api.nvim_set_hl(0, "TabLineSel", { bold = true, italic = true })
-end
 
-vim.api.nvim_create_user_command("Colorscheme", "lua Colorscheme(<q-args>)",
-  { nargs = 1, complete = function() return vim.fn.getcompletion("colorscheme ", "cmdline") end })
+
 
 -- Maps
 vim.api.nvim_set_keymap('n', '<space>w', ':wa<CR>', { noremap = true })
@@ -94,70 +98,42 @@ vim.api.nvim_set_keymap('v', 'L', '5l', {})
 vim.api.nvim_set_keymap('n', 'H', '5h', {})
 vim.api.nvim_set_keymap('v', 'H', '5h', {})
 
+
 vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-N>', {})
 
+
 --mette background trasparente
-vim.api.nvim_set_hl(0, "Normal", { bg = none })
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = none })
-vim.api.nvim_set_hl(0, "WinSeparator", { bg = none })
-vim.api.nvim_set_hl(0, "StatusLine", { bg = none })
-vim.api.nvim_set_hl(0, "StatusLine", { italic = true })
-vim.api.nvim_set_hl(0, "TabLineFill", { bg = none })
-vim.api.nvim_set_hl(0, "TabLine", { bg = none })
-vim.api.nvim_set_hl(0, "TabLineSel", { bold = true, italic = true })
-vim.api.nvim_set_hl(0, "Pmenu", { bg = none })
-vim.api.nvim_set_hl(0, "NormalNC", { bg = none })
-vim.api.nvim_set_hl(0, "FloatBorder", { bg = none })
+function removeBackground()
+  vim.api.nvim_set_hl(0, "Normal", { bg = none })
+  vim.api.nvim_set_hl(0, "NormalFloat", { bg = none })
+  vim.api.nvim_set_hl(0, "WinSeparator", { bg = none })
+  vim.api.nvim_set_hl(0, "StatusLine", { bg = none})
+  vim.api.nvim_set_hl(0, "StatusLine", { italic = true })
 
-vim.api.nvim_set_hl(0, "Normal", { bg = none })
+  --vim.api.nvim_set_hl(0, "TabLineFill", { bg = none })
+  --vim.api.nvim_set_hl(0, "TabLine", { bg = none })
+  --vim.api.nvim_set_hl(0, "TabLineSel", { bold = true, italic = true })
 
+  vim.api.nvim_set_hl(0, "Pmenu", { bg = none })
+  vim.api.nvim_set_hl(0, "NormalNC", { bg = none })
+  vim.api.nvim_set_hl(0, "FloatBorder", { bg = none })
+  vim.api.nvim_set_hl(0, "FoldColumn", { bg = none })
 
---vim.api.nvim_set_hl(0, "Folded", { bg = "none" })
-
-function MyFold()
-  local line = vim.fn.getline(vim.v.lnum)
-  --return line:match("fold") and 1 or 0
-  vim.treesitter.get_node({ 0, { cursor_position[1] - 1, cursor_position[2] }, true })
+  vim.api.nvim_set_hl(0, "Normal", { bg = none })
+  --vim.api.nvim_set_hl(0, "Folded", { bg = "none" })
 end
 
-function GetNode()
-  --local lineLength = vim.fn.col('$')-1
-  local cursor_position = vim.api.nvim_win_get_cursor(0)
-  local lineLength = vim.fn.col('$') - 1
-  local nodes = {}
+removeBackground()
 
-  --print(lineLength)
-  local formerNode = nil
-  for i = 1, lineLength do
-    local node = vim.treesitter.get_node({ pos = { cursor_position[1] - 1, i - 1 } })
-    --print(i .. node:type())
-    --print(i .. node:type())
-    if node:type() ~= formerNode then
-      table.insert(nodes, node:type())
-      formerNode = node:type()
-    end
-  end
-
-  P(nodes)
-  --P(node:type())
+function Colorscheme(arg)
+  vim.cmd.colorscheme(arg)
+  removeBackground()
 end
 
-function getNodeUnderCursor()
-  local node = vim.treesitter.get_node({ bufnr = 0, pos = { 144, 1 }, ignore_injections = true })
-  print(node)
-end
+vim.api.nvim_create_user_command("Colorscheme", "lua Colorscheme(<q-args>)",
+  { nargs = 1, complete = function() return vim.fn.getcompletion("colorscheme ", "cmdline") end })
 
---vim.api.nvim_set_keymap('n', 'ee', ': lua MyFold()<CR>', {})
---vim.api.nvim_set_keymap('n', 'pc', ': lua GetNode()<CR>', {})
---vim.api.nvim_set_keymap('n', 'pC', ': lua getNodeUnderCursor()<CR>', {})
-
---_G.get_my_fold = MyFold
-
---vim.opt.foldexpr = "v:lua.get_my_fold()"
---vim.api.nvim_set_keymap('n', 'ee', ': lua Prova()<CR>', {})
-
-
---folding
 vim.api.nvim_set_keymap('n', 'fa', 'zM', {})
 vim.api.nvim_set_keymap('n', 'fA', 'zR', {})
 vim.api.nvim_set_keymap('n', '-', 'za', {})
+vim.api.nvim_set_keymap('n', '_', 'zA', {})
