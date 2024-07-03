@@ -1,3 +1,7 @@
+
+
+
+
 vim.opt.mouse = "a"
 vim.opt.clipboard = "unnamed"
 vim.opt.splitright = true
@@ -44,7 +48,6 @@ if vim.g.neovide then
 end
 --]]
 
-vim.cmd("colorscheme gruvbox")
 
 -- Commands
 vim.api.nvim_create_user_command("EditInit", [[tabnew ~/.config/nvim/init.lua]], {})
@@ -123,17 +126,9 @@ function removeBackground()
   --vim.api.nvim_set_hl(0, "Folded", { bg = "none" })
 end
 
-removeBackground()
-
-function Colorscheme(arg)
-  vim.cmd.colorscheme(arg)
-  removeBackground()
-end
-
-vim.api.nvim_create_user_command("Colorscheme", "lua Colorscheme(<q-args>)",
-  { nargs = 1, complete = function() return vim.fn.getcompletion("colorscheme ", "cmdline") end })
-
 vim.api.nvim_set_keymap('n', 'fa', 'zM', {})
 vim.api.nvim_set_keymap('n', 'fA', 'zR', {})
 vim.api.nvim_set_keymap('n', '-', 'za', {})
 vim.api.nvim_set_keymap('n', '_', 'zA', {})
+
+
