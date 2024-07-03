@@ -1,9 +1,6 @@
-
-
-
-
 vim.opt.mouse = "a"
 vim.opt.clipboard = "unnamed"
+vim.o.mousescroll = 'ver:1,hor:1'
 vim.opt.splitright = true
 vim.opt.termguicolors = true
 vim.opt.number = true
@@ -11,12 +8,10 @@ vim.opt.conceallevel = 1
 vim.opt.wrap = false
 vim.opt.cursorline = true
 
-
 vim.o.foldcolumn = '1' -- '0' is not bad
 vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
-vim.o.mousescroll = 'ver:1,hor:1'
 
 vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
 vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
@@ -33,31 +28,30 @@ vim.opt.expandtab = true
 vim.opt.smarttab = false
 vim.opt.autoindent = false
 vim.opt.smartindent = false
---vim.opt.indentexpr=""
 
---vim.opt_local.nocindent = true
---vim.opt_local.nosmartindent = true
-
---Variables
---vim.g.python3_host_prog = '/Library/Frameworks/Python.framework/Versions/3.11/bin/python3.11'
-
---[[
+--[=[
+vim.opt.indentexpr=""
+vim.opt_local.nocindent = true
+vim.opt_local.nosmartindent = true
+vim.g.python3_host_prog = '/Library/Frameworks/Python.framework/Versions/3.11/bin/python3.11'
 if vim.g.neovide then
   vim.g.neovide_cursor_animation_length = 0
   vim.g.neovide_scroll_animation_far_lines = 9999
 end
---]]
-
-
+vim.api.nvim_create_user_command("Analisi", [[cd /Users/mattia/Library/Mobile Documents/com~apple~CloudDocs/LatexWorkspace/Analisi_1]], {})
+--]=]
 -- Commands
 vim.api.nvim_create_user_command("EditInit", [[tabnew ~/.config/nvim/init.lua]], {})
 vim.api.nvim_create_user_command("Plugins", [[tabnew ~/.config/nvim/plugin/packer-plugin.lua]], {})
---vim.api.nvim_create_user_command("Analisi", [[cd /Users/mattia/Library/Mobile Documents/com~apple~CloudDocs/LatexWorkspace/Analisi_1]], {})
---vim.api.nvim_create_user_command("EditVimtex", [[tabnew ~/.config/nvim/plugin/vimtex.lua]], {})
---vim.api.nvim_create_user_command("Parsers", [[echo nvim_get_runtime_file('parser', v:true)]], {})
-
-
-
+vim.api.nvim_create_user_command("Conf", [[tabnew ~/.config/nvim/plugin]], {})
+vim.api.nvim_create_user_command("Py",
+  [[cd /Users/mattia/Library/Mobile Documents/com~apple~CloudDocs/Workspaces/python_workspace/]], {})
+vim.api.nvim_create_user_command("Cpp",
+  [[cd /Users/mattia/Library/Mobile Documents/com~apple~CloudDocs/Workspaces/cpp_workspace/]], {})
+vim.api.nvim_create_user_command("Js", [[cd /Users/mattia/Library/Mobile Documents/com~apple~CloudDocs/Workspaces/js/]],
+  {})
+vim.api.nvim_create_user_command("Latex",
+  [[cd /Users/mattia/Library/Mobile Documents/com~apple~CloudDocs/Workspaces/latex_workspace/]], {})
 
 -- Maps
 vim.api.nvim_set_keymap('n', '<space>w', ':wa<CR>', { noremap = true })
@@ -105,30 +99,56 @@ vim.api.nvim_set_keymap('v', 'H', '5h', {})
 vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-N>', {})
 
 
---mette background trasparente
-function removeBackground()
-  vim.api.nvim_set_hl(0, "Normal", { bg = none })
-  vim.api.nvim_set_hl(0, "NormalFloat", { bg = none })
-  vim.api.nvim_set_hl(0, "WinSeparator", { bg = none })
-  vim.api.nvim_set_hl(0, "StatusLine", { bg = none})
-  vim.api.nvim_set_hl(0, "StatusLine", { italic = true })
-
-  --vim.api.nvim_set_hl(0, "TabLineFill", { bg = none })
-  --vim.api.nvim_set_hl(0, "TabLine", { bg = none })
-  --vim.api.nvim_set_hl(0, "TabLineSel", { bold = true, italic = true })
-
-  vim.api.nvim_set_hl(0, "Pmenu", { bg = none })
-  vim.api.nvim_set_hl(0, "NormalNC", { bg = none })
-  vim.api.nvim_set_hl(0, "FloatBorder", { bg = none })
-  vim.api.nvim_set_hl(0, "FoldColumn", { bg = none })
-
-  vim.api.nvim_set_hl(0, "Normal", { bg = none })
-  --vim.api.nvim_set_hl(0, "Folded", { bg = "none" })
-end
-
 vim.api.nvim_set_keymap('n', 'fa', 'zM', {})
 vim.api.nvim_set_keymap('n', 'fA', 'zR', {})
 vim.api.nvim_set_keymap('n', '-', 'za', {})
 vim.api.nvim_set_keymap('n', '_', 'zA', {})
 
 
+vim.api.nvim_create_user_command("Parsers", [[echo nvim_get_runtime_file('parser', v:true)]], {})
+
+-- Surround
+--[[
+vim.api.nvim_create_user_command("Surround", function(args)
+
+  print(args.line1, args.line2)
+  local start_pos = vim.api.nvim_buf_get_mark(0, "<")
+  local end_pos = vim.api.nvim_buf_get_mark(0, ">")
+
+  local start_row, start_col = start_pos[1], start_pos[2]
+  local end_row, end_col = end_pos[1], end_pos[2]
+
+  print(vim.api.nvim_get_mode().mode)
+
+  print(start_row, start_col, end_row, end_col)
+end, { range = true })
+
+vim.api.nvim_set_keymap('v', '(', ":Surround<CR>", {
+  --[[
+  callback = function()
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, false, true), 'n', true)
+
+    vim.schedule(
+      function()
+        local start_pos = vim.api.nvim_buf_get_mark(0, "<")
+        local end_pos = vim.api.nvim_buf_get_mark(0, ">")
+        P(start_pos)
+        P(end_pos)
+      end)
+
+    --local curr_lines = vim.api.nvim_buf_get_lines(0, start_pos[1], end_pos[1], false)
+    --local start_pos = vim.fn.getpos("v")
+    --local end_pos = vim.api.nvim_win_get_cursor(0)
+
+    local start_row, start_col = start_pos[2], start_pos[3]
+    local end_row, end_col = end_pos[2], end_pos[3]
+
+    --P(vim.region(0, "'<", "'>", "V", true))
+
+
+    --local selected_text = vim.fn.getline("'<", "'>")
+    --P(selected_text)
+  end
+})
+
+    --]]
