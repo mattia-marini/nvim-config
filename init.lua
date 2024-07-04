@@ -108,6 +108,18 @@ vim.api.nvim_set_keymap('n', '_', 'zA', {})
 vim.api.nvim_create_user_command("Parsers", [[echo nvim_get_runtime_file('parser', v:true)]], {})
 
 -- Surround
+vim.api.nvim_set_keymap('v', '(', "", { callback = function() require('surround').surround('(', ')') end })
+vim.api.nvim_set_keymap('v', ')', "", { callback = function() require('surround').surround('(', ')') end })
+vim.api.nvim_set_keymap('v', '[', "", { callback = function() require('surround').surround('[', ']') end })
+vim.api.nvim_set_keymap('v', ']', "", { callback = function() require('surround').surround('[', ']') end })
+vim.api.nvim_set_keymap('v', '{', "", { callback = function() require('surround').surround('{', '}') end })
+vim.api.nvim_set_keymap('v', '}', "", { callback = function() require('surround').surround('{', '}') end })
+vim.api.nvim_set_keymap('v', '<', "", { callback = function() require('surround').surround('<', '>') end })
+vim.api.nvim_set_keymap('v', '>', "", { callback = function() require('surround').surround('<', '>') end })
+vim.api.nvim_set_keymap('v', '"', "", { callback = function() require('surround').surround('"', '"') end })
+vim.api.nvim_set_keymap('v', '\'', "", { callback = function() require('surround').surround('\'', '\'') end })
+
+-- Surround
 --[[
 vim.api.nvim_create_user_command("Surround", function(args)
 
