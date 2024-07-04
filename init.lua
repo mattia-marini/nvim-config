@@ -85,27 +85,18 @@ vim.api.nvim_set_keymap('n', '<space>m', ':lua require("harpoon.ui").nav_prev()<
 
 vim.api.nvim_set_keymap('n', 'ml', 'J', { noremap = true })
 
-vim.api.nvim_set_keymap('n', 'K', '5k', {})
-vim.api.nvim_set_keymap('v', 'K', '5k', {})
-vim.api.nvim_set_keymap('n', 'J', '5j', {})
-vim.api.nvim_set_keymap('v', 'J', '5j', {})
 
-vim.api.nvim_set_keymap('n', 'L', '5l', {})
-vim.api.nvim_set_keymap('v', 'L', '5l', {})
-vim.api.nvim_set_keymap('n', 'H', '5h', {})
-vim.api.nvim_set_keymap('v', 'H', '5h', {})
-
-
-vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-N>', {})
-
-
+-- Folding
 vim.api.nvim_set_keymap('n', 'fa', 'zM', {})
 vim.api.nvim_set_keymap('n', 'fA', 'zR', {})
 vim.api.nvim_set_keymap('n', '-', 'za', {})
 vim.api.nvim_set_keymap('n', '_', 'zA', {})
 
 
+-- Misc/util
+vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-N>', {})
 vim.api.nvim_create_user_command("Parsers", [[echo nvim_get_runtime_file('parser', v:true)]], {})
+
 
 -- Surround
 vim.api.nvim_set_keymap('v', '(', "", { callback = function() require('surround').surround('(', ')') end })
@@ -119,7 +110,29 @@ vim.api.nvim_set_keymap('v', '>', "", { callback = function() require('surround'
 vim.api.nvim_set_keymap('v', '"', "", { callback = function() require('surround').surround('"', '"') end })
 vim.api.nvim_set_keymap('v', '\'', "", { callback = function() require('surround').surround('\'', '\'') end })
 
--- Surround
+
+-- Movement
+vim.api.nvim_set_keymap('i', '<C-h>', "<Left>", {})
+vim.api.nvim_set_keymap('i', '<C-l>', "<Right>", {})
+vim.api.nvim_set_keymap('i', '<C-k>', "<Up>", {})
+vim.api.nvim_set_keymap('i', '<C-j>', "<Down>", {})
+
+vim.api.nvim_set_keymap('n', 'K', '5k', {})
+vim.api.nvim_set_keymap('v', 'K', '5k', {})
+vim.api.nvim_set_keymap('n', 'J', '5j', {})
+vim.api.nvim_set_keymap('v', 'J', '5j', {})
+
+vim.api.nvim_set_keymap('n', '<C-k>', '<C-u>zz', {})
+vim.api.nvim_set_keymap('v', '<C-k>', '<C-u>zz', {})
+vim.api.nvim_set_keymap('n', '<C-j>', '<C-d>zz', {})
+vim.api.nvim_set_keymap('v', '<C-j>', '<C-d>zz', {})
+
+vim.api.nvim_set_keymap('n', 'L', '5l', {})
+vim.api.nvim_set_keymap('v', 'L', '5l', {})
+vim.api.nvim_set_keymap('n', 'H', '5h', {})
+vim.api.nvim_set_keymap('v', 'H', '5h', {})
+
+
 --[[
 vim.api.nvim_create_user_command("Surround", function(args)
 
