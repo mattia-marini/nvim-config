@@ -27,7 +27,17 @@ return{
       {}
     }}
   }}
-  ]], {i(0)}))
+  ]], {i(0)})),
+
+  s("mainf", fmt([[
+  class {}{{
+    public static void main(String[] args){{
+      {}
+    }}
+  }}
+  ]], {f(function(_, snip)
+      return vim.fs.basename(vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf())):match("(.*)%.java")
+    end), i(0)}))
 },
 
 {
