@@ -1,11 +1,11 @@
 local cmp = require 'cmp'
 
-cmp.setup({
+cmp.setup({ 
   snippet = {
     -- REQUIRED - you must specify a snippet engine
     expand = function(args)
       --vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-      require('luasnip').lsp_expand(args.body) --For luasnips
+      require('luasnip').lsp_expand(args.body) --For luasnips disabilitato perchè fotte con tab
     end,
   },
   matching = { disallow_fullfuzzy_matching = false },
@@ -29,7 +29,7 @@ cmp.setup({
   sources = {
     { name = 'path' },
     { name = 'nvim_lsp' },
-    { name = 'luasnips' },
+    --{ name = 'luasnips' }, commentato in quanto
     { name = 'buffer' },
   }
 })

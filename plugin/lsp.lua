@@ -1,6 +1,6 @@
 local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  --vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
@@ -9,6 +9,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', 'gk', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
   vim.keymap.set('n', '<C-i>', vim.lsp.buf.signature_help, bufopts)
+  --vim.keymap.set('i', '<C-i>', vim.lsp.buf.signature_help, bufopts)
   --vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
   --vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
   --[[
@@ -20,7 +21,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>N', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+  vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = false } end, bufopts)
 end
 
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, { noremap = true })
@@ -75,7 +76,7 @@ require 'lspconfig'.lua_ls.setup {
   },
 }
 
-require'lspconfig'.millet.setup {
+require 'lspconfig'.millet.setup {
   cmd = { 'millet-ls' },
   on_attach = on_attach,
   update_in_insert = false,
@@ -84,22 +85,23 @@ require'lspconfig'.millet.setup {
   --root_dir = function()return vim.fn.getcwd()end
 }
 
-require'lspconfig'.sourcekit.setup{
+require 'lspconfig'.sourcekit.setup {
   single_file_support = true,
   on_attach = on_attach,
   update_in_insert = false,
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
-  filetypes = {"swift", "metal"},
-  root_dir = require('lspconfig').util.root_pattern("buildServer.json", "*.xcodeproj", "*.xcworkspace", ".git", "compile_commands.json", "Package.swift")
+  filetypes = { "swift", "metal" },
+  root_dir = require('lspconfig').util.root_pattern("buildServer.json", "*.xcodeproj", "*.xcworkspace", ".git",
+    "compile_commands.json", "Package.swift")
 }
 
-require'lspconfig'.tsserver.setup{
+require 'lspconfig'.tsserver.setup {
   on_attach = on_attach,
   update_in_insert = false,
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
 }
 
-require'lspconfig'.cssls.setup {
+require 'lspconfig'.cssls.setup {
   on_attach = on_attach,
   update_in_insert = false,
   capabilities = require('cmp_nvim_lsp').default_capabilities(),

@@ -9,7 +9,6 @@ require('packer').init({
 --]]
 return require('packer').startup(
   function()
-
     use 'wbthomason/packer.nvim'
     use 'arcticicestudio/nord-vim'
     use 'sainnhe/everforest'
@@ -41,7 +40,11 @@ return require('packer').startup(
     use 'nvim-tree/nvim-tree.lua'
 
     use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' }
-
+    use { 'mattia-marini/nvim-bufflist', config = function() require('bufflist') end }
+    use { 'numToStr/Comment.nvim', config = function() require('Comment').setup() end }
+    --use 'kilavila/nvim-bufferlist'
+    --use '/Users/mattia/Desktop/nvim-bufflist/'
+    --use { 'ThePrimeagen/harpoon', requires = { 'nvim-lua/plenary.nvim' } }
     --[[
     use 'vim-airline/vim-airline'
     use 'vim-airline/vim-airline-themes'
@@ -63,7 +66,6 @@ return require('packer').startup(
       'nvim-telescope/telescope-file-browser.nvim',
       requires = { 'nvim-telescope/telescope.nvim', 'nvim-lua/plenary.nvim' }
     }
-    use { 'ThePrimeagen/harpoon', requires = { 'nvim-lua/plenary.nvim' } }
     use 'lewis6991/impatient.nvim'
     use 'lukas-reineke/indent-blankline.nvim'
     use {

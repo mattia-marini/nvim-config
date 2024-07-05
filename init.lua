@@ -8,7 +8,7 @@ vim.opt.conceallevel = 1
 vim.opt.wrap = false
 vim.opt.cursorline = true
 
-vim.o.foldcolumn = '1' -- '0' is not bad
+vim.o.foldcolumn = '0' -- '0' is not bad
 vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
@@ -132,6 +132,13 @@ vim.api.nvim_set_keymap('v', 'L', '5l', {})
 vim.api.nvim_set_keymap('n', 'H', '5h', {})
 vim.api.nvim_set_keymap('v', 'H', '5h', {})
 
+
+
+
+
+-- Comments 
+vim.api.nvim_set_keymap('v', 'c', '<Plug>(comment_toggle_linewise_visual)', {})
+vim.api.nvim_set_keymap('v', 'C', '<Plug>(comment_toggle_blockwise_visual)', {})
 
 --[[
 vim.api.nvim_create_user_command("Surround", function(args)

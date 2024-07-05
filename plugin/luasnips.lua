@@ -22,9 +22,9 @@ end
 
 
 vim.keymap.set(
-  {"i", "s"}, "<tab>",
+  {"i", "s"}, "<Tab>",
   function()
-    if ls.expandable() then 
+    if ls.expandable() then
       ls.expand()
     elseif ls.jumpable(1) then
       ls.jump(1)
