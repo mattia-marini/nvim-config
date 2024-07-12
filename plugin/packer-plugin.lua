@@ -41,7 +41,10 @@ return require('packer').startup(
 
     use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' }
     use { 'mattia-marini/nvim-bufflist', config = function() require('bufflist') end }
+
     use { 'numToStr/Comment.nvim', config = function() require('Comment').setup() end }
+    use '/Users/mattia/Desktop/run.nvim'
+
     --use 'kilavila/nvim-bufferlist'
     --use '/Users/mattia/Desktop/nvim-bufflist/'
     --use { 'ThePrimeagen/harpoon', requires = { 'nvim-lua/plenary.nvim' } }

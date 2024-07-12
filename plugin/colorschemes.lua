@@ -56,8 +56,8 @@ end
 vim.api.nvim_create_user_command("Colorscheme", "lua Colorscheme(<q-args>)",
   { nargs = 1, complete = function() return vim.fn.getcompletion("colorscheme ", "cmdline") end })
 
-vim.cmd("Colorscheme everforest")
-
-
-
-
+if vim.g.neovide then
+  vim.cmd("colorscheme everforest")
+else
+  vim.cmd("Colorscheme everforest")
+end

@@ -1,4 +1,4 @@
-local single_file = true
+local single_file = false
 if single_file == true then
   require("java_single_file")
   return
@@ -210,24 +210,25 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
-print("prova")
+--print("prova")
 require('jdtls').start_or_attach({
-  cmd = {
-    'java',
-    '-Declipse.application=org.eclipse.jdt.ls.core.id1',
-    '-Dosgi.bundles.defaultStartLevel=4',
-    '-Declipse.product=org.eclipse.jdt.ls.core.product',
-    '-Dlog.protocol=true',
-    '-Dlog.level=ALL',
-    '-Xms1g',
-    '--add-modules=ALL-SYSTEM',
-    '--add-opens', 'java.base/java.util=ALL-UNNAMED',
-
-
-    '-jar', sys_settings.jdt.jar,
-    '-configuration', sys_settings.jdt.configuration,
-    '-data', vim.fn.expand("~/.cache/jdtls/workspace")
-  },
+  -- cmd = {
+  --   'java',
+  --   '-Declipse.application=org.eclipse.jdt.ls.core.id1',
+  --   '-Dosgi.bundles.defaultStartLevel=4',
+  --   '-Declipse.product=org.eclipse.jdt.ls.core.product',
+  --   '-Dlog.protocol=true',
+  --   '-Dlog.level=ALL',
+  --   '-Xms1g',
+  --   '--add-modules=ALL-SYSTEM',
+  --   '--add-opens', 'java.base/java.util=ALL-UNNAMED',
+  --
+  --
+  --   '-jar', sys_settings.jdt.jar,
+  --   '-configuration', sys_settings.jdt.configuration,
+  --   '-data', vim.fn.expand("~/.cache/jdtls/workspace")
+  -- },
+  cmd = { "/opt/homebrew/Cellar/jdtls/1.37.0/libexec/bin/jdtls" },
   --root_dir = require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew', 'pom.xml'}),
   root_dir = vim.api.nvim_buf_get_name(0):match("(.*)/src"),
   on_attach = on_attach,

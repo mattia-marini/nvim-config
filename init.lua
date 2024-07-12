@@ -8,6 +8,8 @@ vim.opt.conceallevel = 1
 vim.opt.wrap = false
 vim.opt.cursorline = true
 
+vim.g.terminal_emulator = 'kitty'
+
 vim.o.foldcolumn = '0' -- '0' is not bad
 vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
 vim.o.foldlevelstart = 99
@@ -17,8 +19,8 @@ vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
 vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
 
 
-vim.opt.laststatus = 3
-vim.opt.cmdheight = 0
+vim.opt.laststatus = 0
+-- vim.opt.cmdheight = 0
 
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
@@ -34,12 +36,13 @@ vim.opt.indentexpr=""
 vim.opt_local.nocindent = true
 vim.opt_local.nosmartindent = true
 vim.g.python3_host_prog = '/Library/Frameworks/Python.framework/Versions/3.11/bin/python3.11'
+vim.api.nvim_create_user_command("Analisi", [[cd /Users/mattia/Library/Mobile Documents/com~apple~CloudDocs/LatexWorkspace/Analisi_1]], {})
+--]=]
 if vim.g.neovide then
   vim.g.neovide_cursor_animation_length = 0
   vim.g.neovide_scroll_animation_far_lines = 9999
+  vim.cmd("colorscheme everforest")
 end
-vim.api.nvim_create_user_command("Analisi", [[cd /Users/mattia/Library/Mobile Documents/com~apple~CloudDocs/LatexWorkspace/Analisi_1]], {})
---]=]
 -- Commands
 vim.api.nvim_create_user_command("EditInit", [[tabnew ~/.config/nvim/init.lua]], {})
 vim.api.nvim_create_user_command("Plugins", [[tabnew ~/.config/nvim/plugin/packer-plugin.lua]], {})
@@ -136,7 +139,7 @@ vim.api.nvim_set_keymap('v', 'H', '5h', {})
 
 
 
--- Comments 
+-- Comments
 vim.api.nvim_set_keymap('v', 'c', '<Plug>(comment_toggle_linewise_visual)', {})
 vim.api.nvim_set_keymap('v', 'C', '<Plug>(comment_toggle_blockwise_visual)', {})
 
@@ -184,3 +187,53 @@ vim.api.nvim_set_keymap('v', '(', ":Surround<CR>", {
 })
 
     --]]
+--
+
+--/Applications/kitty.app/Contents/MacOS/kitty @ --to=$KITTY_LISTEN_ON launch --type=tab nvim
+
+require('runner')
+
+-- function prova()
+--   local wins = vim.api.nvim_list_wins()
+--   local curr_tab = vim.api.nvim_get_current_tabpage()
+--
+--   for _, win in ipairs(wins) do
+--     local infos = vim.fn.getwininfo(win)[1]
+--     if infos.terminal == 1 and infos.tabnr == curr_tab then
+--       return win
+--     end
+--   end
+--   return nil
+-- end
+--
+-- function getActiveTerminalWinId()
+--   local wins = vim.api.nvim_list_wins()
+--   local curr_tab = vim.api.nvim_get_current_tabpage()
+--
+--   for _, win in ipairs(wins) do
+--     local infos = vim.fn.getwininfo(win)[1]
+--     if infos.terminal == 1 and infos.tabnr == curr_tab then
+--       return win
+--     end
+--   end
+--   return nil
+-- end
+--
+-- function runInTerminalById(winid, cmd)
+--   vim.fn.win_gotoid(winid)
+--   vim.cmd("startinsert")
+--   vim.api.nvim_feedkeys(cmd .. "\n", "", true)
+-- end
+--
+-- function runInTerminal(cmd)
+--   local term = getActiveTerminalWinId()
+--   local currWin = vim.api.nvim_get_current_win()
+--   if term ~= nil then
+--     runInTerminalById(term, cmd)
+--   else
+--     vim.cmd([[vsplit | terminal]] .. "\n")
+--     term = getActiveTerminalWinId()
+--     runInTerminalById(term, cmd)
+--     vim.schedule(function() vim.api.nvim_set_current_win(currWin) end)
+--   end
+-- end
