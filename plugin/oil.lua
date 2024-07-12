@@ -18,6 +18,7 @@ require("oil").setup {
     ["g."] = "actions.toggle_hidden",
     ["g\\"] = "actions.toggle_trash",
     ["<Space>w"] = ":w<CR>",
+    ["<Esc>"] = ":q<CR>",
   },
-  delete_to_trash = false,
+  delete_to_trash = true,
 }

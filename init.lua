@@ -9,6 +9,7 @@ vim.opt.wrap = false
 vim.opt.cursorline = true
 
 vim.g.terminal_emulator = 'kitty'
+vim.opt.ignorecase = true
 
 vim.o.foldcolumn = '0' -- '0' is not bad
 vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
@@ -17,6 +18,10 @@ vim.o.foldenable = true
 
 vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
 vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+vim.keymap.set("n", "<C-I>", "<C-I>")
+vim.keymap.set("n", "<Tab>", "<Nop>")
+  
+vim.keymap.set({'n', 'i'}, '<Tab>', "<Tab>")
 
 
 vim.opt.laststatus = 0
@@ -77,7 +82,8 @@ vim.api.nvim_set_keymap('n', '<space>h', '<C-w>h', {})
 vim.api.nvim_set_keymap('n', '<space>s', ':so %<CR>', {})
 vim.api.nvim_set_keymap('n', '<space><tab>', 'gt', {})
 vim.api.nvim_set_keymap('n', '<space>p', 'gT', {})
-vim.api.nvim_set_keymap('n', '<space>E', ':Oil<CR>', {})
+vim.api.nvim_set_keymap('n', '<space>e', ':Oil<CR>', {})
+vim.api.nvim_set_keymap('n', '<space>E', ':vsplit | Oil<CR>', {})
 vim.api.nvim_set_keymap('n', '<C-h>', '5zh', {})
 vim.api.nvim_set_keymap('n', '<C-l>', '5zl', {})
 
@@ -125,15 +131,11 @@ vim.api.nvim_set_keymap('v', 'K', '5k', {})
 vim.api.nvim_set_keymap('n', 'J', '5j', {})
 vim.api.nvim_set_keymap('v', 'J', '5j', {})
 
-vim.api.nvim_set_keymap('n', '<C-k>', '<C-u>zz', {})
-vim.api.nvim_set_keymap('v', '<C-k>', '<C-u>zz', {})
-vim.api.nvim_set_keymap('n', '<C-j>', '<C-d>zz', {})
-vim.api.nvim_set_keymap('v', '<C-j>', '<C-d>zz', {})
+-- vim.keymap.set({'n', 'v'}, '<C-k>', '<C-u>zz', {noremap = true})
+-- vim.keymap.set({'n', 'v'}, '<C-j>', '<C-d>zz', {noremap = true})
 
-vim.api.nvim_set_keymap('n', 'L', '5l', {})
-vim.api.nvim_set_keymap('v', 'L', '5l', {})
-vim.api.nvim_set_keymap('n', 'H', '5h', {})
-vim.api.nvim_set_keymap('v', 'H', '5h', {})
+vim.keymap.set({'n', 'v'}, 'L', '5l', {noremap = true})
+vim.keymap.set({'n', 'v'}, 'H', '5h', {noremap = true})
 
 
 
@@ -237,3 +239,9 @@ require('runner')
 --     vim.schedule(function() vim.api.nvim_set_current_win(currWin) end)
 --   end
 -- end
+vim.api.nvim_create_autocmd("InsertEnter", 
+  {
+    callback = function ()
+      print("InsertEnter")
+    end
+  })

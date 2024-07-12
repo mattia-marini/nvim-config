@@ -3,26 +3,21 @@ local ls = require("luasnip")
 ls.config.set_config({
   history = false,
   enable_autosnippets = true,
-  delete_check_events = {"InsertLeave", "TextChangedI", "InsertEnter"},
-  region_check_events = {"CursorMovedI", "InsertEnter", "InsertLeave" , "CursorHoldI", "CursorHold", "CursorMoved"},
-  update_events = {"TextChanged", "TextChangedI"},
-  store_selection_keys="<Tab>"
+  delete_check_events = { "InsertLeave", "TextChangedI", "InsertEnter" },
+  region_check_events = { "CursorMovedI", "InsertEnter", "InsertLeave", "CursorHoldI", "CursorHold", "CursorMoved" },
+  update_events = { "TextChanged", "TextChangedI" },
+  store_selection_keys = "<Tab>"
 })
-require("luasnip.loaders.from_lua").load({paths = {"~/.config/nvim/luasnippets/"}})
+require("luasnip.loaders.from_lua").load({ paths = { "~/.config/nvim/luasnippets/" } })
 
 --per selezionare il testo e tenere il placeholder $VISUAL
 
 
 --serve per eliminare la jumplist una volta premuto esc
-function leave_all(ev)
-  while(ls.jumpable(1) or ls.jumpable(-1)) do
-    ls.unlink_current()
-  end
-end
 
 
 vim.keymap.set(
-  {"i", "s"}, "<Tab>",
+  { "i", "s" }, "<Tab>",
   function()
     if ls.expandable() then
       ls.expand()
@@ -31,6 +26,16 @@ vim.keymap.set(
     else
       vim.api.nvim_feedkeys(string.format('%s', '\t'), 'n', true)
     end
+  end
+)
+
+vim.keymap.set(
+  { "i", "v" }, "<Esc>",
+  function()
+    while (ls.jumpable(1) or ls.jumpable(-1)) do
+      ls.unlink_current()
+    end
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, true, true), 'n', true)
   end
 )
 --[[
@@ -48,13 +53,14 @@ end
 vim.keymap.set(
   {"i", "s"}, "<tab>",
   function()
-    if ls.expand_or_jumpable() then 
+    if ls.expand_or_jumpable() then
       ls.expand()
     else vim.api.nvim_feedkeys(string.format('%s', '\t'), 'n', true)
     end
   end
 )
-]]--
+]]
+   --
 -- stop snippets when you leave to normal mode
 --vim.api.nvim_command([[
 --    autocmd ModeChanged * lua leave_snippet()
@@ -63,7 +69,7 @@ vim.keymap.set(
 vim.keymap.set(
   {"i", "s"}, "º",
   function()
-    if ls.expand_or_jumpable() then 
+    if ls.expand_or_jumpable() then
       ls.expand()
     end
   end
@@ -71,7 +77,7 @@ vim.keymap.set(
 vim.keymap.set(
   {"i", "s"}, "¬",
   function()
-    if ls.jumpable(1) then 
+    if ls.jumpable(1) then
       ls.jump(1)
     end
   end
@@ -79,7 +85,7 @@ vim.keymap.set(
 vim.keymap.set(
   {"i", "s"}, "∆",
   function()
-    if ls.jumpable(-1) then 
+    if ls.jumpable(-1) then
       ls.jump(-1)
     end
   end
