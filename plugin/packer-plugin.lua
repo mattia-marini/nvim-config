@@ -44,7 +44,8 @@ return require('packer').startup(
 
     use { 'numToStr/Comment.nvim', config = function() require('Comment').setup() end }
     use '/Users/mattia/Desktop/run.nvim'
-    use  'karb94/neoscroll.nvim'
+    use 'karb94/neoscroll.nvim'
+    --use 'wojciech-kulik/xcodebuild.nvim'
 
     --use 'kilavila/nvim-bufferlist'
     --use '/Users/mattia/Desktop/nvim-bufflist/'

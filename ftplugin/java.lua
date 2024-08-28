@@ -1,4 +1,4 @@
-local single_file = false
+local single_file = true
 if single_file == true then
   require("java_single_file")
   return

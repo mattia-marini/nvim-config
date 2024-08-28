@@ -30,6 +30,21 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = false } end, bufopts)
 end
 
+local ufo_capabilities = vim.lsp.protocol.make_client_capabilities()
+ufo_capabilities.textDocument.foldingRange = {
+                                               --for ufo lsp folding
+  dynamicRegistration = false,
+  lineFoldingOnly = true
+}
+local cmp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+local capabilities = {}
+
+for key, value in pairs(cmp_capabilities) do capabilities[key] = value end
+for key, value in pairs(ufo_capabilities) do capabilities[key] = value end
+
+
+
+
 vim.keymap.set('n', 'ge', vim.diagnostic.open_float, { noremap = true })
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { noremap = true })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { noremap = true })
@@ -92,7 +107,7 @@ require 'lspconfig'.millet.setup {
 }
 
 require 'lspconfig'.sourcekit.setup {
-  single_file_support = true,
+  --single_file_support = true,
   on_attach = on_attach,
   update_in_insert = false,
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
@@ -111,4 +126,16 @@ require 'lspconfig'.cssls.setup {
   on_attach = on_attach,
   update_in_insert = false,
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
+}
+
+require 'lspconfig'.superhtml.setup {
+  on_attach = on_attach,
+  update_in_insert = false,
+  capabilities = capabilities
+}
+
+require 'lspconfig'.emmet_language_server.setup {
+  on_attach = on_attach,
+  update_in_insert = false,
+  capabilities = capabilities
 }

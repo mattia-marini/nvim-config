@@ -1,6 +1,6 @@
 local cmp = require 'cmp'
 
-cmp.setup({ 
+cmp.setup({
   snippet = {
     -- REQUIRED - you must specify a snippet engine
     expand = function(args)
@@ -10,12 +10,26 @@ cmp.setup({
   },
   matching = { disallow_fullfuzzy_matching = false },
   window = {
-    completion = cmp.config.window.bordered(
-      { winhighlight = 'Normal:Normal,FloatBorder:None,CursorLine:Visual,Search:None' }
-    ),
-    documentation = cmp.config.window.bordered(
-      { winhighlight = 'Normal:Normal,FloatBorder:None,CursorLine:Visual,Search:None' }
-    ),
+    completion = {
+      border = 'single', --'single', 'double', 'rounded', 'none'.
+      winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,Search:None',
+      col_offset = 0,
+      side_padding = 1
+    }
+    --   cmp.config.window.bordered(
+    --
+    --   { winhighlight = 'Normal:Normal,FloatBorder:None,CursorLine:Visual,Search:None' }
+    -- )
+    ,
+    documentation = {
+      border = 'single', --'single', 'double', 'rounded', 'none'.
+      winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,Search:None',
+      col_offset = 0,
+      side_padding = 1
+    }
+    -- cmp.config.window.bordered(
+    --   { winhighlight = 'Normal:Normal,FloatBorder:None,CursorLine:Visual,Search:None' }
+    -- ),
   },
   mapping = cmp.mapping.preset.insert({
     ['<C-Space>'] = cmp.mapping.complete(),

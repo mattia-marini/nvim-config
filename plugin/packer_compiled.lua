@@ -135,6 +135,11 @@ _G.packer_plugins = {
     path = "/Users/mattia/.local/share/nvim/site/pack/packer/start/gruvbox.nvim",
     url = "https://github.com/ellisonleao/gruvbox.nvim"
   },
+  ["neoscroll.nvim"] = {
+    loaded = true,
+    path = "/Users/mattia/.local/share/nvim/site/pack/packer/start/neoscroll.nvim",
+    url = "https://github.com/karb94/neoscroll.nvim"
+  },
   ["nord-vim"] = {
     loaded = true,
     path = "/Users/mattia/.local/share/nvim/site/pack/packer/start/nord-vim",
@@ -210,6 +215,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/mattia/.local/share/nvim/site/pack/packer/start/rose-pine",
     url = "https://github.com/rose-pine/neovim"
+  },
+  ["run.nvim"] = {
+    loaded = true,
+    path = "/Users/mattia/.local/share/nvim/site/pack/packer/start/run.nvim",
+    url = "/Users/mattia/Desktop/run.nvim"
   },
   ["vim-colors-xcode"] = {
     loaded = true,
