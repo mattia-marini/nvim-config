@@ -20,8 +20,8 @@ vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
 vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
 vim.keymap.set("n", "<C-I>", "<C-I>")
 vim.keymap.set("n", "<Tab>", "<Nop>")
-  
-vim.keymap.set({'n', 'i'}, '<Tab>', "<Tab>")
+
+vim.keymap.set({ 'n', 'i' }, '<Tab>', "<Tab>")
 
 
 vim.opt.laststatus = 0
@@ -46,8 +46,11 @@ vim.api.nvim_create_user_command("Analisi", [[cd /Users/mattia/Library/Mobile Do
 if vim.g.neovide then
   vim.g.neovide_cursor_animation_length = 0
   vim.g.neovide_scroll_animation_far_lines = 9999
+  vim.o.guifont = "FuraMono Nerd Font:h18" -- text below applies for VimScript
   vim.cmd("colorscheme everforest")
+  vim.g.neovide_confirm_quit = true
 end
+
 -- Commands
 vim.api.nvim_create_user_command("EditInit", [[tabnew ~/.config/nvim/init.lua]], {})
 vim.api.nvim_create_user_command("Plugins", [[tabnew ~/.config/nvim/plugin/packer-plugin.lua]], {})
@@ -134,8 +137,8 @@ vim.api.nvim_set_keymap('v', 'J', '5j', {})
 -- vim.keymap.set({'n', 'v'}, '<C-k>', '<C-u>zz', {noremap = true})
 -- vim.keymap.set({'n', 'v'}, '<C-j>', '<C-d>zz', {noremap = true})
 
-vim.keymap.set({'n', 'v'}, 'L', '5l', {noremap = true})
-vim.keymap.set({'n', 'v'}, 'H', '5h', {noremap = true})
+vim.keymap.set({ 'n', 'v' }, 'L', '5l', { noremap = true })
+vim.keymap.set({ 'n', 'v' }, 'H', '5h', { noremap = true })
 
 
 
@@ -239,9 +242,9 @@ require('runner')
 --     vim.schedule(function() vim.api.nvim_set_current_win(currWin) end)
 --   end
 -- end
-vim.api.nvim_create_autocmd("InsertEnter", 
+vim.api.nvim_create_autocmd("InsertEnter",
   {
-    callback = function ()
+    callback = function()
       print("InsertEnter")
     end
   })

@@ -20,10 +20,15 @@ require("runner").config({
     end,
     buildAndRun = function(args)
       if args.user.root then
-        return "DT && cd " .. args.user.root .. " && node index.mjs"
+        return "DT && npm start"
       else
         return "cd " .. args.default.currFileDir .. " && node " .. args.default.currFileName .. args.default.args
       end
+    end
+  },
+  rust = {
+    buildAndRun = function(args)
+      return "cargo run"
     end
   }
 })

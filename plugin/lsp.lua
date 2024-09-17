@@ -32,7 +32,7 @@ end
 
 local ufo_capabilities = vim.lsp.protocol.make_client_capabilities()
 ufo_capabilities.textDocument.foldingRange = {
-                                               --for ufo lsp folding
+  --for ufo lsp folding
   dynamicRegistration = false,
   lineFoldingOnly = true
 }
@@ -120,6 +120,19 @@ require 'lspconfig'.tsserver.setup {
   on_attach = on_attach,
   update_in_insert = false,
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
+  commands = {
+    OrganizeImports = {
+      function()
+        local params = {
+          command = "_typescript.organizeImports",
+          arguments = { vim.api.nvim_buf_get_name(0) },
+          title = ""
+        }
+        vim.lsp.buf.execute_command(params)
+      end,
+      description = "Organize imports"
+    },
+  }
 }
 
 require 'lspconfig'.cssls.setup {
@@ -135,6 +148,12 @@ require 'lspconfig'.superhtml.setup {
 }
 
 require 'lspconfig'.emmet_language_server.setup {
+  on_attach = on_attach,
+  update_in_insert = false,
+  capabilities = capabilities
+}
+
+require'lspconfig'.rust_analyzer.setup{
   on_attach = on_attach,
   update_in_insert = false,
   capabilities = capabilities

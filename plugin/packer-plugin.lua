@@ -34,6 +34,7 @@ return require('packer').startup(
     use 'hrsh7th/nvim-cmp'
 
     use 'mattia-marini/MoonTex'
+    use 'mattia-marini/runner.nvim'
     use 'mfussenegger/nvim-jdtls'
 
     use 'stevearc/oil.nvim'
@@ -43,8 +44,8 @@ return require('packer').startup(
     use { 'mattia-marini/nvim-bufflist', config = function() require('bufflist') end }
 
     use { 'numToStr/Comment.nvim', config = function() require('Comment').setup() end }
-    use '/Users/mattia/Desktop/run.nvim'
     use 'karb94/neoscroll.nvim'
+    -- use 'mfussenegger/nvim-lint'
     --use 'wojciech-kulik/xcodebuild.nvim'
 
     --use 'kilavila/nvim-bufferlist'

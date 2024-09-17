@@ -216,10 +216,10 @@ _G.packer_plugins = {
     path = "/Users/mattia/.local/share/nvim/site/pack/packer/start/rose-pine",
     url = "https://github.com/rose-pine/neovim"
   },
-  ["run.nvim"] = {
+  ["runner.nvim"] = {
     loaded = true,
-    path = "/Users/mattia/.local/share/nvim/site/pack/packer/start/run.nvim",
-    url = "/Users/mattia/Desktop/run.nvim"
+    path = "/Users/mattia/.local/share/nvim/site/pack/packer/start/runner.nvim",
+    url = "https://github.com/mattia-marini/runner.nvim"
   },
   ["vim-colors-xcode"] = {
     loaded = true,
