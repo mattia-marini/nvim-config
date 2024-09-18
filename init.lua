@@ -25,7 +25,7 @@ vim.keymap.set({ 'n', 'i' }, '<Tab>', "<Tab>")
 
 
 vim.opt.laststatus = 0
--- vim.opt.cmdheight = 0
+vim.opt.cmdheight = 0
 
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
@@ -89,6 +89,7 @@ vim.api.nvim_set_keymap('n', '<space>e', ':Oil<CR>', {})
 vim.api.nvim_set_keymap('n', '<space>E', ':vsplit | Oil<CR>', {})
 vim.api.nvim_set_keymap('n', '<C-h>', '5zh', {})
 vim.api.nvim_set_keymap('n', '<C-l>', '5zl', {})
+vim.api.nvim_set_keymap('n', 'gp', '<c-6>', {})
 
 vim.api.nvim_set_keymap('n', '<space>a', ':lua require("harpoon.mark").add_file()<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<space>H', ':lua require("harpoon.ui").toggle_quick_menu()<CR>', { noremap = true })

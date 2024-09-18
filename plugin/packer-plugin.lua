@@ -45,6 +45,12 @@ return require('packer').startup(
 
     use { 'numToStr/Comment.nvim', config = function() require('Comment').setup() end }
     use 'karb94/neoscroll.nvim'
+    use { "NeogitOrg/neogit", requires = { "nvim-lua/plenary.nvim", "sindrets/diffview.nvim" } }
+    use {
+      'nvim-lualine/lualine.nvim',
+      requires = { 'nvim-tree/nvim-web-devicons', opt = false },
+      config = function() require('lualine').setup() end
+    }
     -- use 'mfussenegger/nvim-lint'
     --use 'wojciech-kulik/xcodebuild.nvim'
 
@@ -54,10 +60,6 @@ return require('packer').startup(
     --[[
     use 'vim-airline/vim-airline'
     use 'vim-airline/vim-airline-themes'
-    use {
-      'nvim-lualine/lualine.nvim',
-      requires = { 'nvim-tree/nvim-web-devicons', opt = false }
-    }
     use 'lervag/vimtex'
     use 'vim-autoformat/vim-autoformat'
     use 'SirVer/ultisnips'

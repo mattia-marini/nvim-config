@@ -116,7 +116,7 @@ require 'lspconfig'.sourcekit.setup {
     "compile_commands.json", "Package.swift")
 }
 
-require 'lspconfig'.tsserver.setup {
+require 'lspconfig'.ts_ls.setup {
   on_attach = on_attach,
   update_in_insert = false,
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
