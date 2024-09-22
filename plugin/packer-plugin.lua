@@ -37,7 +37,7 @@ return require('packer').startup(
     use 'mattia-marini/runner.nvim'
     use 'mfussenegger/nvim-jdtls'
 
-    use 'stevearc/oil.nvim'
+    use { 'stevearc/oil.nvim', requires = { 'nvim-tree/nvim-web-devicons' } }
     use 'nvim-tree/nvim-tree.lua'
 
     use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' }
@@ -51,6 +51,7 @@ return require('packer').startup(
       requires = { 'nvim-tree/nvim-web-devicons', opt = false },
       config = function() require('lualine').setup() end
     }
+    use "stevearc/conform.nvim"
     -- use 'mfussenegger/nvim-lint'
     --use 'wojciech-kulik/xcodebuild.nvim'
 

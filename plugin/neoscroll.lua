@@ -1,4 +1,4 @@
-local neoscroll = require('neoscroll')
+--[[ local neoscroll = require('neoscroll')
 local keymap = {
   ["<C-k>"] = function() neoscroll.ctrl_u({ duration = 150 }) end,
   ["<C-j>"] = function() neoscroll.ctrl_f({ duration = 150 }) end,
@@ -25,4 +25,4 @@ neoscroll.setup({
 local modes = { 'n', 'v', 'x' }
 for key, func in pairs(keymap) do
   vim.keymap.set(modes, key, func)
-end
+end ]]

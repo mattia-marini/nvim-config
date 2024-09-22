@@ -27,7 +27,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>N', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = false } end, bufopts)
+  -- vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = false } end, bufopts)
 end
 
 local ufo_capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -141,7 +141,17 @@ require 'lspconfig'.cssls.setup {
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
 }
 
-require 'lspconfig'.superhtml.setup {
+-- require 'lspconfig'.superhtml.setup {
+--   on_attach = on_attach,
+--   update_in_insert = false,
+--   capabilities = capabilities
+-- }
+-- require 'lspconfig'.htmx.setup {
+--   on_attach = on_attach,
+--   update_in_insert = false,
+--   capabilities = capabilities
+-- }
+require 'lspconfig'.html.setup {
   on_attach = on_attach,
   update_in_insert = false,
   capabilities = capabilities
@@ -153,7 +163,7 @@ require 'lspconfig'.emmet_language_server.setup {
   capabilities = capabilities
 }
 
-require'lspconfig'.rust_analyzer.setup{
+require 'lspconfig'.rust_analyzer.setup {
   on_attach = on_attach,
   update_in_insert = false,
   capabilities = capabilities

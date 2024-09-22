@@ -135,6 +135,10 @@ vim.api.nvim_set_keymap('v', 'K', '5k', {})
 vim.api.nvim_set_keymap('n', 'J', '5j', {})
 vim.api.nvim_set_keymap('v', 'J', '5j', {})
 
+
+vim.api.nvim_set_keymap('n', '<C-j>', "<C-d>", { noremap = true })
+vim.api.nvim_set_keymap('n', '<C-k>', "<C-u>", { noremap = true })
+
 -- vim.keymap.set({'n', 'v'}, '<C-k>', '<C-u>zz', {noremap = true})
 -- vim.keymap.set({'n', 'v'}, '<C-j>', '<C-d>zz', {noremap = true})
 
@@ -243,9 +247,9 @@ require('runner')
 --     vim.schedule(function() vim.api.nvim_set_current_win(currWin) end)
 --   end
 -- end
-vim.api.nvim_create_autocmd("InsertEnter",
-  {
-    callback = function()
-      print("InsertEnter")
-    end
-  })
+-- vim.api.nvim_create_autocmd("InsertEnter",
+--   {
+--     callback = function()
+--       print("InsertEnter")
+--     end
+--   })
