@@ -1,10 +1,10 @@
 require("conform").setup({
   formatters_by_ft = {
-    javascript = { "prettier", stop_after_first = true },
-    html = { "prettier", stop_after_first = true },
+    javascript = { "prettier"},
+    html = { "prettier"},
     ["*"] = { "injected" },
   },
-  -- log_level = vim.log.levels.DEBUG,
+  log_level = vim.log.levels.DEBUG,
   -- format_on_save = {
   --   timeout_ms = 500,
   --   lsp_format = "fallback",
@@ -14,11 +14,11 @@ require("conform").setup({
 require("conform").formatters.injected = {
   -- Set the options field
   options = {
-    ignore_errors = true,
+    ignore_errors = false,
   }
 }
 
-vim.api.nvim_buf_set_keymap(0, "n", "<Space>f", "", {
+vim.keymap.set("n", "<Space>f", "", {
   callback =
       function()
         require("conform").format({ async = true, lsp_format = "fallback" })
