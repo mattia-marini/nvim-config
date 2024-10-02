@@ -1,4 +1,5 @@
 local on_attach = function(client, bufnr)
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
   -- Enable completion triggered by <c-x><c-o>
   --vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   -- Mappings.
@@ -28,6 +29,10 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   -- vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = false } end, bufopts)
+  --
+  vim.api.nvim_create_user_command("ToggleHints", function()
+    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+  end, {})
 end
 
 local ufo_capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -116,7 +121,7 @@ require 'lspconfig'.sourcekit.setup {
     "compile_commands.json", "Package.swift")
 }
 
-require 'lspconfig'.ts_ls.setup {
+require 'lspconfig'.tsserver.setup {
   on_attach = on_attach,
   update_in_insert = false,
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
