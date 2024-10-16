@@ -178,8 +178,29 @@ require 'lspconfig'.jdtls.setup {
   on_attach = on_attach,
   update_in_insert = false,
   capabilities = capabilities,
-  root_dir = vim.fn.getcwd(), --TODO add correct root detection
-  single_file_support = true
+  root_dir = vim.fn.getcwd(),
+  -- root_dir = function()
+  --   local root_files = {
+  --     'settings.gradle',     -- Gradle (multi-project)
+  --     'settings.gradle.kts', -- Gradle (multi-project)
+  --     'build.xml',           -- Ant
+  --     'pom.xml',             -- Maven
+  --   }
+  --
+  --   local fallback_files = {
+  --     'build.gradle',     -- Gradle
+  --     'build.gradle.kts', -- Gradle
+  --   }
+  --
+  --   local primary = vim.fs.root(0, root_files)
+  --   local fallback_1 = vim.fs.root(0, fallback_files)
+  --   local fallback_2 = vim.fs.dirname(vim.api.nvim_buf_get_name(0))
+  --
+  --   local root = primary or fallback_1 or fallback_2
+  --   print(root)
+  --   return root
+  -- end,
+  single_file_support = false
 
   -- root_dir = vim.fs.root(0, "build.gradle.kts"),
   -- root_dir = function()
@@ -201,7 +222,7 @@ require 'lspconfig'.jdtls.setup {
       'build.gradle.kts', -- Gradle
     }
 
-    vim.api.util.root_pattern(unpack(root_files))(fname)
+    local primary = vim.api.util.root_pattern(unpack(root_files))(fname)
     local fallback = vim.api.util.root_pattern(unpack(fallback_root_files))(fname)
     return primary or fallback
   end ]]

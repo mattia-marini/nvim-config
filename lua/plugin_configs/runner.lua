@@ -47,10 +47,24 @@ require("runner").config({
         return { root = srcDir or root }
       end,
       buildAndRun = function(args)
-        if args.user.root then
-          return "DT && gradle run"
+        local root_files = {
+          'settings.gradle',     -- Gradle (multi-project)
+          'settings.gradle.kts', -- Gradle (multi-project)
+          'build.xml',           -- Ant
+          'pom.xml',             -- Maven
+          'build.gradle',        -- Gradle
+          'build.gradle.kts',    -- Gradle
+        }
+
+        local root = vim.fs.root(0, root_files)
+
+        if root then
+          return "cd " .. root .. " && DT && gradle run"
         else
-          return "cd " .. args.default.currFileDir .. " && javac " .. args.default.currFileName
+          return "cd " ..
+              args.default.currFileDir ..
+              " && javac -d ./bin " ..
+              args.default.currFileName .. " && cd bin && java " .. args.default.currFileName:gsub("%.java", "")
         end
       end
     },
