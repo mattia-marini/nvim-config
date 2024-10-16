@@ -25,7 +25,7 @@ return {
   { 'hrsh7th/nvim-cmp' },
 
   { 'mattia-marini/moontex.nvim',  ft = "tex" },
-  { 'nvim-jdtls',                  ft = "java" },
+  -- { 'nvim-jdtls',                  ft = "java" },
   { 'mattia-marini/nvim-bufflist', config = function() require('bufflist') end },
   { 'numToStr/Comment.nvim',       config = function() require('Comment').setup() end },
   from_module('mattia-marini/runner.nvim', 'runner'),

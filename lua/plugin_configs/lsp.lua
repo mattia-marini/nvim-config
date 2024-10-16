@@ -173,3 +173,47 @@ require 'lspconfig'.rust_analyzer.setup {
   update_in_insert = false,
   capabilities = capabilities
 }
+
+require 'lspconfig'.jdtls.setup {
+  on_attach = on_attach,
+  update_in_insert = false,
+  capabilities = capabilities,
+  root_dir = vim.fn.getcwd(), --TODO add correct root detection
+  single_file_support = true
+
+  -- root_dir = vim.fs.root(0, "build.gradle.kts"),
+  -- root_dir = function()
+  --   return "/Users/mattia/Desktop/java/app/"
+  -- end,
+  -- single_file_support = false
+
+
+  --[[ root_dir = function(fname)
+    local root_files = {
+      'settings.gradle',   -- Gradle (multi-project)
+      'settings.gradle.kts', -- Gradle (multi-project)
+      'build.xml',         -- Ant
+      'pom.xml',           -- Maven
+    }
+
+    local fallback_root_files = {
+      'build.gradle',   -- Gradle
+      'build.gradle.kts', -- Gradle
+    }
+
+    vim.api.util.root_pattern(unpack(root_files))(fname)
+    local fallback = vim.api.util.root_pattern(unpack(fallback_root_files))(fname)
+    return primary or fallback
+  end ]]
+  -- {
+  --     -- Single-module projects
+  --     {
+  --       'build.xml',           -- Ant
+  --       'pom.xml',             -- Maven
+  --       'settings.gradle',     -- Gradle
+  --       'settings.gradle.kts', -- Gradle
+  --     },
+  --     -- Multi-module projects
+  --     { 'build.gradle', 'build.gradle.kts' },
+  --   } or vim.fn.getcwd()
+}
