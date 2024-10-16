@@ -29,15 +29,16 @@ vim.keymap.set(
   end
 )
 
-vim.keymap.set(
-  { "i", "v" }, "<Esc>",
-  function()
-    while (ls.jumpable(1) or ls.jumpable(-1)) do
-      ls.unlink_current()
-    end
-    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, true, true), 'n', true)
-  end
-)
+-- Drops snippet when esc is pressed
+-- vim.keymap.set(
+--   { "i", "v" }, "<Esc>",
+--   function()
+--     while (ls.jumpable(1) or ls.jumpable(-1)) do
+--       ls.unlink_current()
+--     end
+--     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, true, true), 'n', true)
+--   end
+-- )
 --[[
 function leave_snippet()
     if
@@ -60,7 +61,7 @@ vim.keymap.set(
   end
 )
 ]]
-   --
+--
 -- stop snippets when you leave to normal mode
 --vim.api.nvim_command([[
 --    autocmd ModeChanged * lua leave_snippet()

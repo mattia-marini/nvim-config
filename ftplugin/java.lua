@@ -1,6 +1,6 @@
 local single_file = true
 if single_file == true then
-  require("java_single_file")
+  require("lua.utils.java_single_file")
   return
 end
 
