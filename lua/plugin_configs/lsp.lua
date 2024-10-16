@@ -1,4 +1,3 @@
-print("sourcing")
 local on_attach = function(client, bufnr)
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
   -- Enable completion triggered by <c-x><c-o>

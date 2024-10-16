@@ -3,11 +3,7 @@ local function default_coloscheme(name, name2)
     name,
     lazy = false,    -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
-    opts = function()
-      print("opts")
-    end,
     config = function()
-      print("prova")
       require("utils.colorscheme").colorscheme_no_bg(name2)
     end
   }
