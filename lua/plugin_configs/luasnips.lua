@@ -1,5 +1,5 @@
 local ls = require("luasnip")
-
+print("LUASNIPS")
 ls.config.set_config({
   history = false,
   enable_autosnippets = true,
@@ -19,6 +19,7 @@ require("luasnip.loaders.from_lua").load({ paths = { "~/.config/nvim/luasnippets
 vim.keymap.set(
   { "i", "s" }, "<Tab>",
   function()
+    print("Afa")
     if ls.expandable() then
       ls.expand()
     elseif ls.jumpable(1) then

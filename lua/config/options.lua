@@ -18,10 +18,10 @@ vim.o.foldenable = true
 
 vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
 vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
-vim.keymap.set("n", "<C-I>", "<C-I>")
-vim.keymap.set("n", "<Tab>", "<Nop>")
+-- vim.keymap.set("n", "<C-I>", "<C-I>")
+-- vim.keymap.set("n", "<Tab>", "<Nop>")
 
-vim.keymap.set({ 'n', 'i' }, '<Tab>', "<Tab>")
+-- vim.keymap.set({ 'n', 'i' }, '<Tab>', "<Tab>")
 
 
 vim.opt.laststatus = 0

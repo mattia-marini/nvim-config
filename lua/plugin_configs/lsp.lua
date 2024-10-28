@@ -159,7 +159,8 @@ require 'lspconfig'.cssls.setup {
 require 'lspconfig'.html.setup {
   on_attach = on_attach,
   update_in_insert = false,
-  capabilities = capabilities
+  capabilities = capabilities,
+  filetypes = { "html", "templ", "jsp" }
 }
 
 require 'lspconfig'.emmet_language_server.setup {

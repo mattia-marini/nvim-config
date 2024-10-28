@@ -17,12 +17,17 @@ return {
   from_module('nvim-treesitter/nvim-treesitter', 'treesitter'),
   from_module('neovim/nvim-lspconfig', 'lsp'),
 
-  from_module('hrsh7th/cmp-nvim-lsp', 'nvim-cmp'),
+  from_module('hrsh7th/cmp-nvim-lsp', 'nvim-cmp', { lazy = false }),
   { 'hrsh7th/cmp-nvim-lsp' },
   { 'hrsh7th/cmp-buffer' },
   { 'hrsh7th/cmp-path' },
   { 'hrsh7th/cmp-cmdline' },
   { 'hrsh7th/nvim-cmp' },
+
+  {
+    'nvim-telescope/telescope.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' }
+  },
 
   { 'mattia-marini/moontex.nvim',  ft = "tex" },
   -- { 'nvim-jdtls',                  ft = "java" },
