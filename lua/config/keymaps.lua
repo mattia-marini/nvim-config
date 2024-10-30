@@ -81,3 +81,8 @@ vim.keymap.set({ 'n', 'v' }, 'H', '5h', { noremap = true })
 -- Comments
 vim.api.nvim_set_keymap('v', 'c', '<Plug>(comment_toggle_linewise_visual)', {})
 vim.api.nvim_set_keymap('v', 'C', '<Plug>(comment_toggle_blockwise_visual)', {})
+
+-- Travel by brakets
+local nav = require("utils.nav")
+vim.keymap.set("n", "<C-8>", nav.go_to_prev_paired_char)
+vim.keymap.set("n", "<C-9>", nav.go_to_next_paired_char)

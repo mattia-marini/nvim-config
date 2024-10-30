@@ -42,8 +42,9 @@ function go_to_next_paired_char()
   local char_set = { '\'', '\"', '{', '}', '[', ']', '(', ')' }
 
 
-  local matched_pos = find_first_occurence(first_line_half, char_set)
+  local matched_pos = find_first_occurence(second_line_half, char_set)
 
+  print(matched_pos)
   if (matched_pos) then
     vim.api.nvim_win_set_cursor(0, { cursor_pos[1], matched_pos + #first_line_half - 1 })
   end
@@ -62,10 +63,13 @@ function go_to_prev_paired_char()
 
   local matched_pos = find_last_occurence(first_line_half, char_set)
 
+  print(matched_pos)
   if (matched_pos) then
     vim.api.nvim_win_set_cursor(0, { cursor_pos[1], matched_pos - 1 })
   end
 end
 
-vim.keymap.set("n", "<C-8>", go_to_prev_paired_char)
-vim.keymap.set("n", "<C-9>", go_to_next_paired_char)
+return {
+  go_to_prev_paired_char = go_to_prev_paired_char,
+  go_to_next_paired_char = go_to_next_paired_char,
+}
