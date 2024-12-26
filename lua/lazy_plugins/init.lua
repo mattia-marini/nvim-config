@@ -30,11 +30,11 @@ return {
   },
 
   { 'mattia-marini/moontex.nvim',  ft = "tex" },
-  -- { 'nvim-jdtls',                  ft = "java" },
+  { 'mfussenegger/nvim-jdtls',                  ft = "java" },
   { 'mattia-marini/nvim-bufflist', config = function() require('bufflist') end },
   { 'numToStr/Comment.nvim',       config = function() require('Comment').setup() end },
   from_module('mattia-marini/runner.nvim', 'runner'),
-  from_module('stevearc/oil.nvim', 'oil', { dependencies = { 'nvim-tree/nvim-web-devicons' } }),
+  from_module('stevearc/oil.nvim', 'oil', { dependencies = { 'nvim-tree/nvim-web-devicons'} }),
   from_module('nvim-tree/nvim-tree.lua', 'tree'),
   from_module('kevinhwang91/nvim-ufo', 'ufo', { dependencies = { 'kevinhwang91/promise-async' } }),
   from_module('NeogitOrg/neogit', 'neogit', { dependencies = { 'nvim-lua/plenary.nvim', 'sindrets/diffview.nvim' } }),
