@@ -27,7 +27,9 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
   vim.keymap.set('n', '<space>N', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('v', '<space>a', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+
   -- vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = false } end, bufopts)
   --
   vim.api.nvim_create_user_command("ToggleHints", function()
@@ -239,3 +241,5 @@ require 'lspconfig'.jdtls.setup {
   --     { 'build.gradle', 'build.gradle.kts' },
   --   } or vim.fn.getcwd()
 }
+
+require 'lspconfig'.lemminx.setup {}

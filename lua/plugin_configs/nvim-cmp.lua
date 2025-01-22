@@ -1,6 +1,13 @@
 local cmp = require 'cmp'
 
 cmp.setup({
+  -- formatting = {
+  --   format = lspkind.cmp_format({
+  --     mode = "symbol",
+  --     max_width = 50,
+  --     symbol_map = { Copilot = "" }
+  --   })
+  -- },
   snippet = {
     -- REQUIRED - you must specify a snippet engine
     expand = function(args)
@@ -43,6 +50,7 @@ cmp.setup({
   sources = {
     { name = 'path' },
     { name = 'nvim_lsp' },
+    { name = "copilot" },
     --{ name = 'luasnips' }, commentato in quanto
     { name = 'buffer' },
   }
