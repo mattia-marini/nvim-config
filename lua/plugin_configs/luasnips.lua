@@ -1,5 +1,4 @@
 local ls = require("luasnip")
-print("LUASNIPS")
 ls.config.set_config({
   history = false,
   enable_autosnippets = true,

@@ -177,11 +177,17 @@ require 'lspconfig'.rust_analyzer.setup {
   capabilities = capabilities
 }
 
+
 require 'lspconfig'.jdtls.setup {
+
+  cmd = { 'jdtls' },
   on_attach = on_attach,
   update_in_insert = false,
   capabilities = capabilities,
-  root_dir = function() vim.fn.getcwd() end,
+  root_dir = function()
+    return vim.fs.dirname(vim.fs.find({ 'gradlew', '.git', 'mvnw', 'mvn', 'pom.xml' }, { upward = true })[1])
+  end,
+  single_file_support = false
   -- root_dir = function()
   --   local root_files = {
   --     'settings.gradle',     -- Gradle (multi-project)
@@ -203,7 +209,6 @@ require 'lspconfig'.jdtls.setup {
   --   print(root)
   --   return root
   -- end,
-  single_file_support = false
 
   -- root_dir = vim.fs.root(0, "build.gradle.kts"),
   -- root_dir = function()
