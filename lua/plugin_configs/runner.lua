@@ -47,19 +47,24 @@ require("runner").config({
         return { root = srcDir or root }
       end,
       buildAndRun = function(args)
-        local root_files = {
+        local mvn_root_files = {
+          'build.xml', -- Ant
+          'pom.xml',   -- Maven
+        }
+        local gradle_root_files = {
           'settings.gradle',     -- Gradle (multi-project)
           'settings.gradle.kts', -- Gradle (multi-project)
-          'build.xml',           -- Ant
-          'pom.xml',             -- Maven
           'build.gradle',        -- Gradle
           'build.gradle.kts',    -- Gradle
         }
 
-        local root = vim.fs.root(0, root_files)
+        local mvn_root = vim.fs.root(0, mvn_root_files)
+        local gradle_root = vim.fs.root(0, mvn_root_files)
 
-        if root then
-          return "cd " .. root .. " && DT && gradle run"
+        if mvn_root then
+          return "cd " .. mvn_root .. " && DT && mvn exec:java"
+        elseif gradle_root then
+          return "cd " .. gradle_root .. " && DT && gradle run"
         else
           return "cd " ..
               args.default.currFileDir ..

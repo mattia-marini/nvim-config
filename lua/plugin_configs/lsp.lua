@@ -180,7 +180,7 @@ require 'lspconfig'.rust_analyzer.setup {
 
 require 'lspconfig'.jdtls.setup {
 
-  cmd = { 'jdtls' },
+  -- cmd = { 'jdtls' },
   on_attach = on_attach,
   update_in_insert = false,
   capabilities = capabilities,
