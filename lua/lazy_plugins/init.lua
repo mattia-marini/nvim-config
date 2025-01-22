@@ -28,6 +28,14 @@ return {
     'nvim-telescope/telescope.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' }
   },
+  from_module(
+    "ThePrimeagen/harpoon",
+    "harpoon",
+    {
+      branch = "harpoon2",
+      dependencies = { "nvim-lua/plenary.nvim" }
+    }
+  ),
 
   { 'mattia-marini/moontex.nvim',  ft = "tex" },
   -- { 'nvim-jdtls',                  ft = "java" },
@@ -39,6 +47,20 @@ return {
   from_module('kevinhwang91/nvim-ufo', 'ufo', { dependencies = { 'kevinhwang91/promise-async' } }),
   from_module('NeogitOrg/neogit', 'neogit', { dependencies = { 'nvim-lua/plenary.nvim', 'sindrets/diffview.nvim' } }),
   from_module('nvim-lualine/lualine.nvim', 'lualine', { dependencies = { 'nvim-tree/nvim-web-devicons' } }),
+  from_module(
+    "zbirenbaum/copilot.lua",
+    "copilot",
+    {
+      cmd = "Copilot",
+      event = "InsertEnter"
+    }
+  ),
+  {
+    "zbirenbaum/copilot-cmp",
+    config = function()
+      require("copilot_cmp").setup()
+    end
+  },
   from_module('stevearc/conform.nvim', 'conform'),
 }
 
