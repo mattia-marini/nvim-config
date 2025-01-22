@@ -181,7 +181,7 @@ require 'lspconfig'.jdtls.setup {
   on_attach = on_attach,
   update_in_insert = false,
   capabilities = capabilities,
-  root_dir = vim.fn.getcwd(),
+  root_dir = function() vim.fn.getcwd() end,
   -- root_dir = function()
   --   local root_files = {
   --     'settings.gradle',     -- Gradle (multi-project)
