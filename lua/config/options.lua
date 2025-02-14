@@ -36,6 +36,8 @@ vim.opt.smarttab = false
 vim.opt.autoindent = false
 vim.opt.smartindent = false
 
+vim.opt.completeopt = "menu,preview,noinsert,popup"
+
 --[=[
 vim.opt.indentexpr=""
 vim.opt_local.nocindent = true

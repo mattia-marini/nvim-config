@@ -23,5 +23,5 @@ return {
   { 'rose-pine/neovim',            as = 'rose-pine',  lazy = true },
   { 'catppuccin/vim',              as = 'catppuccin', lazy = true },
 
-  default_coloscheme("rose-pine/neovim", "rose-pine"),
+  default_coloscheme("ellisonleao/gruvbox.nvim", "gruvbox"),
 }

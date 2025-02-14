@@ -85,3 +85,14 @@ vim.api.nvim_set_keymap('v', 'C', '<Plug>(comment_toggle_blockwise_visual)', {})
 local nav = require("utils.nav")
 vim.keymap.set("n", "<C-8>", nav.go_to_prev_paired_char)
 vim.keymap.set("n", "<C-9>", nav.go_to_next_paired_char)
+
+vim.keymap.set("n", "<space>C",
+  function()
+    local input = vim.fn.input("Quick Chat: ")
+    if input ~= "" then
+      require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer })
+    end
+  end, {
+    desc = "CopilotChat - Quick chat",
+  }
+)
