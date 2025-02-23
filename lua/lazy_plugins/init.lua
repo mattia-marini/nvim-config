@@ -73,6 +73,13 @@ return {
     version = "3.0.0"
     -- See Commands section for default commands if you want to lazy load on them
   },
+
+  {
+    "shaun-mathew/Chameleon.nvim",
+    config = function()
+      require("chameleon").setup()
+    end,
+  },
   -- from_module('mfussenegger/nvim-jdtls', 'jdtls', { ft = "java" }),
   from_module('stevearc/conform.nvim', 'conform'),
 }

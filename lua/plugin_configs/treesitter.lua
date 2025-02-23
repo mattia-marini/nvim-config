@@ -15,15 +15,15 @@ require'nvim-treesitter.configs'.setup {
   ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
   -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
   highlight = {
-    enable = true,
+    enable = false,
     additional_vim_regex_highlighting = false,
   },
 
   indent = {
-    enable = true,
+    enable = false,
   },
 
   incremental_selection = {
-    enable = true,
+    enable = false,
   },
 }
