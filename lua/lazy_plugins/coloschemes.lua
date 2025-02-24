@@ -4,7 +4,8 @@ local function default_coloscheme(name, name2)
     lazy = false,    -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
-      require("utils.colorscheme").colorscheme_no_bg(name2)
+      vim.cmd("colorscheme " .. name2)
+      -- require("utils.colorscheme").colorscheme_no_bg(name2)
     end
   }
 end
@@ -22,6 +23,5 @@ return {
   { 'embark-theme/vim',            as = 'embark',     lazy = true },
   { 'rose-pine/neovim',            as = 'rose-pine',  lazy = true },
   { 'catppuccin/vim',              as = 'catppuccin', lazy = true },
-
   default_coloscheme("ellisonleao/gruvbox.nvim", "gruvbox"),
 }
