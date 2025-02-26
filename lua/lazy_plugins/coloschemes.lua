@@ -4,7 +4,7 @@ local function default_coloscheme(name, name2)
     lazy = false,    -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
-      vim.cmd("colorscheme " .. name2)
+      vim.cmd.colorscheme(name2)
       -- require("utils.colorscheme").colorscheme_no_bg(name2)
     end
   }
@@ -12,16 +12,16 @@ end
 
 return {
 
-  { 'neanias/everforest-nvim',     lazy = true },
-  { 'arcticicestudio/nord-vim',    lazy = true },
-  { 'mhartington/oceanic-next',    lazy = true },
-  { 'glepnir/oceanic-material',    lazy = true },
-  { 'projekt0n/github-nvim-theme', lazy = true },
-  { 'arzg/vim-colors-xcode',       lazy = true },
-  { 'ellisonleao/gruvbox.nvim',    lazy = true },
-  { 'joshdick/onedark.vim',        lazy = true },
-  { 'embark-theme/vim',            as = 'embark',     lazy = true },
-  { 'rose-pine/neovim',            as = 'rose-pine',  lazy = true },
-  { 'catppuccin/vim',              as = 'catppuccin', lazy = true },
-  default_coloscheme("ellisonleao/gruvbox.nvim", "gruvbox"),
+  { 'neanias/everforest-nvim', },
+  { 'arcticicestudio/nord-vim', },
+  { 'mhartington/oceanic-next', },
+  { 'glepnir/oceanic-material', },
+  { 'projekt0n/github-nvim-theme', },
+  { 'arzg/vim-colors-xcode', },
+  -- { 'sainnhe/gruvbox-material', },
+  { 'joshdick/onedark.vim', },
+  { 'embark-theme/vim',            as = 'embark', },
+  { 'rose-pine/neovim',            as = 'rose-pine', },
+  { 'catppuccin/vim',              as = 'catppuccin', },
+  default_coloscheme("sainnhe/gruvbox-material", "gruvbox-material"),
 }

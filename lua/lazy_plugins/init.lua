@@ -75,13 +75,14 @@ return {
   },
 
   {
-    "shaun-mathew/Chameleon.nvim",
+    "mattia-marini/chameleon.nvim",
     config = function()
       require("chameleon").setup()
     end,
   },
   -- from_module('mfussenegger/nvim-jdtls', 'jdtls', { ft = "java" }),
   from_module('stevearc/conform.nvim', 'conform'),
+  from_module('echasnovski/mini.ai', 'mini-ai', { version = '*' })
 }
 
 

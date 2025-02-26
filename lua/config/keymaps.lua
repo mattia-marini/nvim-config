@@ -44,16 +44,18 @@ vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-N>', {})
 
 
 -- Surround
--- vim.api.nvim_set_keymap('v', '(', "", { callback = function() require('lua.utils.surround').surround('(', ')') end })
--- vim.api.nvim_set_keymap('v', ')', "", { callback = function() require('lua.utils.surround').surround('(', ')') end })
--- vim.api.nvim_set_keymap('v', '[', "", { callback = function() require('lua.utils.surround').surround('[', ']') end })
--- vim.api.nvim_set_keymap('v', ']', "", { callback = function() require('lua.utils.surround').surround('[', ']') end })
--- vim.api.nvim_set_keymap('v', '{', "", { callback = function() require('lua.utils.surround').surround('{', '}') end })
--- vim.api.nvim_set_keymap('v', '}', "", { callback = function() require('lua.utils.surround').surround('{', '}') end })
--- vim.api.nvim_set_keymap('v', '<', "", { callback = function() require('lua.utils.surround').surround('<', '>') end })
--- vim.api.nvim_set_keymap('v', '>', "", { callback = function() require('lua.utils.surround').surround('<', '>') end })
--- vim.api.nvim_set_keymap('v', '"', "", { callback = function() require('lua.utils.surround').surround('"', '"') end })
--- vim.api.nvim_set_keymap('v', '\'', "", { callback = function() require('lua.utils.surround').surround('\'', '\'') end })
+local surround = require('utils.surround')
+vim.api.nvim_set_keymap('v', '(', "", { callback = function() surround.surround('(', ')') end })
+vim.api.nvim_set_keymap('v', ')', "", { callback = function() surround.surround('(', ')') end })
+vim.api.nvim_set_keymap('v', '[', "", { callback = function() surround.surround('[', ']') end })
+vim.api.nvim_set_keymap('v', ']', "", { callback = function() surround.surround('[', ']') end })
+vim.api.nvim_set_keymap('v', '{', "", { callback = function() surround.surround('{', '}') end })
+vim.api.nvim_set_keymap('v', '}', "", { callback = function() surround.surround('{', '}') end })
+vim.api.nvim_set_keymap('v', '<', "", { callback = function() surround.surround('<', '>') end })
+vim.api.nvim_set_keymap('v', '>', "", { callback = function() surround.surround('<', '>') end })
+vim.api.nvim_set_keymap('v', '"', "", { callback = function() surround.surround('"', '"') end })
+vim.api.nvim_set_keymap('v', '\'', "", { callback = function() surround.surround('\'', '\'') end })
+vim.api.nvim_set_keymap('v', '`', "", { callback = function() surround.surround('`', '`') end })
 
 
 -- Movement
