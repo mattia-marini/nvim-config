@@ -83,8 +83,18 @@ vim.keymap.set('v', 'c', 'gc', { remap = true })
 
 -- Travel by brakets
 local nav = require("utils.nav")
-vim.keymap.set("n", "<C-8>", nav.go_to_prev_paired_char)
-vim.keymap.set("n", "<C-9>", nav.go_to_next_paired_char)
+vim.keymap.set("n", "<C-8>", function()
+
+  nav.go_to_prev_paired_char({ '{', '[', '(' })
+  -- require("mini.ai").move_cursor("left", 'a', 'b', { search_method = 'prev' })
+end
+)
+
+vim.keymap.set("n", "<C-9>", function()
+  nav.go_to_next_paired_char({ '}', ']', ')' })
+  -- require("mini.ai").move_cursor("right", 'a', 'b', { search_method = 'next' })
+end
+)
 
 vim.keymap.set({ "n", "v" }, "<space>Cc",
   function()

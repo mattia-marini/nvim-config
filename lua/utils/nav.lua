@@ -31,15 +31,12 @@ local function find_first_occurence(s, char_set)
   return s:find("[" .. pattern .. "]")
 end
 
-function go_to_next_paired_char()
+local function go_to_next_paired_char(char_set)
   local cursor_pos = vim.api.nvim_win_get_cursor(0)
 
   local curr_line = vim.api.nvim_get_current_line()
   local first_line_half = curr_line:sub(0, cursor_pos[2] + 1)
   local second_line_half = curr_line:sub(cursor_pos[2] + 2, -1)
-
-
-  local char_set = { '\'', '\"', '{', '}', '[', ']', '(', ')' }
 
 
   local matched_pos = find_first_occurence(second_line_half, char_set)
@@ -50,15 +47,12 @@ function go_to_next_paired_char()
   end
 end
 
-function go_to_prev_paired_char()
+local function go_to_prev_paired_char(char_set)
   local cursor_pos = vim.api.nvim_win_get_cursor(0)
 
   local curr_line = vim.api.nvim_get_current_line()
   local first_line_half = curr_line:sub(0, cursor_pos[2])
   -- local second_line_half = curr_line:sub(cursor_pos[2] + 1, -1)
-
-
-  local char_set = { '\'', '\"', '{', '}', '[', ']', '(', ')' }
 
 
   local matched_pos = find_last_occurence(first_line_half, char_set)
