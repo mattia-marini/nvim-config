@@ -4,25 +4,24 @@ vim.api.nvim_set_keymap('n', '<space>q', ':q<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', 'k', 'gk', { noremap = true })
 vim.api.nvim_set_keymap('n', 'j', 'gj', { noremap = true })
 --vim.api.nvim_set_keymap('i', 'jk', '<ESC>', {noremap = true})
-vim.api.nvim_set_keymap('i', 'œ', '<', { noremap = true })
-vim.api.nvim_set_keymap('i', 'ø', '>', { noremap = true })
-vim.api.nvim_set_keymap('v', 'œ', '<', {})
-vim.api.nvim_set_keymap('v', 'ø', '>', {})
+-- vim.api.nvim_set_keymap('i', 'œ', '<', { noremap = true })
+-- vim.api.nvim_set_keymap('i', 'ø', '>', { noremap = true })
+-- vim.api.nvim_set_keymap('v', 'œ', '<', {})
+-- vim.api.nvim_set_keymap('v', 'ø', '>', {})
 
 vim.api.nvim_set_keymap('n', '<space>n', '<C-w><C-w>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<space>p', '<C-w><C-p>', { noremap = true })
 
-vim.api.nvim_set_keymap('n', '<space>k', '<C-w>k', {})
-vim.api.nvim_set_keymap('n', '<space>j', '<C-w>j', {})
-vim.api.nvim_set_keymap('n', '<space>l', '<C-w>l', {})
-vim.api.nvim_set_keymap('n', '<space>h', '<C-w>h', {})
+vim.keymap.set({ 'n', 'v' }, '<space>k', '<C-w>k', {})
+vim.keymap.set({ 'n', "v" }, '<space>j', '<C-w>j', {})
+vim.keymap.set({ 'n', "v" }, '<space>l', '<C-w>l', {})
+vim.keymap.set({ 'n', "v" }, '<space>h', '<C-w>h', {})
 vim.api.nvim_set_keymap('n', '<space><tab>', 'gt', {})
 vim.api.nvim_set_keymap('n', '<space>p', 'gT', {})
 vim.api.nvim_set_keymap('n', '<space>e', ':Oil<CR>', {})
 vim.api.nvim_set_keymap('n', '<space>E', ':vsplit | Oil<CR>', {})
 vim.api.nvim_set_keymap('n', '<C-h>', '5zh', {})
 vim.api.nvim_set_keymap('n', '<C-l>', '5zl', {})
-vim.api.nvim_set_keymap('n', 'gp', '<c-6>', {})
 
 -- vim.api.nvim_set_keymap('n', '<space>a', ':lua require("harpoon.mark").add_file()<CR>', { noremap = true })
 -- vim.api.nvim_set_keymap('n', '<space>H', ':lua require("harpoon.ui").toggle_quick_menu()<CR>', { noremap = true })
@@ -80,21 +79,29 @@ vim.keymap.set({ 'n', 'v' }, 'L', '5l', { noremap = true })
 vim.keymap.set({ 'n', 'v' }, 'H', '5h', { noremap = true })
 
 -- Comments
-vim.api.nvim_set_keymap('v', 'c', '<Plug>(comment_toggle_linewise_visual)', {})
-vim.api.nvim_set_keymap('v', 'C', '<Plug>(comment_toggle_blockwise_visual)', {})
+vim.keymap.set('v', 'c', 'gc', { remap = true })
 
 -- Travel by brakets
 local nav = require("utils.nav")
 vim.keymap.set("n", "<C-8>", nav.go_to_prev_paired_char)
 vim.keymap.set("n", "<C-9>", nav.go_to_next_paired_char)
 
-vim.keymap.set("n", "<space>C",
+vim.keymap.set({ "n", "v" }, "<space>Cc",
   function()
-    local input = vim.fn.input("Quick Chat: ")
-    if input ~= "" then
-      require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer })
-    end
+    require("CopilotChat").open()
   end, {
-    desc = "CopilotChat - Quick chat",
+    desc = "CopilotChat - Open chat",
   }
 )
+
+vim.keymap.set("n", "<Space>ff", function()
+  require("telescope.builtin").find_files()
+end
+)
+
+vim.keymap.set("n", "<Space>fg", function()
+  require("telescope.builtin").live_grep()
+end
+)
+
+vim.keymap.set("n", "<Space>T", ":vnew | term<CR>")

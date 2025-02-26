@@ -39,7 +39,7 @@ return {
 
   { 'mattia-marini/moontex.nvim',  ft = "tex" },
   { 'mattia-marini/nvim-bufflist', config = function() require('bufflist') end },
-  { 'numToStr/Comment.nvim',       config = function() require('Comment').setup() end },
+  -- { 'numToStr/Comment.nvim',       config = function() require('Comment').setup() end },
   from_module('mattia-marini/runner.nvim', 'runner'),
   from_module('stevearc/oil.nvim', 'oil', { dependencies = { 'nvim-tree/nvim-web-devicons' } }),
   from_module('nvim-tree/nvim-tree.lua', 'tree'),

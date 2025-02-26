@@ -128,19 +128,10 @@ function aux.print_vim_hi_group()
   end
 end
 
-vim.api.nvim_set_keymap('n', '<space>c', ':lua comment()', { noremap = true })
-
-function aux.comment()
-  print(vim.api.nvim_buf_get_mark(0, "<")[1])
-  print(vim.api.nvim_buf_get_mark(0, ">")[1])
-  vim.cmd([[<C-v>]])
-end
-
 function aux.BG()
   vim.api.nvim_set_hl(0, "Normal", { bg = none })
   vim.api.nvim_set_hl(0, "NormalFloat", { bg = none })
 end
-
 
 function aux.getSelectionBound()
   local _, row_1, col_1 = unpack(vim.fn.getpos("v"))
@@ -177,3 +168,8 @@ function aux.getSelectionBound()
 
   --Visual block (^V) to do
 end
+
+
+
+
+
