@@ -18,22 +18,29 @@ cmp.setup({
   matching = { disallow_fullfuzzy_matching = false },
   window = {
     completion = {
-      border = 'single', --'single', 'double', 'rounded', 'none'.
-      winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,Search:None',
-      col_offset = 0,
-      side_padding = 1
-    }
+      border = "rounded",
+      winhighlight = "Normal:Normal,FloatBorder:Normal,CursorLine:Visual,Search:None",
+    },
+    documentation = {
+      border = "rounded",
+      winhighlight = "Normal:Normal,FloatBorder:Normal,CursorLine:Visual,Search:None",
+    },
+    -- completion = {
+    --   border = 'rounded', --'single', 'double', 'rounded', 'none'.
+    --   -- winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,Search:None',
+    --   -- col_offset = 0,
+    --   -- side_padding = 1
+    -- }
     --   cmp.config.window.bordered(
     --
     --   { winhighlight = 'Normal:Normal,FloatBorder:None,CursorLine:Visual,Search:None' }
     -- )
-    ,
-    documentation = {
-      border = 'single', --'single', 'double', 'rounded', 'none'.
-      winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,Search:None',
-      col_offset = 0,
-      side_padding = 1
-    }
+    -- documentation = {
+    --   border = 'single', --'single', 'double', 'rounded', 'none'.
+    --   winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,Search:None',
+    --   col_offset = 0,
+    --   side_padding = 1
+    -- }
     -- cmp.config.window.bordered(
     --   { winhighlight = 'Normal:Normal,FloatBorder:None,CursorLine:Visual,Search:None' }
     -- ),
