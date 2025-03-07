@@ -18,12 +18,6 @@ require("conform").formatters.injected = {
   }
 }
 
-vim.keymap.set("n", "<Space>f", "", {
-  callback =
-      function()
-        require("conform").format({ async = true, lsp_format = "fallback" })
-      end
-})
 
 vim.api.nvim_create_user_command("Format", function(args)
   local range = nil

@@ -13,7 +13,6 @@ vim.api.nvim_create_user_command("Latex",
 
 vim.api.nvim_create_user_command("Parsers", [[echo nvim_get_runtime_file('parser', v:true)]], {})
 
-
 vim.api.nvim_create_user_command("Colorscheme",
   function(args)
     require("utils.colorscheme").colorscheme_no_bg(args.args)

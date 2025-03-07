@@ -18,7 +18,6 @@ require("luasnip.loaders.from_lua").load({ paths = { "~/.config/nvim/luasnippets
 vim.keymap.set(
   { "i", "s" }, "<Tab>",
   function()
-    print("Afa")
     if ls.expandable() then
       ls.expand()
     elseif ls.jumpable(1) then

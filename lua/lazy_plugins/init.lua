@@ -89,7 +89,14 @@ return {
       "MunifTanjim/nui.nvim",
       "rcarriga/nvim-notify",
     }
-  }
+  },
+  {
+    'echasnovski/mini.pairs',
+    version = false,
+    config = { {
+      modes = { insert = true, command = true, }
+    } }
+  },
 }
 
 

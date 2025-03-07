@@ -103,12 +103,12 @@ vim.keymap.set({ "n", "v" }, "<space>Cc",
   }
 )
 
-vim.keymap.set("n", "<Space>ff", function()
+vim.keymap.set("n", "<Space>tf", function()
   require("telescope.builtin").find_files()
 end
 )
 
-vim.keymap.set("n", "<Space>fg", function()
+vim.keymap.set("n", "<Space>tg", function()
   require("telescope.builtin").live_grep()
 end
 )
@@ -116,3 +116,10 @@ end
 vim.keymap.set("n", "<Space>T", ":vnew | term<CR>", { silent = true })
 
 vim.keymap.set("n", "<space>D", "<cmd>NoiceDismiss<CR>")
+
+vim.keymap.set("n", "<Space>f", "", {
+  callback =
+      function()
+        require("conform").format({ async = true, lsp_format = "fallback" })
+      end
+})
