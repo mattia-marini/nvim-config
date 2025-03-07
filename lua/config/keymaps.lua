@@ -1,6 +1,6 @@
 -- Maps
-vim.api.nvim_set_keymap('n', '<space>w', ':wa<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<space>q', ':q<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<space>w', ':wa<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<space>q', ':q<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'k', 'gk', { noremap = true })
 vim.api.nvim_set_keymap('n', 'j', 'gj', { noremap = true })
 --vim.api.nvim_set_keymap('i', 'jk', '<ESC>', {noremap = true})
@@ -12,14 +12,14 @@ vim.api.nvim_set_keymap('n', 'j', 'gj', { noremap = true })
 vim.api.nvim_set_keymap('n', '<space>n', '<C-w><C-w>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<space>p', '<C-w><C-p>', { noremap = true })
 
-vim.keymap.set({ 'n', 'v' }, '<space>k', '<C-w>k', {})
-vim.keymap.set({ 'n', "v" }, '<space>j', '<C-w>j', {})
-vim.keymap.set({ 'n', "v" }, '<space>l', '<C-w>l', {})
-vim.keymap.set({ 'n', "v" }, '<space>h', '<C-w>h', {})
-vim.api.nvim_set_keymap('n', '<space><tab>', 'gt', {})
-vim.api.nvim_set_keymap('n', '<space>p', 'gT', {})
-vim.api.nvim_set_keymap('n', '<space>e', ':Oil<CR>', {})
-vim.api.nvim_set_keymap('n', '<space>E', ':vsplit | Oil<CR>', {})
+vim.keymap.set({ 'n', 'v' }, '<space>k', '<C-w>k', { silent = true })
+vim.keymap.set({ 'n', "v" }, '<space>j', '<C-w>j', { silent = true })
+vim.keymap.set({ 'n', "v" }, '<space>l', '<C-w>l', { silent = true })
+vim.keymap.set({ 'n', "v" }, '<space>h', '<C-w>h', { silent = true })
+vim.api.nvim_set_keymap('n', '<space><tab>', 'gt', { silent = true })
+vim.api.nvim_set_keymap('n', '<space>p', 'gT', { silent = true })
+vim.api.nvim_set_keymap('n', '<space>e', ':Oil<CR>', { silent = true })
+vim.api.nvim_set_keymap('n', '<space>E', ':vsplit | Oil<CR>', { silent = true })
 vim.api.nvim_set_keymap('n', '<C-h>', '5zh', {})
 vim.api.nvim_set_keymap('n', '<C-l>', '5zl', {})
 
@@ -84,7 +84,6 @@ vim.keymap.set('v', 'c', 'gc', { remap = true })
 -- Travel by brakets
 local nav = require("utils.nav")
 vim.keymap.set("n", "<C-8>", function()
-
   nav.go_to_prev_paired_char({ '{', '[', '(' })
   -- require("mini.ai").move_cursor("left", 'a', 'b', { search_method = 'prev' })
 end
@@ -114,4 +113,6 @@ vim.keymap.set("n", "<Space>fg", function()
 end
 )
 
-vim.keymap.set("n", "<Space>T", ":vnew | term<CR>")
+vim.keymap.set("n", "<Space>T", ":vnew | term<CR>", { silent = true })
+
+vim.keymap.set("n", "<space>D", "<cmd>NoiceDismiss<CR>")

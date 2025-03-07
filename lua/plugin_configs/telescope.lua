@@ -32,12 +32,12 @@ require("telescope").setup({
   defaults = {
     mappings = {
       i = {
-            -- Insert mode mappings
+        -- Insert mode mappings
         ["<C-j>"] = actions.move_selection_next,
         ["<C-k>"] = actions.move_selection_previous,
       },
       n = {
-            -- Normal mode mappings (optional)
+        -- Normal mode mappings (optional)
         ["<C-j>"] = actions.move_selection_next,
         ["<C-k>"] = actions.move_selection_previous,
       },

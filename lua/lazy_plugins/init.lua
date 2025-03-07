@@ -23,11 +23,8 @@ return {
   { 'hrsh7th/cmp-path' },
   { 'hrsh7th/cmp-cmdline' },
   { 'hrsh7th/nvim-cmp' },
+  from_module('nvim-telescope/telescope.nvim', 'telescope', { dependencies = { 'nvim-lua/plenary.nvim' } }),
 
-  {
-    'nvim-telescope/telescope.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' }
-  },
   from_module(
     "ThePrimeagen/harpoon",
     "harpoon",
@@ -82,7 +79,17 @@ return {
   },
   -- from_module('mfussenegger/nvim-jdtls', 'jdtls', { ft = "java" }),
   from_module('stevearc/conform.nvim', 'conform'),
-  from_module('echasnovski/mini.ai', 'mini-ai', { version = '*' })
+  from_module('echasnovski/mini.ai', 'mini-ai', { version = '*' }),
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+    },
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    }
+  }
 }
 
 
