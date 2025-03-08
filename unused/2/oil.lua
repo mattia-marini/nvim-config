@@ -1,4 +1,3 @@
---prova
 require("oil").setup {
   keymaps = {
     ["g?"] = "actions.show_help",
@@ -19,6 +18,13 @@ require("oil").setup {
     ["g\\"] = "actions.toggle_trash",
     ["<Space>w"] = ":w<CR>",
     ["<Esc>"] = ":q<CR>",
+    ['yp'] = {
+      desc = 'Copy filepath to system clipboard',
+      callback = function()
+        require('oil.actions').copy_entry_path.callback()
+        vim.fn.setreg("+", vim.fn.getreg(vim.v.register))
+      end,
+    },
   },
   delete_to_trash = true,
 }
