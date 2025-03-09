@@ -43,7 +43,8 @@ ufo_capabilities.textDocument.foldingRange = {
   dynamicRegistration = false,
   lineFoldingOnly = true
 }
-local cmp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+-- local cmp_capabilities = capabilities
+local cmp_capabilities = require('blink.cmp').get_lsp_capabilities()
 local capabilities = {}
 
 for key, value in pairs(cmp_capabilities) do capabilities[key] = value end
@@ -65,22 +66,22 @@ require('lspconfig').clangd.setup {
   --cmd = {'clangd', '--fallback-style=/Users/mattia/Desktop/clang-format'},
   on_attach = on_attach,
   update_in_insert = false,
-  capabilities = require('cmp_nvim_lsp').default_capabilities()
-  --capabilities = require('cmp_nvim_lsp').default_capabilities()
+  capabilities = capabilities
+  --capabilities = capabilities
 }
 
 require('lspconfig').texlab.setup {
   cmd = { 'texlab', '-vvvv' },
   on_attach = on_attach,
   update_in_insert = false,
-  capabilities = require('cmp_nvim_lsp').default_capabilities()
+  capabilities = capabilities
 }
 
 require 'lspconfig'.lua_ls.setup {
   cmd = { 'lua-language-server-wrapper' },
   on_attach = on_attach,
   update_in_insert = false,
-  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+  capabilities = capabilities,
   settings = {
     Lua = {
       runtime = {
@@ -108,7 +109,7 @@ require 'lspconfig'.millet.setup {
   cmd = { 'millet-ls' },
   on_attach = on_attach,
   update_in_insert = false,
-  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+  capabilities = capabilities,
   single_file_support = true
   --root_dir = function()return vim.fn.getcwd()end
 }
@@ -117,7 +118,7 @@ require 'lspconfig'.sourcekit.setup {
   --single_file_support = true,
   on_attach = on_attach,
   update_in_insert = false,
-  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+  capabilities = capabilities,
   filetypes = { "swift", "metal" },
   root_dir = require('lspconfig').util.root_pattern("buildServer.json", "*.xcodeproj", "*.xcworkspace", ".git",
     "compile_commands.json", "Package.swift")
@@ -126,7 +127,7 @@ require 'lspconfig'.sourcekit.setup {
 require 'lspconfig'.ts_ls.setup {
   on_attach = on_attach,
   update_in_insert = false,
-  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+  capabilities = capabilities,
   commands = {
     OrganizeImports = {
       function()
@@ -145,7 +146,7 @@ require 'lspconfig'.ts_ls.setup {
 require 'lspconfig'.cssls.setup {
   on_attach = on_attach,
   update_in_insert = false,
-  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+  capabilities = capabilities,
 }
 
 -- require 'lspconfig'.superhtml.setup {

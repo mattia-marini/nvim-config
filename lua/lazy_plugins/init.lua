@@ -17,12 +17,39 @@ return {
   from_module('nvim-treesitter/nvim-treesitter', 'treesitter'),
   from_module('neovim/nvim-lspconfig', 'lsp'),
 
-  from_module('hrsh7th/cmp-nvim-lsp', 'nvim-cmp', { lazy = false }),
-  { 'hrsh7th/cmp-nvim-lsp' },
-  { 'hrsh7th/cmp-buffer' },
-  { 'hrsh7th/cmp-path' },
-  { 'hrsh7th/cmp-cmdline' },
-  { 'hrsh7th/nvim-cmp' },
+  -- from_module('hrsh7th/cmp-nvim-lsp', 'nvim-cmp', { lazy = false }),
+  -- { 'hrsh7th/cmp-nvim-lsp' },
+  -- { 'hrsh7th/cmp-buffer' },
+  -- { 'hrsh7th/cmp-path' },
+  -- { 'hrsh7th/cmp-cmdline' },
+  -- { 'hrsh7th/nvim-cmp' },
+  --
+  {
+    'saghen/blink.cmp',
+    dependencies = { "giuxtaposition/blink-cmp-copilot" },
+    version = '*',
+    opts = {
+      keymap = { preset = 'default' },
+      appearance = {
+        use_nvim_cmp_as_default = true,
+        nerd_font_variant = 'mono'
+      },
+      sources = {
+        default = { 'lsp', 'path', 'snippets', 'buffer', 'copilot' },
+        providers = {
+          copilot = {
+            name = "copilot",
+            module = "blink-cmp-copilot",
+            score_offset = 100,
+            async = true,
+          },
+        },
+      },
+      fuzzy = { implementation = "prefer_rust_with_warning" },
+    },
+    opts_extend = { "sources.default" }
+  },
+
   from_module('nvim-telescope/telescope.nvim', 'telescope', { dependencies = { 'nvim-lua/plenary.nvim' } }),
 
   from_module(
@@ -51,12 +78,12 @@ return {
       event = "InsertEnter"
     }
   ),
-  {
-    "zbirenbaum/copilot-cmp",
-    config = function()
-      require("copilot_cmp").setup()
-    end
-  },
+  -- {
+  --   "zbirenbaum/copilot-cmp",
+  --   config = function()
+  --     require("copilot_cmp").setup()
+  --   end
+  -- },
   {
     "CopilotC-Nvim/CopilotChat.nvim",
     dependencies = {
@@ -80,6 +107,7 @@ return {
   -- from_module('mfussenegger/nvim-jdtls', 'jdtls', { ft = "java" }),
   from_module('stevearc/conform.nvim', 'conform'),
   from_module('echasnovski/mini.ai', 'mini-ai', { version = '*' }),
+
   {
     "folke/noice.nvim",
     event = "VeryLazy",
@@ -90,13 +118,14 @@ return {
       "rcarriga/nvim-notify",
     }
   },
-  {
-    'echasnovski/mini.pairs',
-    version = false,
-    config = { {
-      modes = { insert = true, command = true, }
-    } }
-  },
+
+  -- {
+  --   'echasnovski/mini.pairs',
+  --   version = false,
+  --   config = { {
+  --     modes = { insert = true, command = true, }
+  --   } }
+  -- },
 }
 
 
