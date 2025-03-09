@@ -29,7 +29,6 @@ return {
     dependencies = { "giuxtaposition/blink-cmp-copilot" },
     version = '*',
     opts = {
-      keymap = { preset = 'default' },
       appearance = {
         use_nvim_cmp_as_default = true,
         nerd_font_variant = 'mono'
@@ -46,6 +45,30 @@ return {
         },
       },
       fuzzy = { implementation = "prefer_rust_with_warning" },
+      completion = {
+        documentation = {
+          auto_show = true,
+          auto_show_delay_ms = 5,
+        },
+      },
+      keymap = {
+        preset = 'default',
+        ['<C-k>'] = { 'select_prev', 'fallback' },
+        ['<C-j>'] = { 'select_next', 'fallback' },
+        ['<C-Enter>'] = { 'accept' },
+      },
+      cmdline = {
+        keymap = {
+          preset = 'default',
+          ['<C-k>'] = { 'select_prev', 'fallback' },
+          ['<C-j>'] = { 'select_next', 'fallback' },
+          ['<C-Enter>'] = { 'accept' },
+        },
+        completion = {
+          ghost_text = { enabled = false },
+          menu = { auto_show = true }
+        },
+      }
     },
     opts_extend = { "sources.default" }
   },
