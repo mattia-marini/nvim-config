@@ -1,5 +1,5 @@
 local on_attach = function(client, bufnr)
-  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+  vim.lsp.inlay_hint.enable(true)
   -- Enable completion triggered by <c-x><c-o>
   --vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   -- Mappings.
@@ -33,7 +33,7 @@ local on_attach = function(client, bufnr)
   -- vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = false } end, bufopts)
   --
   vim.api.nvim_create_user_command("ToggleHints", function()
-    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
   end, {})
 end
 
@@ -45,6 +45,7 @@ ufo_capabilities.textDocument.foldingRange = {
 }
 -- local cmp_capabilities = capabilities
 local cmp_capabilities = require('blink.cmp').get_lsp_capabilities()
+-- local cmp_capabilities = {}
 local capabilities = {}
 
 for key, value in pairs(cmp_capabilities) do capabilities[key] = value end

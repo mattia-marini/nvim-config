@@ -24,6 +24,7 @@ return {
   -- { 'hrsh7th/cmp-cmdline' },
   -- { 'hrsh7th/nvim-cmp' },
   --
+
   {
     'saghen/blink.cmp',
     dependencies = { "giuxtaposition/blink-cmp-copilot" },
@@ -34,7 +35,7 @@ return {
         nerd_font_variant = 'mono'
       },
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer', 'copilot' },
+        default = { 'lsp', 'path', 'buffer', 'copilot' },
         providers = {
           copilot = {
             name = "copilot",
@@ -42,19 +43,28 @@ return {
             score_offset = 100,
             async = true,
           },
+          lsp = {
+            -- name = 'LSP',
+            -- module = 'blink.cmp.sources.lsp',
+            -- score_offset = 0,
+            async = true,
+            -- timeout_ms = 0,
+          }
         },
       },
       fuzzy = { implementation = "prefer_rust_with_warning" },
       completion = {
         documentation = {
           auto_show = true,
-          auto_show_delay_ms = 5,
+          auto_show_delay_ms = 2,
+          treesitter_highlighting = true,
         },
       },
       keymap = {
         preset = 'default',
         ['<C-k>'] = { 'select_prev', 'fallback' },
         ['<C-j>'] = { 'select_next', 'fallback' },
+        -- ['<C-l>'] = { 'show_documentation', 'fallback' },
         ['<C-Enter>'] = { 'accept' },
       },
       cmdline = {
@@ -131,16 +141,16 @@ return {
   from_module('stevearc/conform.nvim', 'conform'),
   from_module('echasnovski/mini.ai', 'mini-ai', { version = '*' }),
 
-  {
-    "folke/noice.nvim",
-    event = "VeryLazy",
-    opts = {
-    },
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "rcarriga/nvim-notify",
-    }
-  },
+  -- {
+  --   "folke/noice.nvim",
+  --   event = "VeryLazy",
+  --   opts = {
+  --   },
+  --   dependencies = {
+  --     "MunifTanjim/nui.nvim",
+  --     "rcarriga/nvim-notify",
+  --   }
+  -- },
 
   -- {
   --   'echasnovski/mini.pairs',

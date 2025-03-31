@@ -17,15 +17,17 @@ require("oil").setup {
     ["gx"] = "actions.open_external",
     ["g."] = "actions.toggle_hidden",
     ["g\\"] = "actions.toggle_trash",
+    ["gp"] = "actions.preview",
     ["<Space>w"] = ":w<CR>",
     ["<Esc>"] = ":q<CR>",
-    ['yp'] = {
-      desc = 'Copy filepath to system clipboard',
-      callback = function()
-        require('oil.actions').copy_entry_path.callback()
-        vim.fn.setreg("+", vim.fn.getreg(vim.v.register))
-      end,
-    },
+    ['Y'] = "actions.yank_entry"
+    -- ['yp'] = {
+    --   desc = 'Copy filepath to system clipboard',
+    --   callback = function()
+    --     require('oil.actions').copy_entry_path.callback()
+    --     vim.fn.setreg("+", vim.fn.getreg(vim.v.register))
+    --   end,
+    -- },
   },
   delete_to_trash = true,
 }
