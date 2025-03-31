@@ -116,10 +116,3 @@ end
 vim.keymap.set("n", "<Space>T", ":vnew | term<CR>", { silent = true })
 
 vim.keymap.set("n", "<space>D", "<cmd>NoiceDismiss<CR>")
-
-vim.keymap.set("n", "<Space>f", "", {
-  callback =
-      function()
-        require("conform").format({ async = true, lsp_format = "fallback" })
-      end
-})

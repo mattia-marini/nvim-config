@@ -11,19 +11,11 @@ local function from_module(name, mod_name, options)
 end
 
 return {
-  { 'nvim-tree/nvim-web-devicons', lazy = true },
+  { 'nvim-tree/nvim-web-devicons', lazy = true },               -- Done
 
-  from_module('L3MON4D3/LuaSnip', 'luasnips'),
-  from_module('nvim-treesitter/nvim-treesitter', 'treesitter'),
-  from_module('neovim/nvim-lspconfig', 'lsp'),
-
-  -- from_module('hrsh7th/cmp-nvim-lsp', 'nvim-cmp', { lazy = false }),
-  -- { 'hrsh7th/cmp-nvim-lsp' },
-  -- { 'hrsh7th/cmp-buffer' },
-  -- { 'hrsh7th/cmp-path' },
-  -- { 'hrsh7th/cmp-cmdline' },
-  -- { 'hrsh7th/nvim-cmp' },
-  --
+  from_module('L3MON4D3/LuaSnip', 'luasnips'),                  -- done
+  from_module('nvim-treesitter/nvim-treesitter', 'treesitter'), -- done
+  from_module('neovim/nvim-lspconfig', 'lsp'),                  -- done
 
   {
     'saghen/blink.cmp',
@@ -81,9 +73,9 @@ return {
       }
     },
     opts_extend = { "sources.default" }
-  },
+  },                                                                                                         -- done
 
-  from_module('nvim-telescope/telescope.nvim', 'telescope', { dependencies = { 'nvim-lua/plenary.nvim' } }),
+  from_module('nvim-telescope/telescope.nvim', 'telescope', { dependencies = { 'nvim-lua/plenary.nvim' } }), -- done
 
   from_module(
     "ThePrimeagen/harpoon",
@@ -92,17 +84,17 @@ return {
       branch = "harpoon2",
       dependencies = { "nvim-lua/plenary.nvim" }
     }
-  ),
+  ),                                                                                                         --Done
 
-  { 'mattia-marini/moontex.nvim',  ft = "tex" },
-  { 'mattia-marini/nvim-bufflist', config = function() require('bufflist') end },
+  { 'mattia-marini/moontex.nvim',  ft = "tex" },                                                             -- Done
+  { 'mattia-marini/nvim-bufflist', config = function() require('bufflist') end },                            -- Done
   -- { 'numToStr/Comment.nvim',       config = function() require('Comment').setup() end },
-  from_module('mattia-marini/runner.nvim', 'runner'),
-  from_module('stevearc/oil.nvim', 'oil', { dependencies = { 'nvim-tree/nvim-web-devicons' } }),
+  from_module('mattia-marini/runner.nvim', 'runner'),                                                        -- Done
+  from_module('stevearc/oil.nvim', 'oil', { dependencies = { 'nvim-tree/nvim-web-devicons' } }),             -- Done,
   from_module('nvim-tree/nvim-tree.lua', 'tree'),
-  from_module('kevinhwang91/nvim-ufo', 'ufo', { dependencies = { 'kevinhwang91/promise-async' } }),
+  from_module('kevinhwang91/nvim-ufo', 'ufo', { dependencies = { 'kevinhwang91/promise-async' } }),          -- Done
   from_module('NeogitOrg/neogit', 'neogit', { dependencies = { 'nvim-lua/plenary.nvim', 'sindrets/diffview.nvim' } }),
-  from_module('nvim-lualine/lualine.nvim', 'lualine', { dependencies = { 'nvim-tree/nvim-web-devicons' } }),
+  from_module('nvim-lualine/lualine.nvim', 'lualine', { dependencies = { 'nvim-tree/nvim-web-devicons' } }), --Done
   from_module(
     "zbirenbaum/copilot.lua",
     "copilot",
@@ -136,10 +128,10 @@ return {
     config = function()
       require("chameleon").setup()
     end,
-  },
+  }, -- Done
   -- from_module('mfussenegger/nvim-jdtls', 'jdtls', { ft = "java" }),
-  from_module('stevearc/conform.nvim', 'conform'),
-  from_module('echasnovski/mini.ai', 'mini-ai', { version = '*' }),
+  -- from_module('stevearc/conform.nvim', 'conform'),
+  from_module('echasnovski/mini.ai', 'mini-ai', { version = '*' }), -- Done
 
   -- {
   --   "folke/noice.nvim",

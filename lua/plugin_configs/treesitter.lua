@@ -1,4 +1,4 @@
-require'nvim-treesitter.configs'.setup {
+require 'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all" (the four listed parsers should always be installed)
   --ensure_installed = { "c", "lua", "vim", "help" },
 
@@ -26,4 +26,20 @@ require'nvim-treesitter.configs'.setup {
   incremental_selection = {
     enable = true,
   },
+}
+
+return {
+  'nvim-treesitter/nvim-treesitter',
+  opts = {
+    highlight = {
+      enable = true,
+      additional_vim_regex_highlighting = false,
+    },
+    indent = {
+      enable = true,
+    },
+    incremental_selection = {
+      enable = true,
+    },
+  }
 }

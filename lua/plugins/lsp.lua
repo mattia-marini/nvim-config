@@ -253,4 +253,4 @@ local function config()
   require 'lspconfig'.lemminx.setup {}
 end
 
-return { 'neovim/nvim-lspconfig' }
+return { 'neovim/nvim-lspconfig', config = config }
