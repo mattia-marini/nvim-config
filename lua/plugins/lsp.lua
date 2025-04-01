@@ -251,6 +251,12 @@ local function config()
   }
 
   require 'lspconfig'.lemminx.setup {}
+
+  require 'lspconfig'.pyright.setup {
+    on_attach = on_attach,
+    update_in_insert = false,
+    capabilities = capabilities
+  }
 end
 
 return { 'neovim/nvim-lspconfig', config = config }

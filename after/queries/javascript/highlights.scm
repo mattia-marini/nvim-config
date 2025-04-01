@@ -1,3 +1,7 @@
+; ;; extends
+; ((string_fragment) @injection.content 
+;            (#set! injection.language "html"))
+
 ; ;extends
 ; ((comment) @_comment
 ;  (#match? @_comment "(_html|_HTML)")

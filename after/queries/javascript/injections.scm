@@ -1,4 +1,4 @@
-;extends
+;; extends
 ((comment)  @_comment
             (#lua-match? @_comment "[hH][tT][mM][lL]")
  (template_string) @injection.content 
@@ -6,6 +6,12 @@
             (#set! injection.include-children)
             (#set! injection.language "html")
 )
+
+
+
+; ((template_string) @injection.content
+; 	(#set! injection.language "html")
+; 	(#set! injection.combined))
 ;
 ; ;extends
 ; ((comment) @_comment
