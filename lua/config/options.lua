@@ -9,6 +9,7 @@ vim.opt.wrap = false
 vim.opt.cursorline = true
 
 vim.g.terminal_emulator = 'kitty'
+vim.o.shell = '/usr/local/bin/fish'
 vim.opt.ignorecase = true
 
 vim.o.foldcolumn = '0' -- '0' is not bad
