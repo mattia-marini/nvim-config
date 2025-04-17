@@ -39,6 +39,7 @@ return {
       ['<C-j>'] = { 'select_next', 'fallback' },
       -- ['<C-l>'] = { 'show_documentation', 'fallback' },
       ['<C-Enter>'] = { 'accept' },
+      ['<C-l>'] = { 'accept' },
     },
     cmdline = {
       keymap = {
@@ -46,6 +47,7 @@ return {
         ['<C-k>'] = { 'select_prev', 'fallback' },
         ['<C-j>'] = { 'select_next', 'fallback' },
         ['<C-Enter>'] = { 'accept' },
+        ['<C-l>'] = { 'accept' },
       },
       completion = {
         ghost_text = { enabled = false },
