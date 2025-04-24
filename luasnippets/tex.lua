@@ -437,7 +437,31 @@ prova{}
       {}
     \end{{tikzpicture}}
     ]], { i(0) })
-      )
+      ),
+      s("link", fmt([[\href{{{}}}{{{}}}]], {
+
+        d(1, function(args)
+          local clipboard = vim.fn.getreg('+')
+          local ghost_text = not clipboard:match("\n") and clipboard or "link"
+          return sn(nil, {
+            i(1, ghost_text)
+          })
+        end), -- Questo nodo ritorna come contenuto di default il conetuto della clipboard
+        i(2, "name"),
+      })),
+
+      s("href", fmt([[\hyperref[{}]{{{}}}]], {
+        d(1, function(args)
+          local clipboard = vim.fn.getreg('+')
+          local ghost_text = clipboard:match("\n") and clipboard or "link"
+          return sn(nil, {
+            i(1, ghost_text)
+          })
+        end), -- Questo nodo ritorna come contenuto di default il conetuto della clipboard
+        i(2, "name"),
+      })),
+
+      s("hr", { t("\\vskip3mm\\hrule\\vskip3mm") }),
 
     },
 
@@ -616,10 +640,6 @@ prova{}
             i(1)
           })
       ),
-
-      s("hr", fmt([[\\abs
-
-  ]], {})),
 
       s("abs",
         fmt([[
@@ -1153,13 +1173,14 @@ prova{}
             return env == "axis" or env == "tikzpicture" or env == "circuitikz"
           end
         }),
-      s({ trig = "SD", wordTrig = true }, t("below right of = ")
-        ,
+      s({ trig = "SD", wordTrig = true }, t("below right of = "),
         {
           condition = function()
             local env = MoonTex.context()
             return env == "axis" or env == "tikzpicture" or env == "circuitikz"
           end
         }),
+
+
 
     }
