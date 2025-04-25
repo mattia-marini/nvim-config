@@ -453,7 +453,7 @@ prova{}
       s("href", fmt([[\hyperref[{}]{{{}}}]], {
         d(1, function(args)
           local clipboard = vim.fn.getreg('+')
-          local ghost_text = clipboard:match("\n") and clipboard or "link"
+          local ghost_text = not clipboard:match("\n") and clipboard or "label"
           return sn(nil, {
             i(1, ghost_text)
           })
