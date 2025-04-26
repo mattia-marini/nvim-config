@@ -31,9 +31,9 @@ prova{}
 
       s("def",
         fmt([[
-    \definizione{{{}}}{{
-      {}
-    }}
+        \begin{{definizione}}{{{}}}
+          {}
+        \end{{definizione}}
     ]],
           { i(1), i(0) })
       ),
@@ -48,9 +48,9 @@ prova{}
       ),
       s("teo",
         fmt([[
-    \teorema{{{}}}{{
-      {}
-    }}
+        \begin{{teorema}}{{{}}}
+          {}
+        \end{{teorema}}
     ]],
           { i(1), i(0) })
       ),
