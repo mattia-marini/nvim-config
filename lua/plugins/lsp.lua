@@ -92,11 +92,38 @@ local function config()
         },
         diagnostics = {
           -- Get the language server to recognize the `vim` global
-          globals = { 'vim', 'use' },
+          -- globals = { 'vim', 'use' },
         },
         workspace = {
           -- Make the server aware of Neovim runtime files
-          library = vim.api.nvim_get_runtime_file("", true),
+          library =
+              (function()
+                local libs = {}
+
+                -- Nvim apis
+                for _, lib in ipairs(vim.api.nvim_get_runtime_file("", true)) do
+                  table.insert(libs, lib)
+                end
+
+                --  LuaRocks
+                -- local luarocks_paths = vim.system({ "luarocks", "config", "rocks_trees" }, { text = true }):wait()
+                -- if luarocks_paths.code == 0 then
+                --   for path in luarocks_paths.stdout:gmatch("root%s*=%s*\"([^,]*)\"") do
+                --     table.insert(libs, path)
+                --     print(path)
+                --   end
+                -- else
+                --   print("Couln't get luarocks paths")
+                -- end
+
+                table.insert(libs, vim.fs.normalize("~/.luarocks"))
+                print(vim.inspect(libs))
+                -- for _, lib in luarocks_paths do
+                --   table.insert(libs, lib)
+                -- end
+
+                return libs
+              end)(),
           checkThirdParty = false
         },
         -- Do not send telemetry data containing a randomized but unique identifier
