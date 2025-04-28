@@ -92,7 +92,9 @@ local function config()
         },
         diagnostics = {
           -- Get the language server to recognize the `vim` global
-          -- globals = { 'vim', 'use' },
+          globals = { 'vim', 'use',         -- Nvim
+            "sn", "s", "t", "i", "f", "fmt" -- LuaSnips
+          },
         },
         workspace = {
           -- Make the server aware of Neovim runtime files
@@ -116,8 +118,16 @@ local function config()
                 --   print("Couln't get luarocks paths")
                 -- end
 
+                --  LuaRocks
                 table.insert(libs, vim.fs.normalize("~/.luarocks"))
-                print(vim.inspect(libs))
+                local luarock_project_root = vim.fs.root(0, function(name, path)
+                  return name:match('%.rockspec$') ~= nil
+                end)
+                if luarock_project_root then
+                  table.insert(libs, luarock_project_root)
+                end
+
+                -- print(vim.inspect(libs))
                 -- for _, lib in luarocks_paths do
                 --   table.insert(libs, lib)
                 -- end
