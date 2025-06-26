@@ -22,5 +22,5 @@ return {
   { 'embark-theme/vim',            as = 'embark', },
   { 'rose-pine/neovim',            as = 'rose-pine', },
   { 'catppuccin/vim',              as = 'catppuccin', },
-  default_coloscheme("neanias/everforest-nvim", "everforest"),
+  default_coloscheme("sainnhe/gruvbox-material", "gruvbox-material"),
 }

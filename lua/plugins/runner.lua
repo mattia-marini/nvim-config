@@ -29,7 +29,7 @@ local opts = {
     },
     rust = {
       buildAndRun = function(args)
-        return "cargo run"
+        return "cargo run -- " .. args.default.args
       end
     },
     java = {

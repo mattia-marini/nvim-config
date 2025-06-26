@@ -28,7 +28,8 @@
   "onedark.vim": { "branch": "main", "commit": "390b893d361c356ac1b00778d849815f2aa44ae4" },
   "plenary.nvim": { "branch": "master", "commit": "857c5ac632080dba10aae49dba902ce3abf91b35" },
   "promise-async": { "branch": "main", "commit": "119e8961014c9bfaf1487bf3c2a393d254f337e2" },
-  "runner.nvim": { "branch": "main", "commit": "17e414d08ec1001e7b9e73208291bde7d90d80dd" },
+  "runner.nvim": { "branch": "main", "commit": "2b7019953cfffd0872a142fae9271a6caf734654" },
+  "rustowl": { "branch": "main", "commit": "aaf7d15cc55ff6f48c577cdd6352d51fbc031aea" },
   "telescope.nvim": { "branch": "master", "commit": "a4ed82509cecc56df1c7138920a1aeaf246c0ac5" },
   "vim": { "branch": "main", "commit": "060000804cf50315ac6dd986bc4d84fbc40cbc9c" },
   "vim-colors-xcode": { "branch": "master", "commit": "6d449229bf29176448bd06377689d7a8db0d1bee" }

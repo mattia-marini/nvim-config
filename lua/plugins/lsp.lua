@@ -56,8 +56,8 @@ local function config()
 
 
   vim.keymap.set('n', 'ge', vim.diagnostic.open_float, { noremap = true })
-  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { noremap = true })
-  vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { noremap = true })
+  vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1, float = true }) end, { noremap = true })
+  vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1, float = true }) end, { noremap = true })
   vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, { noremap = true })
 
 
