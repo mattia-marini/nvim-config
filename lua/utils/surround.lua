@@ -1,6 +1,6 @@
 local M = {}
 
-local utils = require('utils.my_utils')
+local utils = require('lua.utils.misc')
 
 function M.surround(l, r)
   local low_row, low_col, high_row, high_col = utils.getSelectionBound()

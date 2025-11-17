@@ -17,8 +17,8 @@ vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to de
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
-vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
-vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+vim.keymap.set('n', 'zR', function() require('ufo').openAllFolds() end)
+vim.keymap.set('n', 'zM', function() require('ufo').closeAllFolds() end)
 -- vim.keymap.set("n", "<C-I>", "<C-I>")
 -- vim.keymap.set("n", "<Tab>", "<Nop>")
 

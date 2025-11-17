@@ -12,11 +12,11 @@ vim.api.nvim_set_keymap('n', 'j', 'gj', { noremap = true })
 vim.api.nvim_set_keymap('n', '<space>n', '<C-w><C-w>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<space>p', '<C-w><C-p>', { noremap = true })
 
-local silk = require('silk.interaction.window')
-vim.keymap.set({ 'n', 'v' }, '<space>k', function() silk.go_to_window("up") end, { silent = true })
-vim.keymap.set({ 'n', "v" }, '<space>j', function() silk.go_to_window("down") end, { silent = true })
-vim.keymap.set({ 'n', "v" }, '<space>l', function() silk.go_to_window("right") end, { silent = true })
-vim.keymap.set({ 'n', "v" }, '<space>h', function() silk.go_to_window("left") end, { silent = true })
+local silk = function() require('silk.interaction.window') end
+vim.keymap.set({ 'n', 'v' }, '<space>k', function() silk().go_to_window("up") end, { silent = true })
+vim.keymap.set({ 'n', "v" }, '<space>j', function() silk().go_to_window("down") end, { silent = true })
+vim.keymap.set({ 'n', "v" }, '<space>l', function() silk().go_to_window("right") end, { silent = true })
+vim.keymap.set({ 'n', "v" }, '<space>h', function() silk().go_to_window("left") end, { silent = true })
 
 vim.api.nvim_set_keymap('n', '<space><tab>', 'gt', { silent = true })
 vim.api.nvim_set_keymap('n', '<space>p', 'gT', { silent = true })
