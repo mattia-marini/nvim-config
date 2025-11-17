@@ -22,8 +22,9 @@ vim.api.nvim_set_keymap('n', '<space><tab>', 'gt', { silent = true })
 vim.api.nvim_set_keymap('n', '<space>p', 'gT', { silent = true })
 vim.api.nvim_set_keymap('n', '<space>e', ':Oil<CR>', { silent = true })
 vim.api.nvim_set_keymap('n', '<space>E', ':vsplit | Oil<CR>', { silent = true })
-vim.api.nvim_set_keymap('n', '<C-h>', '5zh', {})
-vim.api.nvim_set_keymap('n', '<C-l>', '5zl', {})
+
+-- vim.api.nvim_set_keymap('n', '<C-h>', '5zh', {})
+-- vim.api.nvim_set_keymap('n', '<C-l>', '5zl', {})
 
 -- vim.api.nvim_set_keymap('n', '<space>a', ':lua require("harpoon.mark").add_file()<CR>', { noremap = true })
 -- vim.api.nvim_set_keymap('n', '<space>H', ':lua require("harpoon.ui").toggle_quick_menu()<CR>', { noremap = true })
@@ -71,11 +72,10 @@ vim.api.nvim_set_keymap('n', 'J', '5j', {})
 vim.api.nvim_set_keymap('v', 'J', '5j', {})
 
 
-vim.api.nvim_set_keymap('n', '<C-j>', "<C-d>", { noremap = true })
-vim.api.nvim_set_keymap('n', '<C-k>', "<C-u>", { noremap = true })
-
--- vim.keymap.set({'n', 'v'}, '<C-k>', '<C-u>zz', {noremap = true})
--- vim.keymap.set({'n', 'v'}, '<C-j>', '<C-d>zz', {noremap = true})
+-- vim.keymap.set('n', '<C-k>', function() require("utils.cursor").move_half_page("up") end, { noremap = true })
+-- vim.keymap.set('n', '<C-j>', function() require("utils.cursor").move_half_page("down") end, { noremap = true })
+vim.keymap.set({ 'n', 'v' }, '<C-k>', '<C-u>', { noremap = true })
+vim.keymap.set({ 'n', 'v' }, '<C-j>', '<C-d>', { noremap = true })
 
 vim.keymap.set({ 'n', 'v' }, 'L', '5l', { noremap = true })
 vim.keymap.set({ 'n', 'v' }, 'H', '5h', { noremap = true })
