@@ -12,7 +12,7 @@ vim.api.nvim_set_keymap('n', 'j', 'gj', { noremap = true })
 vim.api.nvim_set_keymap('n', '<space>n', '<C-w><C-w>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<space>p', '<C-w><C-p>', { noremap = true })
 
-local silk = function() require('silk.interaction.window') end
+local silk = function() return require('silk.interaction.window') end
 vim.keymap.set({ 'n', 'v' }, '<space>k', function() silk().go_to_window("up") end, { silent = true })
 vim.keymap.set({ 'n', "v" }, '<space>j', function() silk().go_to_window("down") end, { silent = true })
 vim.keymap.set({ 'n', "v" }, '<space>l', function() silk().go_to_window("right") end, { silent = true })
@@ -45,18 +45,18 @@ vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-N>', {})
 
 
 -- Surround
-local surround = require('utils.surround')
-vim.api.nvim_set_keymap('v', '(', "", { callback = function() surround.surround('(', ')') end })
-vim.api.nvim_set_keymap('v', ')', "", { callback = function() surround.surround('(', ')') end })
-vim.api.nvim_set_keymap('v', '[', "", { callback = function() surround.surround('[', ']') end })
-vim.api.nvim_set_keymap('v', ']', "", { callback = function() surround.surround('[', ']') end })
-vim.api.nvim_set_keymap('v', '{', "", { callback = function() surround.surround('{', '}') end })
-vim.api.nvim_set_keymap('v', '}', "", { callback = function() surround.surround('{', '}') end })
-vim.api.nvim_set_keymap('v', '<', "", { callback = function() surround.surround('<', '>') end })
-vim.api.nvim_set_keymap('v', '>', "", { callback = function() surround.surround('<', '>') end })
-vim.api.nvim_set_keymap('v', '"', "", { callback = function() surround.surround('"', '"') end })
-vim.api.nvim_set_keymap('v', '\'', "", { callback = function() surround.surround('\'', '\'') end })
-vim.api.nvim_set_keymap('v', '`', "", { callback = function() surround.surround('`', '`') end })
+local surround = function() return require('utils.surround') end
+vim.api.nvim_set_keymap('v', '(', "", { callback = function() surround().surround('(', ')') end })
+vim.api.nvim_set_keymap('v', ')', "", { callback = function() surround().surround('(', ')') end })
+vim.api.nvim_set_keymap('v', '[', "", { callback = function() surround().surround('[', ']') end })
+vim.api.nvim_set_keymap('v', ']', "", { callback = function() surround().surround('[', ']') end })
+vim.api.nvim_set_keymap('v', '{', "", { callback = function() surround().surround('{', '}') end })
+vim.api.nvim_set_keymap('v', '}', "", { callback = function() surround().surround('{', '}') end })
+vim.api.nvim_set_keymap('v', '<', "", { callback = function() surround().surround('<', '>') end })
+vim.api.nvim_set_keymap('v', '>', "", { callback = function() surround().surround('<', '>') end })
+vim.api.nvim_set_keymap('v', '"', "", { callback = function() surround().surround('"', '"') end })
+vim.api.nvim_set_keymap('v', '\'', "", { callback = function() surround().surround('\'', '\'') end })
+vim.api.nvim_set_keymap('v', '`', "", { callback = function() surround().surround('`', '`') end })
 
 
 -- Movement

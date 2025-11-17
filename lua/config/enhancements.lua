@@ -11,15 +11,5 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 
--- Limit lines lenght
-local format = require("utils.format")
-vim.api.nvim_create_user_command("HardWrapLines", function(opts)
-  format.hard_wrap_lines(opts.line1, opts.line2, tonumber(opts.args) or 80)
-end, {
-  range = true,
-  complete = function(arglead, cmdargs)
-  end,
-  nargs = "?",
-})
-
--- 
+-- Setting in_editor variable for Kitty terminal
+require("utils.kitty")
