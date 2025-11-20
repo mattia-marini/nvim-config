@@ -1,5 +1,5 @@
 local function config()
-  local ufo = require('ufo')
+  local ufo = require('lua.plugins.unused.ufo')
 
 
   local handler = function(virtText, lnum, endLnum, width, truncate)

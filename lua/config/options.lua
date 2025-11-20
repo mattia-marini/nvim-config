@@ -12,16 +12,15 @@ vim.g.terminal_emulator = 'kitty'
 vim.o.shell = '/usr/local/bin/fish'
 vim.opt.ignorecase = true
 
-vim.o.foldcolumn = '0' -- '0' is not bad
-vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
-vim.o.foldlevelstart = 99
+-- vim.o.foldcolumn = '0'
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
 vim.o.foldenable = true
 
-vim.keymap.set('n', 'zR', function() require('ufo').openAllFolds() end)
-vim.keymap.set('n', 'zM', function() require('ufo').closeAllFolds() end)
+-- vim.keymap.set('n', 'zR', function() require('lua.plugins.unused.ufo').openAllFolds() end)
+-- vim.keymap.set('n', 'zM', function() require('lua.plugins.unused.ufo').closeAllFolds() end)
 -- vim.keymap.set("n", "<C-I>", "<C-I>")
 -- vim.keymap.set("n", "<Tab>", "<Nop>")
-
 -- vim.keymap.set({ 'n', 'i' }, '<Tab>', "<Tab>")
 
 
@@ -39,13 +38,6 @@ vim.opt.smartindent = false
 
 vim.opt.completeopt = "menu,preview,noinsert,popup"
 
---[=[
-vim.opt.indentexpr=""
-vim.opt_local.nocindent = true
-vim.opt_local.nosmartindent = true
-vim.g.python3_host_prog = '/Library/Frameworks/Python.framework/Versions/3.11/bin/python3.11'
-vim.api.nvim_create_user_command("Analisi", [[cd /Users/mattia/Library/Mobile Documents/com~apple~CloudDocs/LatexWorkspace/Analisi_1]], {})
---]=]
 if vim.g.neovide then
   vim.g.neovide_cursor_animation_length = 0
   vim.g.neovide_scroll_animation_far_lines = 9999

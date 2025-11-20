@@ -38,19 +38,18 @@ local function config()
     end, {})
   end
 
-  local ufo_capabilities = vim.lsp.protocol.make_client_capabilities()
-  ufo_capabilities.textDocument.foldingRange = {
-    --for ufo lsp folding
-    dynamicRegistration = false,
-    lineFoldingOnly = true
-  }
+  -- local ufo_capabilities = vim.lsp.protocol.make_client_capabilities()
+  -- ufo_capabilities.textDocument.foldingRange = {
+  --   --for ufo lsp folding
+  --   dynamicRegistration = false,
+  --   lineFoldingOnly = true
+  -- }
   -- local cmp_capabilities = capabilities
   local cmp_capabilities = require('blink.cmp').get_lsp_capabilities()
-  -- local cmp_capabilities = {}
   local capabilities = {}
 
   for key, value in pairs(cmp_capabilities) do capabilities[key] = value end
-  for key, value in pairs(ufo_capabilities) do capabilities[key] = value end
+  -- for key, value in pairs(ufo_capabilities) do capabilities[key] = value end
 
 
 
@@ -64,22 +63,24 @@ local function config()
   vim.diagnostic.config({ signs = false })
 
 
-  require('lspconfig').clangd.setup {
+  vim.lsp.config("clangd", {
     --cmd = {'clangd', '--fallback-style=/Users/mattia/Desktop/clang-format'},
     on_attach = on_attach,
     update_in_insert = false,
     capabilities = capabilities
     --capabilities = capabilities
-  }
+  })
+  vim.lsp.enable("clangd")
 
-  require('lspconfig').texlab.setup {
+  vim.lsp.config("texlab", {
     cmd = { 'texlab', '-vvvv' },
     on_attach = on_attach,
     update_in_insert = false,
     capabilities = capabilities
-  }
+  })
+  vim.lsp.enable("lemminx")
 
-  require 'lspconfig'.lua_ls.setup {
+  vim.lsp.config("lua_ls", {
     cmd = { 'lua-language-server-wrapper' },
     on_attach = on_attach,
     update_in_insert = false,
@@ -142,18 +143,20 @@ local function config()
         },
       },
     },
-  }
+  })
+  vim.lsp.enable("lemminx")
 
-  require 'lspconfig'.millet.setup {
+  vim.lsp.config("millet", {
     cmd = { 'millet-ls' },
     on_attach = on_attach,
     update_in_insert = false,
     capabilities = capabilities,
     single_file_support = true
     --root_dir = function()return vim.fn.getcwd()end
-  }
+  })
+  vim.lsp.enable("lemminx")
 
-  require 'lspconfig'.sourcekit.setup {
+  vim.lsp.config("sourcekit", {
     --single_file_support = true,
     on_attach = on_attach,
     update_in_insert = false,
@@ -161,9 +164,10 @@ local function config()
     filetypes = { "swift", "metal" },
     root_dir = require('lspconfig').util.root_pattern("buildServer.json", "*.xcodeproj", "*.xcworkspace", ".git",
       "compile_commands.json", "Package.swift")
-  }
+  })
+  vim.lsp.enable("lemminx")
 
-  require 'lspconfig'.ts_ls.setup {
+  vim.lsp.config("ts_ls", {
     on_attach = on_attach,
     update_in_insert = false,
     capabilities = capabilities,
@@ -180,13 +184,62 @@ local function config()
         description = "Organize imports"
       },
     }
-  }
+  })
+  vim.lsp.enable("lemminx")
 
-  require 'lspconfig'.cssls.setup {
+  vim.lsp.config("cssls", {
     on_attach = on_attach,
     update_in_insert = false,
     capabilities = capabilities,
-  }
+  })
+  vim.lsp.enable("lemminx")
+
+  vim.lsp.config("html", {
+    on_attach = on_attach,
+    update_in_insert = false,
+    capabilities = capabilities,
+    filetypes = { "html", "templ", "jsp" }
+  })
+  vim.lsp.enable("lemminx")
+
+  vim.lsp.config("emmet_language_server", {
+    on_attach = on_attach,
+    update_in_insert = false,
+    capabilities = capabilities
+  })
+  vim.lsp.enable("lemminx")
+
+  vim.lsp.config("rust_analyzer", {
+    on_attach = on_attach,
+    update_in_insert = false,
+    capabilities = capabilities
+  })
+  vim.lsp.enable("lemminx")
+
+  vim.lsp.config("jdtls", {
+    cmd = { 'jdtls' },
+    on_attach = on_attach,
+    update_in_insert = false,
+    capabilities = capabilities,
+    root_markers = { 'pom.xml', 'mvn', 'mvnw', 'gradlew', '.git' },
+    -- single_file_support = false
+  })
+  vim.lsp.enable("jdtls")
+
+  vim.lsp.config("lemminx", {
+    on_attach = on_attach,
+    update_in_insert = false,
+    capabilities = capabilities,
+  })
+  vim.lsp.enable("lemminx")
+
+  vim.lsp.config("pyright", {
+    on_attach = on_attach,
+    update_in_insert = false,
+    capabilities = capabilities
+  })
+  vim.lsp.enable("lemminx")
+
 
   -- require 'lspconfig'.superhtml.setup {
   --   on_attach = on_attach,
@@ -198,102 +251,6 @@ local function config()
   --   update_in_insert = false,
   --   capabilities = capabilities
   -- }
-  require 'lspconfig'.html.setup {
-    on_attach = on_attach,
-    update_in_insert = false,
-    capabilities = capabilities,
-    filetypes = { "html", "templ", "jsp" }
-  }
-
-  require 'lspconfig'.emmet_language_server.setup {
-    on_attach = on_attach,
-    update_in_insert = false,
-    capabilities = capabilities
-  }
-
-  require 'lspconfig'.rust_analyzer.setup {
-    on_attach = on_attach,
-    update_in_insert = false,
-    capabilities = capabilities
-  }
-
-
-  require 'lspconfig'.jdtls.setup {
-
-    -- cmd = { 'jdtls' },
-    on_attach = on_attach,
-    update_in_insert = false,
-    capabilities = capabilities,
-    root_dir = function()
-      return vim.fs.dirname(vim.fs.find({ 'gradlew', '.git', 'mvnw', 'mvn', 'pom.xml' }, { upward = true })[1])
-    end,
-    single_file_support = false
-    -- root_dir = function()
-    --   local root_files = {
-    --     'settings.gradle',     -- Gradle (multi-project)
-    --     'settings.gradle.kts', -- Gradle (multi-project)
-    --     'build.xml',           -- Ant
-    --     'pom.xml',             -- Maven
-    --   }
-    --
-    --   local fallback_files = {
-    --     'build.gradle',     -- Gradle
-    --     'build.gradle.kts', -- Gradle
-    --   }
-    --
-    --   local primary = vim.fs.root(0, root_files)
-    --   local fallback_1 = vim.fs.root(0, fallback_files)
-    --   local fallback_2 = vim.fs.dirname(vim.api.nvim_buf_get_name(0))
-    --
-    --   local root = primary or fallback_1 or fallback_2
-    --   print(root)
-    --   return root
-    -- end,
-
-    -- root_dir = vim.fs.root(0, "build.gradle.kts"),
-    -- root_dir = function()
-    --   return "/Users/mattia/Desktop/java/app/"
-    -- end,
-    -- single_file_support = false
-
-
-    --[[ root_dir = function(fname)
-    local root_files = {
-      'settings.gradle',   -- Gradle (multi-project)
-      'settings.gradle.kts', -- Gradle (multi-project)
-      'build.xml',         -- Ant
-      'pom.xml',           -- Maven
-    }
-
-    local fallback_root_files = {
-      'build.gradle',   -- Gradle
-      'build.gradle.kts', -- Gradle
-    }
-
-    local primary = vim.api.util.root_pattern(unpack(root_files))(fname)
-    local fallback = vim.api.util.root_pattern(unpack(fallback_root_files))(fname)
-    return primary or fallback
-  end ]]
-    -- {
-    --     -- Single-module projects
-    --     {
-    --       'build.xml',           -- Ant
-    --       'pom.xml',             -- Maven
-    --       'settings.gradle',     -- Gradle
-    --       'settings.gradle.kts', -- Gradle
-    --     },
-    --     -- Multi-module projects
-    --     { 'build.gradle', 'build.gradle.kts' },
-    --   } or vim.fn.getcwd()
-  }
-
-  require 'lspconfig'.lemminx.setup {}
-
-  require 'lspconfig'.pyright.setup {
-    on_attach = on_attach,
-    update_in_insert = false,
-    capabilities = capabilities
-  }
 end
 
 return { 'neovim/nvim-lspconfig', config = config }
