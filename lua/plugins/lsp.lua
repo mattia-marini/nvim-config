@@ -78,7 +78,7 @@ local function config()
     update_in_insert = false,
     capabilities = capabilities
   })
-  vim.lsp.enable("lemminx")
+  vim.lsp.enable("texlab")
 
   vim.lsp.config("lua_ls", {
     cmd = { 'lua-language-server-wrapper' },
@@ -144,7 +144,7 @@ local function config()
       },
     },
   })
-  vim.lsp.enable("lemminx")
+  vim.lsp.enable("lua_ls")
 
   vim.lsp.config("millet", {
     cmd = { 'millet-ls' },
@@ -154,7 +154,7 @@ local function config()
     single_file_support = true
     --root_dir = function()return vim.fn.getcwd()end
   })
-  vim.lsp.enable("lemminx")
+  vim.lsp.enable("millet")
 
   vim.lsp.config("sourcekit", {
     --single_file_support = true,
@@ -165,7 +165,7 @@ local function config()
     root_dir = require('lspconfig').util.root_pattern("buildServer.json", "*.xcodeproj", "*.xcworkspace", ".git",
       "compile_commands.json", "Package.swift")
   })
-  vim.lsp.enable("lemminx")
+  vim.lsp.enable("sourcekit")
 
   vim.lsp.config("ts_ls", {
     on_attach = on_attach,
@@ -185,14 +185,14 @@ local function config()
       },
     }
   })
-  vim.lsp.enable("lemminx")
+  vim.lsp.enable("ts_ls")
 
   vim.lsp.config("cssls", {
     on_attach = on_attach,
     update_in_insert = false,
     capabilities = capabilities,
   })
-  vim.lsp.enable("lemminx")
+  vim.lsp.enable("cssls")
 
   vim.lsp.config("html", {
     on_attach = on_attach,
@@ -200,21 +200,21 @@ local function config()
     capabilities = capabilities,
     filetypes = { "html", "templ", "jsp" }
   })
-  vim.lsp.enable("lemminx")
+  vim.lsp.enable("html")
 
   vim.lsp.config("emmet_language_server", {
     on_attach = on_attach,
     update_in_insert = false,
     capabilities = capabilities
   })
-  vim.lsp.enable("lemminx")
+  vim.lsp.enable("emmet_language_server")
 
   vim.lsp.config("rust_analyzer", {
     on_attach = on_attach,
     update_in_insert = false,
     capabilities = capabilities
   })
-  vim.lsp.enable("lemminx")
+  vim.lsp.enable("rust_analyzer")
 
   vim.lsp.config("jdtls", {
     cmd = { 'jdtls' },
@@ -238,7 +238,7 @@ local function config()
     update_in_insert = false,
     capabilities = capabilities
   })
-  vim.lsp.enable("lemminx")
+  vim.lsp.enable("pyright")
 
 
   -- require 'lspconfig'.superhtml.setup {
