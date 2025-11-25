@@ -33,7 +33,17 @@ end, { range = true })
 --]]
 local opts = {
   formatters_by_ft = {
-    python = { "ruff_format", "ruff_organize_imports" },
+    python = function()
+      vim.api.nvim_create_user_command("OrganizeImports",
+        function()
+          require("conform").format({ formatters = { "ruff_organize_imports" } })
+        end, {})
+      vim.api.nvim_create_user_command("Lint",
+        function()
+          require("conform").format({ formatters = { "ruff_fix" } })
+        end, {})
+      return { "ruff_format", "ruff_organize_imports" }
+    end
   },
   notify_no_formatters = true,
   default_format_opts = {
