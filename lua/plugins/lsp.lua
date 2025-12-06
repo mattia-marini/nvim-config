@@ -64,10 +64,10 @@ local function config()
 
 
   vim.lsp.config("clangd", {
-    --cmd = {'clangd', '--fallback-style=/Users/mattia/Desktop/clang-format'},
     on_attach = on_attach,
     update_in_insert = false,
     capabilities = capabilities
+    --cmd = {'clangd', '--fallback-style=/Users/mattia/Desktop/clang-format'},
     --capabilities = capabilities
   })
   vim.lsp.enable("clangd")
@@ -217,12 +217,9 @@ local function config()
   vim.lsp.enable("rust_analyzer")
 
   vim.lsp.config("jdtls", {
-    cmd = { 'jdtls' },
     on_attach = on_attach,
     update_in_insert = false,
     capabilities = capabilities,
-    root_markers = { 'pom.xml', 'mvn', 'mvnw', 'gradlew', '.git' },
-    -- single_file_support = false
   })
   vim.lsp.enable("jdtls")
 
