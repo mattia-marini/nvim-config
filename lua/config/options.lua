@@ -38,6 +38,13 @@ vim.opt.smartindent = false
 
 vim.opt.completeopt = "menu,preview,noinsert,popup"
 
+
+vim.filetype.add({
+  extension = {
+    cl = "c",
+  }
+})
+
 if vim.g.neovide then
   vim.g.neovide_cursor_animation_length = 0
   vim.g.neovide_scroll_animation_far_lines = 9999

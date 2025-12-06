@@ -76,6 +76,15 @@
 --   }
 -- }
 --
-local opts = {}
+local opts = {
+  print_command = true,
+  run_mode = {
+    mode = "kitty",
+    opts = {
+      type = "window",
+      match = "recent:0"
+    }
+  }
+}
 
 return { 'mattia-marini/runner.nvim', opts = opts }
