@@ -220,6 +220,7 @@ local function config()
     on_attach = on_attach,
     update_in_insert = false,
     capabilities = capabilities,
+    root_markers = { 'pom.xml', '.mvn', 'mvnw', 'mvnw.cmd', 'build.gradle', 'build.gradle.kts', '.git' },
   })
   vim.lsp.enable("jdtls")
 
@@ -236,6 +237,13 @@ local function config()
     capabilities = capabilities
   })
   vim.lsp.enable("pyright")
+
+  vim.lsp.config("wgsl_analyzer", {
+    on_attach = on_attach,
+    update_in_insert = false,
+    capabilities = capabilities
+  })
+  vim.lsp.enable("wgsl_analyzer")
 
 
   -- require 'lspconfig'.superhtml.setup {
