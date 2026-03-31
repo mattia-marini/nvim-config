@@ -3,12 +3,12 @@ return {
   event = "VeryLazy",
   opts = {
     autoFold = {
-      enabled = true,
+      enabled = false,
     },
     foldKeymaps = {
       setup = false,
     },
-  }, 
+  },
   -- recommended: disable vim's auto-folding
   init = function()
     vim.opt.foldlevel = 99

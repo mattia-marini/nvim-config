@@ -81,8 +81,9 @@ local opts = {
   run_mode = {
     mode = "kitty",
     opts = {
-      type = "window",
-      match = "recent:0"
+      type = "tab",
+      -- copy_env = false
+      -- match = "recent:0"
     }
   }
 }
