@@ -84,7 +84,8 @@ local function config()
 
 
   vim.lsp.config("texlab", {
-    cmd = { 'texlab', '-vvvv' },
+    -- , '-vvvv'
+    cmd = { 'texlab' },
     on_attach = on_attach,
     update_in_insert = false,
     capabilities = capabilities

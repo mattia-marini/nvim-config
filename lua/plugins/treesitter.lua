@@ -28,24 +28,65 @@
 --   },
 -- }
 
-return
-{
-  "nvim-treesitter/nvim-treesitter",
-  build = ":TSUpdate",
-  config = function()
-    require("nvim-treesitter.configs").setup({
-      ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "javascript", "html", "rust", "java", "latex" },
-      sync_install = false,
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
-      },
-      indent = {
-        enable = true,
-      },
-      incremental_selection = {
-        enable = true,
-      },
-    })
-  end,
+return {
+  'nvim-treesitter/nvim-treesitter',
+  lazy = false,
+  build = ':TSUpdate',
+  init = function()
+    -- highlight, indent, ensure_installed
+    local filetypes = {
+      lua = { highlight = true, indent = true, ensure = false },
+      python = { highlight = true, indent = true, ensure = false },
+      rust = { highlight = true, indent = true, ensure = false },
+      tex = { highlight = true, indent = true, ensure = false }, -- Latex
+      toml = { highlight = true, indent = true, ensure = false },
+      javascript = { highlight = true, indent = true, ensure = false },
+      c = { highlight = true, indent = true, ensure = false },
+      cpp = { highlight = true, indent = true, ensure = false },
+      markdown = { highlight = true, indent = true, ensure = true },
+      markdown_inline = { highlight = true, indent = true, ensure = true },
+      vim = { highlight = true, indent = true, ensure = true },
+      vimdoc = { highlight = true, indent = true, ensure = true }
+    }
+
+    local alreadyInstalled = require('nvim-treesitter.config').get_installed()
+    local ensureInstalled = {}
+    for ft, opts in pairs(filetypes) do
+      if opts.ensure then
+        table.insert(ensureInstalled, vim.treesitter.language.get_lang(ft))
+      end
+    end
+
+    local parsersToInstall = vim.iter(ensureInstalled)
+        :filter(function(parser)
+          return not vim.tbl_contains(alreadyInstalled, parser)
+        end)
+        :totable()
+    require('nvim-treesitter').install(parsersToInstall)
+
+
+
+    for ft, opts in pairs(filetypes) do
+      if opts.highlight or opts.indent then
+        vim.api.nvim_create_autocmd('FileType', {
+          pattern = ft,
+          callback = function()
+            local installed = require('nvim-treesitter.config').get_installed()
+            if installed and vim.tbl_contains(installed, vim.treesitter.language.get_lang(ft)) then
+              -- Enable treesitter highlightghlighting and disable regex syntax
+              --
+              print("asdfas")
+              if opts.highlight then
+                pcall(vim.treesitter.start)
+              end
+              -- Enable treesitter-based indentation
+              if opts.indent then
+                vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+              end
+            end
+          end,
+        })
+      end
+    end
+  end
 }
