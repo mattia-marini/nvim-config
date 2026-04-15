@@ -31,7 +31,7 @@ vim.api.nvim_set_keymap('n', '<space>E', ':vsplit | Oil<CR>', { silent = true })
 -- vim.api.nvim_set_keymap('n', '<space>n', ':lua require("harpoon.ui").nav_next()<CR>', { noremap = true })
 -- vim.api.nvim_set_keymap('n', '<space>m', ':lua require("harpoon.ui").nav_prev()<CR>', { noremap = true })
 
-vim.api.nvim_set_keymap('n', 'ml', 'J', { noremap = true })
+vim.keymap.set({ 'n' }, '<C-l>', 'J', { noremap = true })
 
 
 -- Folding
@@ -60,6 +60,7 @@ vim.api.nvim_set_keymap('v', '\'', "", { callback = function() surround().surrou
 vim.api.nvim_set_keymap('v', '`', "", { callback = function() surround().surround('`', '`') end })
 
 
+
 -- Movement
 vim.api.nvim_set_keymap('i', '<C-h>', "<Left>", {})
 vim.api.nvim_set_keymap('i', '<C-l>', "<Right>", {})
@@ -86,32 +87,34 @@ vim.keymap.set('v', 'c', 'gc', { remap = true })
 -- Travel by brakets
 local nav = require("utils.nav")
 vim.keymap.set("n", "<C-8>", function()
-  nav.go_to_prev_paired_char({ '{', '[', '(' })
-  -- require("mini.ai").move_cursor("left", 'a', 'b', { search_method = 'prev' })
+	nav.go_to_prev_paired_char({ '{', '[', '(' })
+	-- require("mini.ai").move_cursor("left", 'a', 'b', { search_method = 'prev' })
 end
 )
 
 vim.keymap.set("n", "<C-9>", function()
-  nav.go_to_next_paired_char({ '}', ']', ')' })
-  -- require("mini.ai").move_cursor("right", 'a', 'b', { search_method = 'next' })
+	nav.go_to_next_paired_char({ '}', ']', ')' })
+	-- require("mini.ai").move_cursor("right", 'a', 'b', { search_method = 'next' })
 end
 )
 
 vim.keymap.set({ "n", "v" }, "<space>Cc",
-  function()
-    require("CopilotChat").open()
-  end, {
-    desc = "CopilotChat - Open chat",
-  }
+	function()
+		require("CopilotChat").open()
+	end, {
+		desc = "CopilotChat - Open chat",
+	}
 )
 
 vim.keymap.set("n", "<Space>tf", function()
-  require("telescope.builtin").find_files()
+	require("telescope.builtin").find_files()
+	-- require("lua.plugins.unused.fzf-lua").files()
 end
 )
 
 vim.keymap.set("n", "<Space>tg", function()
-  require("telescope.builtin").live_grep()
+	require("telescope.builtin").live_grep()
+	-- require("lua.plugins.unused.fzf-lua").live_grep_native()
 end
 )
 

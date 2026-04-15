@@ -1,4 +1,4 @@
 return {
-  "mattia-marini/silk.nvim",
-  dev = true
+	"mattia-marini/silk.nvim",
+	dev = true
 }

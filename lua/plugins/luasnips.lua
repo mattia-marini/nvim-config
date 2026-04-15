@@ -1,32 +1,35 @@
 local function config()
+  local ls = require("luasnip")
+  ls.config.set_config({
+    history = false,
+    enable_autosnippets = true,
+    delete_check_events = { "InsertLeave", "TextChangedI", "InsertEnter" },
+    region_check_events = { "CursorMovedI", "InsertEnter", "InsertLeave", "CursorHoldI", "CursorHold", "CursorMoved" },
+    update_events = { "TextChanged", "TextChangedI" },
+    store_selection_keys = "<Tab>"
+  })
+  require("luasnip.loaders.from_lua").lazy_load({ paths = { "~/.config/nvim/luasnippets/" } })
 
-local ls = require("luasnip")
-ls.config.set_config({
-  history = false,
-  enable_autosnippets = true,
-  delete_check_events = { "InsertLeave", "TextChangedI", "InsertEnter" },
-  region_check_events = { "CursorMovedI", "InsertEnter", "InsertLeave", "CursorHoldI", "CursorHold", "CursorMoved" },
-  update_events = { "TextChanged", "TextChangedI" },
-  store_selection_keys = "<Tab>"
-})
-require("luasnip.loaders.from_lua").load({ paths = { "~/.config/nvim/luasnippets/" } })
-
---per selezionare il testo e tenere il placeholder $VISUAL
---serve per eliminare la jumplist una volta premuto esc
-vim.keymap.set(
-  { "i", "s" }, "<Tab>",
-  function()
-    if ls.expandable() then
-      ls.expand()
-    elseif ls.jumpable(1) then
-      ls.jump(1)
-    else
-      vim.api.nvim_feedkeys(string.format('%s', '\t'), 'n', true)
+  --per selezionare il testo e tenere il placeholder $VISUAL
+  --serve per eliminare la jumplist una volta premuto esc
+  vim.keymap.set(
+    { "i", "s" }, "<Tab>",
+    function()
+      if ls.expandable() then
+        ls.expand()
+      elseif ls.jumpable(1) then
+        ls.jump(1)
+      else
+        vim.api.nvim_feedkeys(string.format('%s', '\t'), 'n', true)
+      end
     end
-  end
-)
-
+  )
 end
+
+return {
+  'L3MON4D3/LuaSnip',
+  config = config,
+}
 
 --[[
 --Drops snippet when esc is pressed
@@ -91,7 +94,3 @@ inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
 snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
 snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
 ]]
-return {
-'L3MON4D3/LuaSnip',
-  config = config,
-}

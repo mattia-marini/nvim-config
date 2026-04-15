@@ -32,50 +32,50 @@ vim.api.nvim_create_user_command("Format", function(args)
 end, { range = true })
 --]]
 local opts = {
-  formatters_by_ft = {
-    python = function()
-      vim.api.nvim_create_user_command("OrganizeImports",
-        function()
-          require("conform").format({ formatters = { "ruff_organize_imports" } })
-        end, {})
-      vim.api.nvim_create_user_command("Lint",
-        function()
-          require("conform").format({ formatters = { "ruff_fix" } })
-        end, {})
-      return { "ruff_format", "ruff_organize_imports" }
-    end
-  },
-  notify_no_formatters = true,
-  default_format_opts = {
-    lsp_format = "fallback",
-  },
-  -- Set up format-on-save
-  -- format_on_save = { timeout_ms = 500 },
-  -- Customize formatters
-  -- formatters = {
-  --   shfmt = {
-  --     prepend_args = { "-i", "2" },
-  --   },
-  -- },
+	formatters_by_ft = {
+		python = function()
+			vim.api.nvim_create_user_command("OrganizeImports",
+				function()
+					require("conform").format({ formatters = { "ruff_organize_imports" } })
+				end, {})
+			vim.api.nvim_create_user_command("Lint",
+				function()
+					require("conform").format({ formatters = { "ruff_fix" } })
+				end, {})
+			return { "ruff_format", "ruff_organize_imports" }
+		end
+	},
+	notify_no_formatters = true,
+	default_format_opts = {
+		lsp_format = "fallback",
+	},
+	-- Set up format-on-save
+	-- format_on_save = { timeout_ms = 500 },
+	-- Customize formatters
+	-- formatters = {
+	--   shfmt = {
+	--     prepend_args = { "-i", "2" },
+	--   },
+	-- },
 }
 
 return {
-  "stevearc/conform.nvim",
-  event = { "BufWritePre" },
-  cmd = { "ConformInfo" },
-  keys = {
-    {
-      "<space>f",
-      function()
-        require("conform").format({ async = true })
-      end,
-      mode = "",
-      desc = "Format buffer",
-    },
-  },
-  opts = opts,
-  -- init = function()
-  --   -- If you want the formatexpr, here is the place to set it
-  --   vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
-  -- end,
+	"stevearc/conform.nvim",
+	event = { "BufWritePre" },
+	cmd = { "ConformInfo" },
+	keys = {
+		{
+			"<space>f",
+			function()
+				require("conform").format({ async = true })
+			end,
+			mode = "",
+			desc = "Format buffer",
+		},
+	},
+	opts = opts,
+	-- init = function()
+	--   -- If you want the formatexpr, here is the place to set it
+	--   vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+	-- end,
 }

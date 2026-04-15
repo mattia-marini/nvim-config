@@ -46,26 +46,26 @@ require("telescope").setup {
 -- })
 
 return {
-  'nvim-telescope/telescope.nvim',
-  dependencies = { 'nvim-lua/plenary.nvim' },
-  opts =
-      function()
-        local actions = require("telescope.actions")
-        return {
-          defaults = {
-            mappings = {
-              i = {
-                -- Insert mode mappings
-                ["<C-j>"] = actions.move_selection_next,
-                ["<C-k>"] = actions.move_selection_previous,
-              },
-              n = {
-                -- Normal mode mappings (optional)
-                ["<C-j>"] = actions.move_selection_next,
-                ["<C-k>"] = actions.move_selection_previous,
-              },
-            },
-          },
-        }
-      end
+	'nvim-telescope/telescope.nvim',
+	dependencies = { 'nvim-lua/plenary.nvim' },
+	opts =
+	    function()
+		    local actions = require("telescope.actions")
+		    return {
+			    defaults = {
+				    mappings = {
+					    i = {
+						    -- Insert mode mappings
+						    ["<C-j>"] = actions.move_selection_next,
+						    ["<C-k>"] = actions.move_selection_previous,
+					    },
+					    n = {
+						    -- Normal mode mappings (optional)
+						    ["<C-j>"] = actions.move_selection_next,
+						    ["<C-k>"] = actions.move_selection_previous,
+					    },
+				    },
+			    },
+		    }
+	    end
 }

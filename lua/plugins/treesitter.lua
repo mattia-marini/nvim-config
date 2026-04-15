@@ -74,8 +74,7 @@ return {
             local installed = require('nvim-treesitter.config').get_installed()
             if installed and vim.tbl_contains(installed, vim.treesitter.language.get_lang(ft)) then
               -- Enable treesitter highlightghlighting and disable regex syntax
-              --
-              print("asdfas")
+
               if opts.highlight then
                 pcall(vim.treesitter.start)
               end

@@ -1,6 +1,6 @@
 vim.opt.mouse = "a"
 vim.opt.clipboard = "unnamed"
-vim.o.mousescroll = 'ver:1,hor:1'
+-- vim.o.mousescroll = 'ver:1,hor:1'
 vim.opt.splitright = true
 vim.opt.termguicolors = true
 vim.opt.number = true
@@ -26,29 +26,34 @@ vim.o.foldenable = true
 
 vim.opt.laststatus = 0
 vim.opt.cmdheight = 1
-
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.expandtab = true
---vim.opt.cintent = false
-
-vim.opt.smarttab = false
-vim.opt.autoindent = false
-vim.opt.smartindent = false
+--
+-- vim.opt.tabstop = 2
+-- vim.opt.shiftwidth = 2
+-- vim.opt.expandtab = true
+-- --vim.opt.cintent = false
+--
+-- vim.opt.smarttab = false
+-- vim.opt.autoindent = false
+-- vim.opt.smartindent = false
 
 vim.opt.completeopt = "menu,preview,noinsert,popup"
 
 
 vim.filetype.add({
-  extension = {
-    cl = "c",
-  }
+	extension = {
+		cl = "c",
+	}
 })
 
+vim.o.winborder = "rounded"
+
+
+
+
 if vim.g.neovide then
-  vim.g.neovide_cursor_animation_length = 0
-  vim.g.neovide_scroll_animation_far_lines = 9999
-  vim.o.guifont = "FuraMono Nerd Font:h18" -- text below applies for VimScript
-  -- vim.cmd("colorscheme everforest")
-  vim.g.neovide_confirm_quit = true
+	vim.g.neovide_cursor_animation_length = 0
+	vim.g.neovide_scroll_animation_far_lines = 9999
+	vim.o.guifont = "FuraMono Nerd Font:h18" -- text below applies for VimScript
+	-- vim.cmd("colorscheme everforest")
+	vim.g.neovide_confirm_quit = true
 end

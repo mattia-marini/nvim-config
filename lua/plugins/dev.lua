@@ -1,3 +1,3 @@
 return {
-  require("plugins.dev.silk")
+	require("plugins.dev.silk")
 }
