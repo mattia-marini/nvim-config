@@ -107,14 +107,14 @@ vim.keymap.set({ "n", "v" }, "<space>Cc",
 )
 
 vim.keymap.set("n", "<Space>tf", function()
-	require("telescope.builtin").find_files()
-	-- require("lua.plugins.unused.fzf-lua").files()
+	-- require("telescope.builtin").find_files()
+	require("fzf-lua").files()
 end
 )
 
 vim.keymap.set("n", "<Space>tg", function()
-	require("telescope.builtin").live_grep()
-	-- require("lua.plugins.unused.fzf-lua").live_grep_native()
+	-- require("telescope.builtin").live_grep()
+	require("fzf-lua").live_grep_native()
 end
 )
 

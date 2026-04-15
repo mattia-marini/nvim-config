@@ -77,15 +77,15 @@
 -- }
 --
 local opts = {
-  print_command = true,
-  run_mode = {
-    mode = "kitty",
-    opts = {
-      type = "tab",
-      -- copy_env = false
-      -- match = "recent:0"
-    }
-  }
+	print_command = true,
+	run_mode = {
+		mode = "kitty",
+		opts = {
+			type = "tab",
+			-- copy_env = false
+			-- match = "recent:0"
+		}
+	}
 }
 
 return { 'mattia-marini/runner.nvim', opts = opts }
