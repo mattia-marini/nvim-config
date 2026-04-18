@@ -8,7 +8,7 @@ vim.opt.conceallevel = 1
 vim.opt.wrap = false
 vim.opt.cursorline = true
 
-vim.g.terminal_emulator = 'kitty'
+-- vim.g.terminal_emulator = 'wezterm'
 vim.o.shell = '/usr/local/bin/fish'
 vim.opt.ignorecase = true
 

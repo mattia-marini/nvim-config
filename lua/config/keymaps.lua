@@ -13,10 +13,10 @@ vim.api.nvim_set_keymap('n', '<space>n', '<C-w><C-w>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<space>p', '<C-w><C-p>', { noremap = true })
 
 local silk = function() return require('silk.interaction.window') end
-vim.keymap.set({ 'n', 'v' }, '<space>k', function() silk().go_to_window("up") end, { silent = true })
-vim.keymap.set({ 'n', "v" }, '<space>j', function() silk().go_to_window("down") end, { silent = true })
-vim.keymap.set({ 'n', "v" }, '<space>l', function() silk().go_to_window("right") end, { silent = true })
-vim.keymap.set({ 'n', "v" }, '<space>h', function() silk().go_to_window("left") end, { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<space>k', function() silk().go_to_window("up", "wezterm") end, { silent = true })
+vim.keymap.set({ 'n', "v" }, '<space>j', function() silk().go_to_window("down", "wezterm") end, { silent = true })
+vim.keymap.set({ 'n', "v" }, '<space>l', function() silk().go_to_window("right", "wezterm") end, { silent = true })
+vim.keymap.set({ 'n', "v" }, '<space>h', function() silk().go_to_window("left", "wezterm") end, { silent = true })
 
 vim.api.nvim_set_keymap('n', '<space><tab>', 'gt', { silent = true })
 vim.api.nvim_set_keymap('n', '<space>p', 'gT', { silent = true })
@@ -31,7 +31,7 @@ vim.api.nvim_set_keymap('n', '<space>E', ':vsplit | Oil<CR>', { silent = true })
 -- vim.api.nvim_set_keymap('n', '<space>n', ':lua require("harpoon.ui").nav_next()<CR>', { noremap = true })
 -- vim.api.nvim_set_keymap('n', '<space>m', ':lua require("harpoon.ui").nav_prev()<CR>', { noremap = true })
 
-vim.keymap.set({ 'n' }, '<C-l>', 'J', { noremap = true })
+vim.keymap.set({ 'n' }, 'ml', 'J', { noremap = true })
 
 
 -- Folding

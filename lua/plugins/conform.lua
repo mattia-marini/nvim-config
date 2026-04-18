@@ -43,7 +43,7 @@ local opts = {
 					require("conform").format({ formatters = { "ruff_fix" } })
 				end, {})
 			return { "ruff_format", "ruff_organize_imports" }
-		end
+		end,
 	},
 	notify_no_formatters = true,
 	default_format_opts = {
